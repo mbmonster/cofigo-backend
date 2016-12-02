@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0fb6719c5615485ba75981ca063d3aa4" Name="Diagram1">
+        <EntityTypeShape EntityType="CoffeeServicesModel.Menu" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.Order" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.OrderDetail" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.Promotion" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.Ship" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.Store" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.User" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="CoffeeServicesModel.FK_Drink_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeServicesModel.FK_Order_Ship" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeServicesModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeServicesModel.FK_OrderDetails_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeServicesModel.FK_Promotion_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeServicesModel.FK_OrderDetails_Drink1" />
+        <AssociationConnector Association="CoffeeServicesModel.FK_Promotion_Drink1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
