@@ -23,7 +23,7 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Date" Type="date" />
           <Property Name="IDShip" Type="int" />
-          <Property Name="IDCustomer" Type="int" />
+          <Property Name="IDCustomer" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="OrderDetails">
@@ -85,10 +85,9 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="50" />
           <Property Name="Account" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="Role" Type="nvarchar" MaxLength="50" />
           <Property Name="Rep" Type="int" />
           <Property Name="Coin" Type="int" />
@@ -241,7 +240,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="IDShip" Type="Int32" />
-          <Property Name="IDCustomer" Type="Int32" />
+          <Property Name="IDCustomer" Type="String" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ship" Relationship="Self.FK_Order_Ship" FromRole="Order" ToRole="Ship" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
@@ -313,10 +312,9 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" />
           <Property Name="Avatar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Rep" Type="Int32" />
           <Property Name="Coin" Type="Int32" />
@@ -541,7 +539,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Rep" ColumnName="Rep" />
                 <ScalarProperty Name="Coin" ColumnName="Coin" />

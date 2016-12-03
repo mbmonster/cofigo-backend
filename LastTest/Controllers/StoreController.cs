@@ -52,7 +52,13 @@ namespace LastTest.Controllers
         public string SearchList(string name)
         {
             return storeManager.SearchList(name);
-        } 
-         
+        }
+
+        [HttpGet]
+        public List<Store> GetTopStore()
+        {
+            return storeManager.GetTopStore();
+        }
+        
     }
 }

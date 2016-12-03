@@ -20,10 +20,9 @@ namespace LastTest
             this.Orders = new HashSet<Order>();
         }
     
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Avatar { get; set; }
         public string Account { get; set; }
-        public string Password { get; set; }
         public string Role { get; set; }
         public Nullable<int> Rep { get; set; }
         public Nullable<int> Coin { get; set; }

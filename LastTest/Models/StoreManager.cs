@@ -64,7 +64,6 @@ namespace LastTest.Models
             db.SaveChanges();
             return store;
         }
-
         //public bool UpdateStore(Store store)
         //{
         //    if (store == null)
@@ -86,15 +85,18 @@ namespace LastTest.Models
         {
             stores.RemoveAll(p => p.ID == id);
         }
-
-
-
-
-
         public string SearchList(string id)
         {
             var store= db.Stores.Where(a => a.NameStore.Contains(id)).Select(a => new{a.ID, a.NameStore, a.Address, a.Avatar, a.Cover, a.Rep, a.Latitude, a.Longtitude}).ToList();
             return JsonConvert.SerializeObject(store);
+        }
+
+
+
+        public List<Store> GetTopStore()
+        {
+            var top = stores.OrderByDescending(p => p.Rep).Take(5);
+            return top.ToList();
         }
     }
 
