@@ -10,7 +10,7 @@ namespace LastTest.Models
 {
     public interface IStoreManager
     {
-        List<Store> GetStores();
+        List<Store> GetStores(int page);
         Store GetStore(int id);
         Store AddStore(Store store);
        // bool UpdateStore( Store store);

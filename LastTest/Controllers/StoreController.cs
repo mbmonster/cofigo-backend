@@ -17,10 +17,12 @@ namespace LastTest.Controllers
     {
       
         private IStoreManager storeManager = new StoreManager();
+
         [HttpGet]
-        public IEnumerable<Store> Get()
+        public IEnumerable<Store> Get([FromUri] string page)
         {
-            return storeManager.GetStores();
+            int index = (Convert.ToInt32(page)-1)*2;
+            return storeManager.GetStores(index);
         }
         [HttpGet]
         public Store Get(int id)
