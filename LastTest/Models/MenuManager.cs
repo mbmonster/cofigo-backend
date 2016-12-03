@@ -26,17 +26,17 @@ namespace LastTest.Models
                           });
             }
         }
-        public List<Menu> GetTopOfferMenu()
+        public List<Menu> GetTopOfferMenu(int index)
         {
-            var offermenu = menus.OrderByDescending(p => p.OfferPercent).Take(5).ToList();
+            var offermenu = menus.OrderByDescending(p => p.OfferPercent).Skip(index).Take(10).ToList();
             return offermenu;
         }
 
 
 
-        public List<Menu> GetTopSellMenu()
+        public List<Menu> GetTopSellMenu(int index)
         {
-            var sellmenu = menus.OrderByDescending(p => p.Selled).Take(10).ToList();
+            var sellmenu = menus.OrderByDescending(p => p.Selled).Skip(index).Take(10).ToList();
             return sellmenu;
         }
     }

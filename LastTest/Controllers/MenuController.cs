@@ -12,15 +12,17 @@ namespace LastTest.Controllers
     {
         IMenuManager menuManager = new MenuManager();
         [HttpGet]
-        public List<Menu> GetTopOffer()
+        public List<Menu> GetTopOffer([FromUri] string page)
         {
-            return menuManager.GetTopOfferMenu();
+            var index = (Convert.ToInt32(page) - 1)*10;
+            return menuManager.GetTopOfferMenu(index);
         }
 
         [HttpGet]
-        public List<Menu> GetTopSelled()
+        public List<Menu> GetTopSelled([FromUri] string page)
         {
-            return menuManager.GetTopSellMenu();
+            var index = (Convert.ToInt32(page) - 1)*10;
+            return menuManager.GetTopSellMenu(index);
         } 
     }
 }

@@ -40,10 +40,10 @@ namespace LastTest.Models
             }
         }
 
-        public List<Store> GetStores()
+        public List<Store> GetStores(int index)
         {
 
-            return stores.ToList();
+            return stores.Skip(index).Take(2).ToList();
         }
 
         public Store GetStore(int id)

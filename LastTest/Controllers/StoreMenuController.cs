@@ -26,9 +26,10 @@ namespace LastTest.Controllers
             return iStoreMenuManager.GetStoreMenus(id);
         }
         [HttpGet]
-        public HttpResponseMessage SearchMenu(string id)
+        public HttpResponseMessage SearchMenu([FromUri] string text, [FromUri] string page)
         {
-            return iStoreMenuManager.SearchMenu(id);
+            var index = (Convert.ToInt32(page) - 1)*10;
+            return iStoreMenuManager.SearchMenu(text,index);
         }
         
     }

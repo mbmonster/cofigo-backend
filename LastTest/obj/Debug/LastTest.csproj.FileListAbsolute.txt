@@ -60,4 +60,3 @@ E:\ProjectSem3\LastTest\LastTest\bin\Microsoft.Owin.Security.MicrosoftAccount.xm
 E:\ProjectSem3\LastTest\LastTest\bin\System.Web.Http.Owin.xml
 E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.dll
 E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.pdb
-E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.csprojResolveAssemblyReference.cache
