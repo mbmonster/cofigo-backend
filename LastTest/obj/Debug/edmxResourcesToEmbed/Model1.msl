@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Menus">
       <EntityTypeMapping TypeName="CoffeeServicesModel.Menu">
         <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Price" ColumnName="Price" />

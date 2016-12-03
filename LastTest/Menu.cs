@@ -27,6 +27,7 @@ namespace LastTest
         public Nullable<int> OfferPercent { get; set; }
         public Nullable<int> Selled { get; set; }
         public Nullable<int> IDStore { get; set; }
+        public string Image { get; set; }
     
         public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
