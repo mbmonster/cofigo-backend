@@ -8,11 +8,11 @@ using System.Web.Http;
 using LastTest.Models;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-
+using LastTest.COR;
 
 namespace LastTest.Controllers
 {
-
+    [AllowCrossSiteJson]
     public class StoreController : ApiController
     {
       

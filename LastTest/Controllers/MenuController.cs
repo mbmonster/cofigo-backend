@@ -5,9 +5,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using LastTest.Models;
-
+using LastTest.COR;
 namespace LastTest.Controllers
 {
+    [AllowCrossSiteJson]
     public class MenuController : ApiController
     {
         IMenuManager menuManager = new MenuManager();
