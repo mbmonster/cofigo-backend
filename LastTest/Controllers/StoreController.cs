@@ -21,7 +21,7 @@ namespace LastTest.Controllers
         [HttpGet]
         public IEnumerable<Store> Get([FromUri] string page)
         {
-            int index = (Convert.ToInt32(page)-1)*2;
+            int index = (Convert.ToInt32(page)-1)*6;
             return storeManager.GetStores(index);
         }
         [HttpGet]
