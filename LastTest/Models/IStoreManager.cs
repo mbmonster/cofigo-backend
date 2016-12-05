@@ -14,7 +14,7 @@ namespace LastTest.Models
         Store GetStore(int id);
         Store AddStore(Store store);
        // bool UpdateStore( Store store);
-        void Delete(int id);
+   
       string SearchList(string id);
         List<Store> GetTopStore();
     }
