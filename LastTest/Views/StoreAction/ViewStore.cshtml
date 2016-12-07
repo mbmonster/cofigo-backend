@@ -1,107 +1,80 @@
 ﻿@model IEnumerable<LastTest.Store>
 
-@{
-    Layout = null;
-}
+    @{
+        Layout = null;
+    }
 
-<!DOCTYPE html>
+    <!DOCTYPE HTML>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ViewStore</title>
-    <script src="~/Scripts/bootstrap-notify.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/chartist.min.js"></script>
-    <script src="~/Scripts/demo.js"></script>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/material-dashboard.js"></script>
-    <script src="~/Scripts/material.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/demo.css" rel="stylesheet" />
-    <link href="~/Content/material-dashboard.css" rel="stylesheet" />
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ViewStore</title>
+        <script src="~/Scripts/bootstrap-notify.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/chartist.min.js"></script>
+        <script src="~/Scripts/demo.js"></script>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/material-dashboard.js"></script>
+        <script src="~/Scripts/material.min.js"></script>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/demo.css" rel="stylesheet" />
+        <link href="~/Content/material-dashboard.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet">
+    </head>
+    <body>
+    <div>
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header" data-background-color="purple">
+                    <h4 class="category">Danh Sách Các Quán Cafe</h4>
+                    
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-danger">
+                        <th>
+                            @Html.DisplayNameFor(model => model.ID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NameStore)
+                        </th>
 
-</head>
-<body>
-    <div class="card">
-        <div class="card-header" data-background-color="purple">
-            <h4 class="category">Danh Sách Các Quán Cafe</h4>
-            <a href="@Url.Action("AddStore", "StoreAction")"><button class="btn btn-info" style="padding-left: 50px; padding-right: 50px">Thêm mới quán</button></a>
-        </div>
-        <div class="card-content table-responsive table-full-width">
-            <table class="table">
-                <thead class="text-danger">
-                <th>
-                    @Html.DisplayNameFor(model => model.ID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NameStore)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Avatar)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cover)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Rep)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Latitude)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Longtitude)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mobile)
-                </th>
-                <th></th>
-                </thead>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Avatar)
+                        </th>
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NameStore)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Address)
-                        </td>
-                        <td>
-                            <img src="@item.Avatar" style="width: 50px; height: 50px" />
-                        </td>
-                        <td>
-                            <img src="@item.Cover" style="width: 50px; height: 50px" />
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Rep)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Latitude)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Longtitude)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Mobile)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "DeleteStore", new { id = item.ID })
-                        </td>
-                    </tr>
-                }
+                        <th></th>
+                        </thead>
 
-            </table>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NameStore)
+                                </td>
+
+                                <td>
+                                    <img src="@item.Avatar" style="width: 100px; height: 100px" />
+                                </td>
+
+                                <td>
+                                    <a href="@Url.Action("StoreDetails", "StoreAction", new {id = item.ID})"><button class="btn btn-primary btn-round"><i class="material-icons">visibility</i> Details<div class="ripple-container"></div></button></a>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-</body>
+    
+    </body>
 </html>
