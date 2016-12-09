@@ -25,6 +25,8 @@
               rel="stylesheet">
     </head>
     <body>
+        <div class="col-md-4"></div>
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header" data-background-color="purple">
                 <h4 class="category">Danh Sách Chi Tiết</h4>
@@ -95,10 +97,20 @@
                                 @Html.DisplayFor(modelItem => item.Mobile)
                             </td>
                             <td>
-                                <a href="@Url.Action("EditStore", "StoreAction", new {id = item.ID})"><button class="btn btn-primary btn-round btn-fab btn-fab-mini"><i class="material-icons">mode_edit</i><div class="ripple-container"></div></button></a> |
-                                
-                            
-                                <a href="@Url.Action("DeleteStore", "StoreAction", new {id = item.ID})"><button class="btn btn-primary btn-round btn-fab btn-fab-mini"><i class="material-icons">delete_forever</i><div class="ripple-container"></div></button></a>
+                                <a href="@Url.Action("EditStore", "StoreAction", new {id = item.ID})">
+                                    <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                        <i class="material-icons">mode_edit</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </a> 
+
+
+                                <a href="@Url.Action("DeleteStore", "StoreAction", new {id = item.ID})">
+                                    <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                        <i class="material-icons">delete_forever</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </a>
 
                             </td>
                         </tr>
@@ -107,5 +119,7 @@
                 </table>
             </div>
         </div>
+    </div>
+    
     </body>
 </html>
