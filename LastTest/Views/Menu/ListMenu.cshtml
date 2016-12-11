@@ -1,0 +1,86 @@
+﻿@model IEnumerable<LastTest.Models.Listmenu>
+    @{
+        ViewBag.Title = "ListMenu";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <!DOCTYPE HTML>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ListMenu</title>
+    </head>
+    <body>
+    <h2>List Menu</h2>
+        <hr/>
+    <div>
+        @Html.ActionLink("Add Menu", "AddMenu")
+    </div>
+        <hr/>
+    @using (Html.BeginForm("Reload", "Menu", FormMethod.Post))
+    {
+        <label>List Store:&nbsp;</label>
+        @Html.DropDownList("IdStore", " -----Choose Store----- ")
+        <input type="submit" value="Chọn" class="btn btn-default"/>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OfferPercent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Selled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NameStore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfferPercent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Selled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameStore)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Image)*@
+                    <img src="@Html.DisplayFor(modelItem => item.Image)" style="width: 75px; height: 75px;"/>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditMenu", new {id = item.Id}) |
+                    @Html.ActionLink("Delete", "DeleteMenu", new {id = item.Id})
+                </td>
+            </tr>
+        }
+
+    </table>
+    </body>
+</html>

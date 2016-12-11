@@ -10,6 +10,7 @@
     <Property Name="OfferPercent" Type="int" />
     <Property Name="Selled" Type="int" />
     <Property Name="IDStore" Type="int" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
