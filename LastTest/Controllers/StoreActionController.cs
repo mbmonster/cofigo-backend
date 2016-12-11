@@ -36,29 +36,26 @@ namespace LastTest.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddStore(FormCollection form, Store store)
+        public ActionResult AddStore(Store form)
         {
-            string namestore = form["NameStore"];
-            string address = form["Address"];
-            string avatar = form["Avatar"];
-            string cover = form["Cover"];
-            int rep = Convert.ToInt32(form["Rep"]);
-            double lat = Convert.ToDouble(form["Latitude"]);
-            double longt = Convert.ToDouble(form["Longtitude"]);
-            string mobile = form["Mobile"];
-            store.NameStore = namestore;
-            store.Address = address;
-            store.Avatar = avatar;
-            store.Cover = cover;
-            store.Rep = rep;
-            store.Latitude = lat;
-            store.Longtitude = longt;
-            store.Mobile = mobile;
-            db.Stores.Add(store);
-            db.SaveChanges();
-           
-
-            return RedirectToAction("StoreDetails");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    
+                    db.Stores.Add(form);
+                    db.SaveChanges();
+                    return View("StoreDetails");
+                }
+                return View(form);
+            }
+            catch (Exception)
+            {
+                return View();
+                throw;
+            }
+                
+            
         }
         
         public ActionResult DeleteStore(int id)

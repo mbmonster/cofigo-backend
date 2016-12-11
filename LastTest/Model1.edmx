@@ -15,14 +15,14 @@
           <Property Name="OfferPercent" Type="int" />
           <Property Name="Selled" Type="int" />
           <Property Name="IDStore" Type="int" />
-          <Property Name="Image" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Date" Type="date" />
+          <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
           <Property Name="IDShip" Type="int" />
           <Property Name="IDCustomer" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
@@ -31,9 +31,9 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Quantity" Type="int" />
-          <Property Name="IDOrder" Type="int" />
+          <Property Name="IDOrder" Type="nvarchar" MaxLength="50" />
           <Property Name="IDMenu" Type="int" />
         </EntityType>
         <EntityType Name="Promotion">
@@ -233,14 +233,14 @@
           <NavigationProperty Name="Store" Relationship="Self.FK_Drink_Store" FromRole="Menu" ToRole="Store" />
           <NavigationProperty Name="OrderDetails1" Relationship="CoffeeServicesModel.FK_OrderDetails_Drink1" FromRole="Menu" ToRole="OrderDetail" />
           <NavigationProperty Name="Promotions1" Relationship="CoffeeServicesModel.FK_Promotion_Drink1" FromRole="Menu" ToRole="Promotion" />
-          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="IDShip" Type="Int32" />
           <Property Name="IDCustomer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -254,7 +254,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
-          <Property Name="IDOrder" Type="Int32" />
+          <Property Name="IDOrder" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_Order" FromRole="OrderDetails" ToRole="Order" />
           <Property Name="IDMenu" Type="Int32" />
           <NavigationProperty Name="Menu1" Relationship="CoffeeServicesModel.FK_OrderDetails_Drink1" FromRole="OrderDetail" ToRole="Menu" />

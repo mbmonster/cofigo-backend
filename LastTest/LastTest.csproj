@@ -200,6 +200,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\OrderControlController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\StoreActionController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\StoreMenuController.cs" />
@@ -233,8 +235,8 @@
     <Compile Include="Models\IStoreManager.cs" />
     <Compile Include="Models\IStoreMenuManager.cs" />
     <Compile Include="Models\MenuManager.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\OrderManager.cs" />
-    <Compile Include="Models\StoreInfo.cs" />
     <Compile Include="Models\StoreManager.cs" />
     <Compile Include="Models\StoreMenuManager.cs" />
     <Compile Include="Order.cs">
@@ -346,6 +348,7 @@
     <Content Include="Views\StoreAction\ViewStore.cshtml" />
     <Content Include="Views\StoreAction\StoreDetails.cshtml" />
     <Content Include="Views\StoreAction\EditStore.cshtml" />
+    <Content Include="Views\OrderControl\ListOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
