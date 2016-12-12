@@ -25,9 +25,9 @@
 <body>
     @using (Html.BeginForm("Reload", "OrderControl", FormMethod.Post))
     {
-        <label>List Store:&nbsp;</label>
-        @Html.DropDownList("IdStatus", " -----Choose Store----- ")
-        <input type="submit" value="Chọn" class="btn btn-default" />
+        
+        @Html.DropDownList("IdStatus", " Choose status ")
+        <input type="submit" value="Chọn" class="btn btn-success" />
     }
     <table class="table">
         <tr>

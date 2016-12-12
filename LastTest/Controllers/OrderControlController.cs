@@ -43,12 +43,8 @@ namespace LastTest.Controllers
 
                 foreach (var item in list)
                 {
-                    listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,
-                        item.DisplayName));
+                    listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,item.DisplayName));
                 }
-
-
-
                 return View(listorder);
             }
             else
