@@ -58,6 +58,6 @@ E:\ProjectSem3\LastTest\LastTest\bin\Microsoft.Owin.Security.Google.xml
 E:\ProjectSem3\LastTest\LastTest\bin\Microsoft.Owin.Security.Twitter.xml
 E:\ProjectSem3\LastTest\LastTest\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\ProjectSem3\LastTest\LastTest\bin\System.Web.Http.Owin.xml
+E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.csprojResolveAssemblyReference.cache
 E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.dll
 E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.pdb
-E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.csprojResolveAssemblyReference.cache

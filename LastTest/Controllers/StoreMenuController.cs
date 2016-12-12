@@ -5,9 +5,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using LastTest.Models;
-
+using LastTest.COR;
 namespace LastTest.Controllers
 {
+    [AllowCrossSiteJson]
     public class StoreMenuController : ApiController
     {
         
@@ -28,7 +29,7 @@ namespace LastTest.Controllers
         [HttpGet]
         public HttpResponseMessage SearchMenu([FromUri] string text, [FromUri] string page)
         {
-            var index = (Convert.ToInt32(page) - 1)*10;
+            var index = (Convert.ToInt32(page) - 1)*12;
             return iStoreMenuManager.SearchMenu(text,index);
         }
         

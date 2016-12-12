@@ -10,20 +10,7 @@
     <head>
         <meta name="viewport" content="width=device-width" />
         <title>ViewStore</title>
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/bootstrap-notify.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>
-        <script src="~/Scripts/chartist.min.js"></script>
-        <script src="~/Scripts/demo.js"></script>
-        
-        <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/material-dashboard.js"></script>
-        <script src="~/Scripts/material.min.js"></script>
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-        <link href="~/Content/demo.css" rel="stylesheet" />
-        <link href="~/Content/material-dashboard.css" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-              rel="stylesheet">
+        @Html.Partial("Script")
         <style>
             #map {
                 height: 400px;
@@ -34,15 +21,15 @@
         
     </head>
     <body>
-        <div class="col-md-4"></div>
+        <div class="col-md-4">@Html.Partial("NavPill")</div>
     <div class="col-md-8">
         <div class="card">
 
             <div class="card-header" data-background-color="purple">
 
                 <h4 class="category">Danh Sách Chi Tiết</h4>
-                <a href="@Url.Action("AddStore", "StoreAction")"><button class="btn btn-info" style="padding-left: 50px; padding-right: 50px">Thêm mới quán</button></a>
-                <a href="@Url.Action("ViewStore", "StoreAction")"><button class="btn btn-info" style="padding-left: 50px; padding-right: 50px">Back</button></a>
+                
+                
             </div>
             <div class="card-content table-responsive table-full-width">
                 <table class="table">

@@ -1,10 +1,13 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 namespace LastTest.Controllers
 {
     [Authorize]
@@ -17,9 +20,11 @@ namespace LastTest.Controllers
         }
 
         // GET api/values/5
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         public string Get(int id)
         {
-            return "value";
+           
+            return User.Identity.GetUserId().ToString();
         }
 
         // POST api/values

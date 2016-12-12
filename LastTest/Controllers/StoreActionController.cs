@@ -20,22 +20,28 @@ namespace LastTest.Controllers
 
         public ActionResult ViewStore()
         {
+            ViewBag.Current = "ViewStore";
             var list = (from s in db.Stores
                 select s);
             return View(list);
+            
         }
 
         public ActionResult StoreDetails()
         {
+            ViewBag.Current = "StoreDetails";
             var storedetails = (from s in db.Stores select s).ToList();
             return View(storedetails);
+            
         }
      
         public ActionResult AddStore()
         {
+            ViewBag.Current = "AddStore";
             return View();
         }
         [HttpPost]
+        
         public ActionResult AddStore(Store form)
         {
             try
@@ -45,7 +51,7 @@ namespace LastTest.Controllers
                     
                     db.Stores.Add(form);
                     db.SaveChanges();
-                    return View("StoreDetails");
+                    return RedirectToAction("StoreDetails");
                 }
                 return View(form);
             }

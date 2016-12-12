@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using LastTest.Models;
 using Newtonsoft.Json;
 
@@ -15,9 +17,14 @@ namespace LastTest.Controllers
 
         public List<Order> GetOrders()
         {
+
             return orderManager.GetOrder();
+
         }
 
+        
+
+       
    
         public HttpResponseMessage AddOrder([FromBody] Dictionary<string,string> value)
         {

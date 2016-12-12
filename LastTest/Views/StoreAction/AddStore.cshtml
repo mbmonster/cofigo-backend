@@ -11,17 +11,7 @@
     <title>AddStore</title>
 
     
-    <script src="~/Scripts/bootstrap-notify.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/chartist.min.js"></script>
-    <script src="~/Scripts/demo.js"></script>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/material-dashboard.js"></script>
-    <script src="~/Scripts/material.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/demo.css" rel="stylesheet" />
-    <link href="~/Content/material-dashboard.css" rel="stylesheet" />
+    @Html.Partial("Script")
     
 </head>
 <body>
@@ -30,8 +20,10 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     <div>
-       
-        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+            @Html.Partial("NavPill")
+        </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header" data-background-color="purple">

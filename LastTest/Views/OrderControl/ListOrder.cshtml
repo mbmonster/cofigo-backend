@@ -10,17 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ListOrder</title>
-    <script src="~/Scripts/bootstrap-notify.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/chartist.min.js"></script>
-    <script src="~/Scripts/demo.js"></script>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/material-dashboard.js"></script>
-    <script src="~/Scripts/material.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/demo.css" rel="stylesheet" />
-    <link href="~/Content/material-dashboard.css" rel="stylesheet" />
+    @Html.Partial("Script")
 </head>
 <body>
     @using (Html.BeginForm("Reload", "OrderControl", FormMethod.Post))
@@ -29,57 +19,66 @@
         @Html.DropDownList("IdStatus", " Choose status ")
         <input type="submit" value="Chọn" class="btn btn-success" />
     }
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IDShip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IDCustomer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DisplayName)
-            </th>
-            <th></th>
-        </tr>
+<div>
+    <div class="col-md-4">
+        @Html.Partial("NavPill")
+    </div>
+    <div class="col-md-8">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDShip)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDCustomer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DisplayName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDShip)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDCustomer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DisplayName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
     
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDShip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDCustomer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DisplayName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.ID}) |
-                @Html.ActionLink("Details", "Details", new {id = item.ID}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.ID})
-            </td>
-        </tr>
-    }
-    
-    </table>
 </body>
 </html>

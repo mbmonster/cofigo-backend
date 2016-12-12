@@ -32,6 +32,7 @@ namespace LastTest.Models
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+        public string Name { get; set; }
     }
 
     public class UserLoginInfoViewModel

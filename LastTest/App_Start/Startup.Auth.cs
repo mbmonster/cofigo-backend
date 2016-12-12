@@ -10,6 +10,10 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using LastTest.Providers;
 using LastTest.Models;
+using Microsoft.Owin.Security.Facebook;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace LastTest
 {
@@ -54,16 +58,42 @@ namespace LastTest
             //app.UseTwitterAuthentication(
             //    consumerKey: "",
             //    consumerSecret: "");
-
+            
             //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+            //    appId: "244448985929177",
+            //    appSecret: "552b4707f5e3b0e8f9a0130166e6db6a"
+            //);
+
+            
+            var options = new FacebookAuthenticationOptions()
+            {
+                AppId = "244448985929177",
+                AppSecret = "552b4707f5e3b0e8f9a0130166e6db6a",
+                AuthenticationType = "Facebook",
+                BackchannelHttpHandler = new FacebookBackChannelHandler(),
+                UserInformationEndpoint = "https://graph.facebook.com/v2.4/me?fields=id,name,email"
+            };
+            options.Scope.Add("email");
+            app.UseFacebookAuthentication(options);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+    }
+    public class FacebookBackChannelHandler : HttpClientHandler
+    {
+        protected override async System.Threading.Tasks.Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)
+        {
+            // Replace the RequestUri so it's not malformed
+            if (!request.RequestUri.AbsolutePath.Contains("/oauth"))
+            {
+                request.RequestUri = new Uri(request.RequestUri.AbsoluteUri.Replace("?access_token", "&access_token"));
+            }
+
+            return await base.SendAsync(request, cancellationToken);
         }
     }
 }

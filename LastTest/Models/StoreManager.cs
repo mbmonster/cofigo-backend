@@ -43,7 +43,9 @@ namespace LastTest.Models
         public List<Store> GetStores(int index)
         {
 
-            return stores.Skip(index).Take(10).ToList();
+
+            return stores.Skip(index).Take(6).ToList();
+
         }
 
         public Store GetStore(int id)
@@ -95,7 +97,7 @@ namespace LastTest.Models
 
         public List<Store> GetTopStore()
         {
-            var top = stores.OrderByDescending(p => p.Rep).Take(5);
+            var top = stores.OrderByDescending(p => p.Rep).Take(6);
             return top.ToList();
         }
     }

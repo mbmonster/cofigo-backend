@@ -60,7 +60,8 @@ namespace LastTest.Controllers
 
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName(),
+                Name = User.Identity.GetUserName(),
+                Email = externalLogin.Email,
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
@@ -219,7 +220,7 @@ namespace LastTest.Controllers
 
             return Ok();
         }
-
+        
         // GET api/Account/ExternalLogin
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
@@ -227,6 +228,7 @@ namespace LastTest.Controllers
         [Route("ExternalLogin", Name = "ExternalLogin")]
         public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
+
             if (error != null)
             {
                 return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
@@ -238,7 +240,7 @@ namespace LastTest.Controllers
             }
 
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
+           
             if (externalLogin == null)
             {
                 return InternalServerError();
@@ -252,15 +254,15 @@ namespace LastTest.Controllers
 
             ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
-
+            
             bool hasRegistered = user != null;
 
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -271,10 +273,18 @@ namespace LastTest.Controllers
             {
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
                 ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+                //var claimsforUser = await UserManager.GetClaimsAsync(identity.GetUserId());
+                CoffeeServicesEntities db = new CoffeeServicesEntities();
+
+                string email = identity.FindFirstValue(ClaimTypes.Email);
+                string avatar = "http://graph.facebook.com/" + identity.GetUserId() + "/picture";
+                db.Users.Add(new User { ID = identity.GetUserId(), Account = email, Avatar = avatar, DisplayName = identity.GetUserName(), Coin = 5000, Rep = 0, Role = "USER" });
+                db.SaveChanges();
                 Authentication.SignIn(identity);
             }
 
             return Ok();
+
         }
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
@@ -425,17 +435,20 @@ namespace LastTest.Controllers
             public string LoginProvider { get; set; }
             public string ProviderKey { get; set; }
             public string UserName { get; set; }
-
+            public string Email { get; set; }
+            public string AccessToken { get; set; }
             public IList<Claim> GetClaims()
             {
                 IList<Claim> claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider));
-
                 if (UserName != null)
                 {
                     claims.Add(new Claim(ClaimTypes.Name, UserName, null, LoginProvider));
                 }
-
+                if (Email != null)
+                {
+                    claims.Add(new Claim(ClaimTypes.Email, Email, null, LoginProvider));
+                }
                 return claims;
             }
 
@@ -463,7 +476,8 @@ namespace LastTest.Controllers
                 {
                     LoginProvider = providerKeyClaim.Issuer,
                     ProviderKey = providerKeyClaim.Value,
-                    UserName = identity.FindFirstValue(ClaimTypes.Name)
+                    UserName = identity.FindFirstValue(ClaimTypes.Name),
+                    Email = identity.FindFirstValue(ClaimTypes.Email)
                 };
             }
         }
