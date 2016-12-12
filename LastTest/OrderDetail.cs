@@ -16,7 +16,7 @@ namespace LastTest
     {
         public int ID { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public Nullable<int> IDOrder { get; set; }
+        public string IDOrder { get; set; }
         public Nullable<int> IDMenu { get; set; }
     
         public virtual Order Order { get; set; }

@@ -39,15 +39,15 @@ namespace LastTest.Controllers
         //{
         //    storeManager.UpdateStore(store);
         //}
-        public void Delete(int id)
-        {
-            Store store = storeManager.GetStore(id);
-            if (store == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            storeManager.Delete(id);
-        }
+        //public void Delete(int id)
+        //{
+        //    Store store = storeManager.GetStore(id);
+        //    if (store == null)
+        //    {
+        //        throw new HttpResponseException(HttpStatusCode.NotFound);
+        //    }
+        //    storeManager.Delete(id);
+        //}
 
         [HttpGet]
         
