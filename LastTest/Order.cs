@@ -20,7 +20,7 @@ namespace LastTest
             this.OrderDetails = new HashSet<OrderDetail>();
         }
     
-        public int ID { get; set; }
+        public string ID { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> IDShip { get; set; }
         public string IDCustomer { get; set; }
