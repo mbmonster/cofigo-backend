@@ -19,10 +19,19 @@ namespace LastTest
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/material").Include(
+                      "~/Scripts/material-dashboard.js",
+                      "~/Scripts/material.min.js",
+                      "~/Scripts/chartist.min.js",
+                      "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/demo.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/material").Include(
+                     "~/Content/material-dashboard.css",
+                     "~/Content/demo.css"));
         }
     }
 }

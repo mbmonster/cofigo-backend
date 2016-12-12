@@ -1,0 +1,180 @@
+﻿@model IEnumerable<LastTest.Store>
+
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE HTML>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ViewStore</title>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/bootstrap-notify.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/chartist.min.js"></script>
+        <script src="~/Scripts/demo.js"></script>
+        
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/material-dashboard.js"></script>
+        <script src="~/Scripts/material.min.js"></script>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/demo.css" rel="stylesheet" />
+        <link href="~/Content/material-dashboard.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet">
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style>
+        
+        
+    </head>
+    <body>
+        <div class="col-md-4"></div>
+    <div class="col-md-8">
+        <div class="card">
+
+            <div class="card-header" data-background-color="purple">
+
+                <h4 class="category">Danh Sách Chi Tiết</h4>
+                <a href="@Url.Action("AddStore", "StoreAction")"><button class="btn btn-info" style="padding-left: 50px; padding-right: 50px">Thêm mới quán</button></a>
+                <a href="@Url.Action("ViewStore", "StoreAction")"><button class="btn btn-info" style="padding-left: 50px; padding-right: 50px">Back</button></a>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-danger">
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NameStore)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Avatar)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cover)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rep)
+                    </th>
+                    <th>
+                        @Html.DisplayName("Store Locate")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mobile)
+                    </th>
+                    <th></th>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NameStore)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                <img src="@item.Avatar" style="width: 50px; height: 50px"/>
+                            </td>
+                            <td>
+                                <img src="@item.Cover" style="width: 50px; height: 50px"/>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rep)
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => item.Latitude)*@
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick=" initMap(@item.Latitude, @item.Longtitude) ">
+                                    Launch Map
+                                </button>
+
+                            </td>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.Longtitude)
+                            </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mobile)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("EditStore", "StoreAction", new {id = item.ID})">
+                                    <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                        <i class="material-icons">mode_edit</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </a>
+
+
+                                <a href="@Url.Action("DeleteStore", "StoreAction", new {id = item.ID})">
+                                    <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                        <i class="material-icons">delete_forever</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+        
+        <!-- Sart Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="material-icons">clear</i>
+                        </button>
+                        <h4 class="modal-title">BAN DO</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="map" style="margin-top: 0"></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <!--  End Modal -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvYH83b5lSxsMNGWFT2DJQyNH90cFbFV8"
+            async defer>
+        
+    </script>
+        <script>
+    function initMap(lat, lng) {
+        if (lat && lng) {
+            setTimeout(function () {
+                console.log(lat, lng);
+                var uluru = { lat: lat, lng: lng };
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 18,
+                    center: uluru
+                });
+                var marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map
+                });
+            }, 500);
+            
+        } 
+
+    }
+        </script>
+
+    </body>
+</html>
