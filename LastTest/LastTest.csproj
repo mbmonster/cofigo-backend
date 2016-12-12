@@ -213,7 +213,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginWithFaceBookController.cs" />
-    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\MenuActionController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\StoreMenuController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -352,10 +352,10 @@
     <Content Include="Views\Admin\ListUser.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\DeleteUser.cshtml" />
-    <Content Include="Views\Menu\ListMenu.cshtml" />
-    <Content Include="Views\Menu\EditMenu.cshtml" />
-    <Content Include="Views\Menu\DeleteMenu.cshtml" />
-    <Content Include="Views\Menu\AddMenu.cshtml" />
+    <Content Include="Views\MenuAction\ListMenu.cshtml" />
+    <Content Include="Views\MenuAction\EditMenu.cshtml" />
+    <Content Include="Views\MenuAction\DeleteMenu.cshtml" />
+    <Content Include="Views\MenuAction\AddMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

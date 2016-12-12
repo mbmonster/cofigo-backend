@@ -11,7 +11,7 @@ using Microsoft.Owin.Security.DataHandler.Encoder;
 
 namespace LastTest.Controllers
 {
-    public class MenuController : Controller
+    public class MenuActionController : Controller
     {
         CoffeeServicesEntities db = new CoffeeServicesEntities();
         // GET: Menu

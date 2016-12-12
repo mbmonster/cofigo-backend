@@ -17,7 +17,7 @@
         @Html.ActionLink("Add Menu", "AddMenu")
     </div>
         <hr/>
-    @using (Html.BeginForm("Reload", "Menu", FormMethod.Post))
+    @using (Html.BeginForm("Reload", "MenuAction", FormMethod.Post))
     {
         <label>List Store:&nbsp;</label>
         @Html.DropDownList("IdStore", " -----Choose Store----- ")
