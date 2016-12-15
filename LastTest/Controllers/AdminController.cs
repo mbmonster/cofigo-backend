@@ -29,9 +29,9 @@ namespace TodoMVC.Controllers
         public UserManager<ApplicationUser> UserManager { get; private set; }
 
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
-           
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
       
@@ -41,16 +41,16 @@ namespace TodoMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider)
+        public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Admin"));
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Admin", new { ReturnUrl = returnUrl }));
         }
 
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback()
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -70,7 +70,7 @@ namespace TodoMVC.Controllers
                     var roleresult = UserManager.AddToRole(currentUser.Id,"Admin");
                 }
                 await SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToLocal(returnUrl);
             }
             else
             {
@@ -105,7 +105,7 @@ namespace TodoMVC.Controllers
                         if (result.Succeeded)
                         {
                             await SignInAsync(userz, isPersistent: false);
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToLocal(returnUrl);
                         }
                     }
                 }
