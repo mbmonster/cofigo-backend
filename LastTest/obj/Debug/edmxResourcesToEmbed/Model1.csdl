@@ -20,14 +20,14 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
     <Property Name="IDShip" Type="Int32" />
     <Property Name="IDCustomer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
     <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Ship" Relationship="Self.FK_Order_Ship" FromRole="Order" ToRole="Ship" />
     <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetails" />
-    <Property Name="SDT" Type="Int32" />
+    <Property Name="SDT" Type="String" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -201,6 +201,7 @@
       <End EntitySet="Menus" Role="Menu" />
       <End EntitySet="Promotions" Role="Promotion" />
     </AssociationSet>
+    <EntitySet Name="Admins" EntityType="CoffeeServicesModel.Admin" />
   </EntityContainer>
   <Association Name="FK_OrderDetails_Drink1">
     <End Type="CoffeeServicesModel.Menu" Role="Menu" Multiplicity="0..1" />
@@ -226,4 +227,10 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

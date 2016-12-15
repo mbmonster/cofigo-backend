@@ -5,11 +5,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LastTest.Models;
+using Microsoft.AspNet.Identity;
 
 namespace LastTest.Controllers
 {
+    [System.Web.Http.HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+    [Authorize(Roles = "Admin")]
     public class OrderControlController : Controller
     {
+
         CoffeeServicesEntities db = new CoffeeServicesEntities();
         List<OrderInfo> listorder = new List<OrderInfo>();
         // GET: OrderControl

@@ -12,7 +12,8 @@ using System.Security.Claims;
 using System.Threading;
 namespace LastTest.Controllers
 {
-    
+    [System.Web.Http.HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+    [Authorize(Roles = "Admin")]   
     public class StoreActionController : Controller
     {
         CoffeeServicesEntities db = new CoffeeServicesEntities();
@@ -22,8 +23,7 @@ namespace LastTest.Controllers
             return View();
         }
 
-        [System.Web.Http.HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
-        [Authorize(Roles = "Admin")]
+        
         public ActionResult ViewStore()
         {
             ViewBag.Current = "ViewStore";

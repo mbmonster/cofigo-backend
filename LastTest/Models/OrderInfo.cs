@@ -10,7 +10,7 @@ namespace LastTest.Models
 {
     public class OrderInfo
     {
-        public OrderInfo(string id, string idCustomer, int? idShip, DateTime? date, string status, string displayName, int? SDT)
+        public OrderInfo(string id, string idCustomer, int? idShip, DateTime? date, string status, string displayName, string SDT)
         {
             this.ID = id;
             this.IDCustomer = idCustomer;
@@ -18,7 +18,7 @@ namespace LastTest.Models
             this.Date = Convert.ToDateTime(date);
             this.Status = status;
             this.DisplayName = displayName;
-            this.SDT = Convert.ToInt32(SDT);
+            this.SDT = SDT;
         }
 
         public OrderInfo()
@@ -32,7 +32,7 @@ namespace LastTest.Models
         [DisplayName("Ngày Gởi")]
         public DateTime Date { get; set; }
 
-        public int SDT { get; set; }
+        public string SDT { get; set; }
         public int IDShip { get; set; }
         [DisplayName("ID Khách Hàng")]
         public string IDCustomer { get; set; }
