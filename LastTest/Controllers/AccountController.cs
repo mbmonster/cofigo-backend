@@ -16,7 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using LastTest.Models;
 using LastTest.Providers;
 using LastTest.Results;
-
+using System.Linq;
 namespace LastTest.Controllers
 {
     [Authorize]
@@ -275,11 +275,16 @@ namespace LastTest.Controllers
                 ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
                 //var claimsforUser = await UserManager.GetClaimsAsync(identity.GetUserId());
                 CoffeeServicesEntities db = new CoffeeServicesEntities();
-
-                string email = identity.FindFirstValue(ClaimTypes.Email);
-                string avatar = "http://graph.facebook.com/" + identity.GetUserId() + "/picture";
-                db.Users.Add(new User { ID = identity.GetUserId(), Account = email, Avatar = avatar, DisplayName = identity.GetUserName(), Coin = 5000, Rep = 0, Role = "USER" });
-                db.SaveChanges();
+                string userID = identity.GetUserId();
+                var userDB = db.Users.FirstOrDefault(x => x.ID == userID);
+                if (userID == null)
+                {
+                    string email = identity.FindFirstValue(ClaimTypes.Email);
+                    string avatar = "http://graph.facebook.com/" + identity.GetUserId() + "/picture";
+                    db.Users.Add(new User { ID = identity.GetUserId(), Account = email, Avatar = avatar, DisplayName = identity.GetUserName(), Coin = 5000, Rep = 0, Role = "USER" });
+                    db.SaveChanges();
+                }
+               
                 Authentication.SignIn(identity);
             }
 
@@ -441,6 +446,7 @@ namespace LastTest.Controllers
             {
                 IList<Claim> claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider));
+              
                 if (UserName != null)
                 {
                     claims.Add(new Claim(ClaimTypes.Name, UserName, null, LoginProvider));

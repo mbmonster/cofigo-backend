@@ -20,6 +20,7 @@
         <AssociationConnector Association="CoffeeServicesModel.FK_Promotion_Store" ManuallyRouted="false" />
         <AssociationConnector Association="CoffeeServicesModel.FK_OrderDetails_Drink1" />
         <AssociationConnector Association="CoffeeServicesModel.FK_Promotion_Drink1" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.Admin" Width="1.5" PointX="5.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

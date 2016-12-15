@@ -6,9 +6,13 @@ using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 using System.Web.Http.Results;
 using System.Web.Mvc;
-
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
+using System.Threading;
 namespace LastTest.Controllers
 {
+    
     public class StoreActionController : Controller
     {
         CoffeeServicesEntities db = new CoffeeServicesEntities();
@@ -18,6 +22,8 @@ namespace LastTest.Controllers
             return View();
         }
 
+        [System.Web.Http.HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+        [Authorize(Roles = "Admin")]
         public ActionResult ViewStore()
         {
             ViewBag.Current = "ViewStore";
