@@ -1,84 +1,107 @@
-﻿@model IEnumerable<LastTest.Models.OrderInfo>
+﻿@using System.Data.SqlClient
+@model IEnumerable<LastTest.Models.OrderInfo>
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ListOrder</title>
-    @Html.Partial("Script")
-</head>
-<body>
-    @using (Html.BeginForm("Reload", "OrderControl", FormMethod.Post))
-    {
-        
-        @Html.DropDownList("IdStatus", " Choose status ")
-        <input type="submit" value="Chọn" class="btn btn-success" />
+    @{
+        Layout = null;
     }
-<div>
-    <div class="col-md-4">
-        @Html.Partial("NavPill")
-    </div>
-    <div class="col-md-8">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IDShip)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IDCustomer)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DisplayName)
-                </th>
-                <th></th>
-            </tr>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IDShip)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IDCustomer)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DisplayName)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
-            }
+    <!DOCTYPE HTML>
 
-        </table>
-    </div>
-</div>
-    
-</body>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ListOrder</title>
+        @Html.Partial("Script")
+    </head>
+    <body>
+        
+        <div>
+            <div class="col-md-4" style="padding-top: 5px;">
+                @Html.Partial("NavPill")
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header" data-background-color="purple">
+                        <h4 class="category">Danh Sách Các Order</h4>
+                        @using (Html.BeginForm("Reload", "OrderControl", FormMethod.Post))
+                        {
+                                @Html.DropDownList("Status", null, "Chọn kiểu Order", new { @class = "btn dropdown-toggle", @style = "background-color: #00bcd4" })
+                                <input type="submit" value="Chọn" class="btn btn-info"/>
+                        }
+                        
+                    </div>
+                    <div class="card-content table-responsive table-full-width">
+                        <table class="table">
+                            <thead class="text-danger">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Date)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.IDShip)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.IDCustomer)
+                                    </th>
+                                    <th>
+                                        @*@Html.DisplayNameFor(model => model.Status)*@
+                                        @Html.ActionLink("Status", "Sorting", new { sortOrder = ViewBag.StatusSort })
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DisplayName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SDT)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IDShip)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IDCustomer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                        
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DisplayName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SDT)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("UpdateOrder", "OrderControl", new {id = item.ID})">
+                                            <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                                <i class="material-icons">mode_edit</i>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                        </a>
+                                        
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                    </div>
+                
+            </div>
+        </div>
+
+    </body>
 </html>

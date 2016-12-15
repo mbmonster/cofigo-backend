@@ -351,9 +351,10 @@
     <Content Include="Views\StoreAction\ViewStore.cshtml" />
     <Content Include="Views\StoreAction\StoreDetails.cshtml" />
     <Content Include="Views\StoreAction\EditStore.cshtml" />
-    <Content Include="Views\OrderControl\ListOrder.cshtml" />
     <Content Include="Views\Shared\NavPill.cshtml" />
     <Content Include="Views\Shared\Script.cshtml" />
+    <Content Include="Views\OrderControl\ListOrder.cshtml" />
+    <Content Include="Views\OrderControl\UpdateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

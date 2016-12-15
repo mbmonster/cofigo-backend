@@ -56,11 +56,7 @@ namespace LastTest.Models
  
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
-        public List<Order> GetOrder()
-        {
-            
-            return listoOrders.ToList();
-        }
+      
         
 
        

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,17 +17,20 @@ namespace LastTest.Controllers
         {
             return View();
         }
-
-        public ActionResult ListOrder(int? id)
+        
+        [HttpGet]
+        public ActionResult ListOrder(int? id,string sortOrder)
         {
+            ViewBag.IdStatus = new SelectList(new[] { "REQUEST", "CONFIRM", "SHIPPING", "DELIVERED" });
+            ViewBag.Current = "ListOrder";
+            ViewBag.StatusSort = String.IsNullOrEmpty(sortOrder) ? "Status" : "";
+            ViewBag.DateSort = sortOrder == "Date" ? "Status" : "Date";
             List<StatusData> sdl = new List<StatusData>();
             sdl.Add(new StatusData { ID = 1, Name = "REQUEST" });
             sdl.Add(new StatusData { ID = 2, Name = "CONFIRM" });
             sdl.Add(new StatusData { ID = 3, Name = "SHIPPING" });
             sdl.Add(new StatusData { ID = 4, Name = "DELIVERED" });
-            var sli = new SelectList(sdl, "ID", "Name");
-
-            ViewBag.IdStatus = sli;
+            ViewBag.Status = new SelectList(sdl,"ID","Name");
             if (id == null)
             {
                 var list = from od in db.Orders
@@ -38,12 +42,13 @@ namespace LastTest.Controllers
                                od.IDShip,
                                od.Date,
                                od.Status,
-                               us.DisplayName
+                               us.DisplayName,
+                               od.SDT
                            };
 
                 foreach (var item in list)
                 {
-                    listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,item.DisplayName));
+                    listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,item.DisplayName,item.SDT));
                 }
                 return View(listorder);
             }
@@ -77,13 +82,14 @@ namespace LastTest.Controllers
                                od.IDShip,
                                od.Date,
                                od.Status,
-                               us.DisplayName
+                               us.DisplayName,
+                               od.SDT
                            };
 
                 foreach (var item in list)
                 {
                     listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,
-                        item.DisplayName));
+                        item.DisplayName, item.SDT));
                 }
 
 
@@ -93,16 +99,90 @@ namespace LastTest.Controllers
             
         }
         [HttpPost]
-        public ActionResult Reload(int? IdStatus)
+        public ActionResult Reload(int? Status)
         {
-            return RedirectToAction("ListOrder", new { id = IdStatus });
+            return RedirectToAction("ListOrder", new { id = Status });
         }
-
         private class StatusData
         {
             public int ID { get; set; }
             public string Name { get; set; }
         }
 
+        public ActionResult UpdateOrder(string id)
+        {
+            
+            OrderInfo list = (from od in db.Orders
+                       join us in db.Users on od.IDCustomer equals us.ID
+                       where od.ID==id
+                       select new OrderInfo
+                       {
+                            ID = od.ID,
+                            Date = (DateTime)od.Date,
+                            DisplayName = us.DisplayName,
+                          IDCustomer = od.IDCustomer,
+                          IDShip = (int)od.IDShip,
+                          Status = od.Status
+                       }).First();
+           
+            return View(list);
+        }
+        [HttpPost]
+        public ActionResult UpdateOrder(OrderInfo form, string id)
+        {
+            
+            var order = db.Orders.First(m => m.ID == id);
+            if (TryUpdateModel(order, "", new string[] { "ID", "Date", "DisplayName", "IDCustomer", "IDShip", "Status" }))
+            {
+                try
+                {
+                    db.Entry(order).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("", "Error Save Data");
+                }
+            }
+            return RedirectToAction("ListOrder");
+        }
+
+        public ActionResult Sorting(string sortOrder)
+        {
+            ViewBag.StatusSort = String.IsNullOrEmpty(sortOrder) ? "Status" : "";
+            ViewBag.DateSort = sortOrder == "Date" ? "Status" : "Date";
+            var list = from od in db.Orders
+                       join us in db.Users on od.IDCustomer equals us.ID
+                       select new
+                       {
+                           od.ID,
+                           od.IDCustomer,
+                           od.IDShip,
+                           od.Date,
+                           od.Status,
+                           us.DisplayName,
+                           od.SDT
+                       };
+
+            foreach (var item in list)
+            {
+                listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,
+                    item.DisplayName, item.SDT));
+            }
+            
+            switch (sortOrder)
+            {
+                case "Status":
+                    list = list.OrderByDescending(s => s.Status);
+                    break;
+                case "Date":
+                    list = list.OrderBy(s => s.Date);
+                    break;
+                default:
+                    list = list.OrderBy(s => s.Status);
+                    break;
+            }
+            return View(list.ToList());
+        }
     }
 }

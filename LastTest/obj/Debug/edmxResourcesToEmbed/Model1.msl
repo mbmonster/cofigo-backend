@@ -17,6 +17,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="CoffeeServicesModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="IDShip" ColumnName="IDShip" />

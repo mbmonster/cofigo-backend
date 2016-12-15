@@ -1,5 +1,5 @@
 ﻿
-<ul class="nav nav-pills nav-pills-info nav-stacked">
+<ul class="nav nav-pills nav-pills-info nav-stacked" style="background-color:#fedfc5; border-radius: 20px;">
     <li class="@(ViewBag.Current == "ViewStore" ? "active" : "")"><a href="@Url.Action("ViewStore", "StoreAction")" data-toggle="tab">Danh sách cửa hàng</a></li>
     <li class="@(ViewBag.Current == "StoreDetails" ? "active" : "")"><a href="@Url.Action("StoreDetails", "StoreAction")" data-toggle="tab">Danh sách chi tiết các cửa hàng</a></li>
     <li class="@(ViewBag.Current == "AddStore" ? "active" : "")"><a href="@Url.Action("AddStore", "StoreAction")" data-toggle="tab">Thêm mới cửa hàng</a></li>

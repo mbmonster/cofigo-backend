@@ -27,6 +27,7 @@
     <NavigationProperty Name="Ship" Relationship="Self.FK_Order_Ship" FromRole="Order" ToRole="Ship" />
     <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetails" />
+    <Property Name="SDT" Type="Int32" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>

@@ -15,12 +15,7 @@ namespace LastTest.Controllers
     {
         IOrderManager orderManager = new OrderManager();
 
-        public List<Order> GetOrders()
-        {
-
-            return orderManager.GetOrder();
-
-        }
+        
 
         
 
