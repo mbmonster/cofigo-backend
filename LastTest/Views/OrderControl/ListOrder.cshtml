@@ -2,7 +2,7 @@
 @model IEnumerable<LastTest.Models.OrderInfo>
 
     @{
-        Layout = null;
+        Layout = "~/Views/Shared/_Layout.cshtml";
     }
 
     <!DOCTYPE HTML>
@@ -11,15 +11,11 @@
     <head>
         <meta name="viewport" content="width=device-width" />
         <title>ListOrder</title>
-        @Html.Partial("Script")
+        @*@Html.Partial("Script")*@
+
     </head>
     <body>
-        
-        <div>
-            <div class="col-md-4" style="padding-top: 5px;">
-                @Html.Partial("NavPill")
-            </div>
-            <div class="col-md-8">
+
                 <div class="card">
                     <div class="card-header" data-background-color="purple">
                         <h4 class="category">Danh Sách Các Order</h4>
@@ -42,11 +38,9 @@
                                         @Html.ActionLink("Ngày Gởi", "ListOrder", new { sortOrder = ViewBag.DateSort })
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.IDShip)
+                                       Tổng tiền
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.IDCustomer)
-                                    </th>
+                                  
                                     <th class="sorting">
                                         @*@Html.DisplayNameFor(model => model.Status)*@
                                         @Html.ActionLink("Tình trạng", "ListOrder", new { sortOrder = ViewBag.StatusSort })
@@ -70,11 +64,9 @@
                                         @Html.DisplayFor(modelItem => item.Date)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.IDShip)
+                                       
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IDCustomer)
-                                    </td>
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Status)
                                         
@@ -100,9 +92,6 @@
                         </table>
                     </div>
                     </div>
-                
-            </div>
-        </div>
 
     </body>
 </html>

@@ -131,7 +131,7 @@ namespace LastTest.Controllers
 
         public ActionResult UpdateOrder(string id)
         {
-            
+            //cái này dùng để đổ dữ liệu vào form để sửa
             OrderInfo list = (from od in db.Orders
                        join us in db.Users on od.IDCustomer equals us.ID
                        where od.ID==id
@@ -167,42 +167,6 @@ namespace LastTest.Controllers
             return RedirectToAction("ListOrder");
         }
 
-        public ActionResult Sorting(string sortOrder)
-        {
-            ViewBag.StatusSort = String.IsNullOrEmpty(sortOrder) ? "Status" : "";
-            ViewBag.DateSort = sortOrder == "Date" ? "Status" : "Date";
-            var list = from od in db.Orders
-                       join us in db.Users on od.IDCustomer equals us.ID
-                       select new
-                       {
-                           od.ID,
-                           od.IDCustomer,
-                           od.IDShip,
-                           od.Date,
-                           od.Status,
-                           us.DisplayName,
-                           od.SDT
-                       };
-
-            foreach (var item in list)
-            {
-                listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,
-                    item.DisplayName, item.SDT));
-            }
-            
-            switch (sortOrder)
-            {
-                case "Status":
-                    list = list.OrderByDescending(s => s.Status);
-                    break;
-                case "Date":
-                    list = list.OrderBy(s => s.Date);
-                    break;
-                default:
-                    list = list.OrderBy(s => s.Status);
-                    break;
-            }
-            return View(list.ToList());
-        }
+       
     }
 }
