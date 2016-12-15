@@ -25,7 +25,7 @@ namespace LastTest
         public Nullable<int> IDShip { get; set; }
         public string IDCustomer { get; set; }
         public string Status { get; set; }
-        public Nullable<int> SDT { get; set; }
+        public string SDT { get; set; }
     
         public virtual Ship Ship { get; set; }
         public virtual User User { get; set; }
