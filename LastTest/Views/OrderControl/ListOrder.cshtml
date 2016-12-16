@@ -32,13 +32,14 @@
                     </div>
                     <div class="card-content table-responsive table-full-width">
                         <table class="table">
-                            <thead class="text-danger">
+                            <thead class="text-primary">
                                 <tr>
                                     <th>
                                         @Html.DisplayNameFor(model => model.ID)
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Date)
+                                    <th class="sorting">
+                                        @*@Html.DisplayNameFor(model => model.Date)*@
+                                        @Html.ActionLink("Ngày Gởi", "ListOrder", new { sortOrder = ViewBag.DateSort })
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.IDShip)
@@ -46,9 +47,9 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.IDCustomer)
                                     </th>
-                                    <th>
+                                    <th class="sorting">
                                         @*@Html.DisplayNameFor(model => model.Status)*@
-                                        @Html.ActionLink("Status", "Sorting", new { sortOrder = ViewBag.StatusSort })
+                                        @Html.ActionLink("Tình trạng", "ListOrder", new { sortOrder = ViewBag.StatusSort })
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.DisplayName)

@@ -33,6 +33,11 @@
 /* ANIMATION */
 /* SHADOWS */
 /* Shadows (from mdl http://www.getmdl.io/) */
+.sorting:after {
+    content: "swap_vert";
+    font-family: 'Material Icons';
+}
+
 .noUi-target,
 .noUi-target * {
   -webkit-touch-callout: none;

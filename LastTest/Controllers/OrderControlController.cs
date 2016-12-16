@@ -29,6 +29,7 @@ namespace LastTest.Controllers
             ViewBag.Current = "ListOrder";
             ViewBag.StatusSort = String.IsNullOrEmpty(sortOrder) ? "Status" : "";
             ViewBag.DateSort = sortOrder == "Date" ? "Status" : "Date";
+
             List<StatusData> sdl = new List<StatusData>();
             sdl.Add(new StatusData { ID = 1, Name = "REQUEST" });
             sdl.Add(new StatusData { ID = 2, Name = "CONFIRM" });
@@ -49,7 +50,18 @@ namespace LastTest.Controllers
                                us.DisplayName,
                                od.SDT
                            };
-
+                switch (sortOrder)
+                {
+                    case "Status":
+                        list = list.OrderByDescending(s => s.Status);
+                        break;
+                    case "Date":
+                        list = list.OrderByDescending(s => s.Date);
+                        break;
+                    default:
+                        list = list.OrderBy(s => s.Status);
+                        break;
+                }
                 foreach (var item in list)
                 {
                     listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,item.DisplayName,item.SDT));
@@ -89,17 +101,18 @@ namespace LastTest.Controllers
                                us.DisplayName,
                                od.SDT
                            };
-
+                
                 foreach (var item in list)
                 {
                     listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,
                         item.DisplayName, item.SDT));
                 }
 
-
+                
 
                 return View(listorder);
             }
+
             
         }
         [HttpPost]
