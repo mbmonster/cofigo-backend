@@ -33,6 +33,11 @@
 /* ANIMATION */
 /* SHADOWS */
 /* Shadows (from mdl http://www.getmdl.io/) */
+.sorting:after {
+    content: "swap_vert";
+    font-family: 'Material Icons';
+}
+
 .noUi-target,
 .noUi-target * {
   -webkit-touch-callout: none;
@@ -2764,10 +2769,10 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   font-weight: 500;
   min-width: 100px;
   text-align: center;
-  color: #555555;
+  color: #ffffff;
   transition: all .3s;
 }
-.nav-pills > li > a:hover {
+.nav-pills > li > a:hover,.nav-pills > li > a:focus {
   background-color: rgba(200, 200, 200, 0.2);
 }
 .nav-pills > li i {

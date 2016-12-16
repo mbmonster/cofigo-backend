@@ -23,7 +23,8 @@ namespace LastTest
                       "~/Scripts/material-dashboard.js",
                       "~/Scripts/material.min.js",
                       "~/Scripts/chartist.min.js",
-                      "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/jquery.validate.min.js",
+                      "~/Scripts/bootstrap-notify.js",
                       "~/Scripts/demo.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
