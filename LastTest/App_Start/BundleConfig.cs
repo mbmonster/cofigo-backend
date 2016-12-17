@@ -32,7 +32,7 @@ namespace LastTest
                       "~/Content/site.css"));
             bundles.Add(new StyleBundle("~/Content/material").Include(
                      "~/Content/material-dashboard.css",
-                     "~/Content/demo.css"));
+                     "~/wwwroot/src/Content/demo.css"));
         }
     }
 }

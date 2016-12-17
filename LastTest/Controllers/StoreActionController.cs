@@ -103,7 +103,6 @@ namespace LastTest.Controllers
             store.Latitude = lat;
             store.Longtitude = longt;
             store.Mobile = moblie;
-            UpdateModel(store);
             db.SaveChanges();
             return RedirectToAction("StoreDetails");
         }
