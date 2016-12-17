@@ -89,13 +89,13 @@ namespace TodoMVC.Controllers
                     string id = info.ExternalIdentity.GetUserId();
 
                     var userz = new ApplicationUser() { UserName = info.ExternalIdentity.GetUserId(), Email = info.Email };
-                    var exist = db.Admins.FirstOrDefault(m => m.Name == id);
-                    if (exist != null)
-                    {
-                        var currentUser = UserManager.FindByName(user.UserName);
-                        var roleresult = UserManager.AddToRole(userz.Id, "Admin");
+                    //var exist = db.Admins.FirstOrDefault(m => m.Name == id);
+                    //if (exist != null)
+                    //{
+                    //    var currentUser = UserManager.FindByName(user.UserName);
+                    //    var roleresult = UserManager.AddToRole(userz.Id, "Admin");
 
-                    }
+                    //}
 
                     var result = await UserManager.CreateAsync(userz);
                     if (result.Succeeded)

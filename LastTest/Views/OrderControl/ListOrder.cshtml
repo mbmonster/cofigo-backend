@@ -1,6 +1,7 @@
 ﻿@using System.Data.SqlClient
-@model IEnumerable<LastTest.Models.OrderInfo>
-
+@*@model IEnumerable<LastTest.Models.OrderInfo>*@
+@model PagedList.IPagedList<LastTest.Models.OrderInfo>
+    @using PagedList.Mvc;
     @{
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
@@ -29,30 +30,30 @@
                     <div class="card-content table-responsive table-full-width">
                         <table class="table">
                             <thead class="text-primary">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.ID)
-                                    </th>
-                                    <th class="sorting">
-                                        @*@Html.DisplayNameFor(model => model.Date)*@
-                                        @Html.ActionLink("Ngày Gởi", "ListOrder", new { sortOrder = ViewBag.DateSort })
-                                    </th>
-                                    <th>
-                                       Tổng tiền
-                                    </th>
-                                  
-                                    <th class="sorting">
-                                        @*@Html.DisplayNameFor(model => model.Status)*@
-                                        @Html.ActionLink("Tình trạng", "ListOrder", new { sortOrder = ViewBag.StatusSort })
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.DisplayName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.SDT)
-                                    </th>
-                                    <th></th>
-                                </tr>
+                            <tr>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.ID)*@ID
+                                </th>
+                                <th class="sorting">
+                                    @*@Html.DisplayNameFor(model => model.Date)*@
+                                    @Html.ActionLink("Ngày Gởi", "ListOrder", new {sortOrder = ViewBag.DateSort})
+                                </th>
+                                <th>
+                                    Tổng tiền
+                                </th>
+
+                                <th class="sorting">
+                                    @*@Html.DisplayNameFor(model => model.Status)*@
+                                    @Html.ActionLink("Tình trạng", "ListOrder", new {sortOrder = ViewBag.StatusSort})
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.DisplayName)*@DisplayName
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.SDT)*@SDT
+                                </th>
+                                <th></th>
+                            </tr>
                             </thead>
                             @foreach (var item in Model)
                             {
@@ -64,12 +65,12 @@
                                         @Html.DisplayFor(modelItem => item.Date)
                                     </td>
                                     <td>
-                                       
+
                                     </td>
 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Status)
-                                        
+
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.DisplayName)
@@ -84,12 +85,14 @@
                                                 <div class="ripple-container"></div>
                                             </button>
                                         </a>
-                                        
+
                                     </td>
                                 </tr>
                             }
 
                         </table>
+                        @Html.PagedListPager(Model, page => Url.Action("ListOrder", new { page, pageSize = Model.PageSize }))
+                        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount
                     </div>
                     </div>
 

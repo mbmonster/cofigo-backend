@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using LastTest.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace LastTest.Controllers
 {
@@ -24,12 +25,12 @@ namespace LastTest.Controllers
         }
         
         [HttpGet]
-        public ActionResult ListOrder(int? id,string sortOrder)
+        public ActionResult ListOrder(int? id,string sortOrder, int page =1 , int pageSize=2)
         {
-            ViewBag.IdStatus = new SelectList(new[] { "REQUEST", "CONFIRM", "SHIPPING", "DELIVERED" }); // search bằng dropdown list
+            //ViewBag.IdStatus = new SelectList(new[] { "REQUEST", "CONFIRM", "SHIPPING", "DELIVERED" }); // search bằng dropdown list
             ViewBag.Current = "ListOrder"; // để follow theo navpill
 #region[Sắp xếp order theo status và date, truyền vào 1 string "sortOrder"nếu như là status hoặc date thì switch case "sortOrder" ở dưới ]
-            ViewBag.StatusSort = String.IsNullOrEmpty(sortOrder) ? "Status" : "";//truyền vào 1 string nếu là
+            ViewBag.StatusSort = String.IsNullOrEmpty(sortOrder) ? "Status" : "";
             ViewBag.DateSort = sortOrder == "Date" ? "Status" : "Date";
 #endregion
             
@@ -68,11 +69,15 @@ namespace LastTest.Controllers
                         list = list.OrderBy(s => s.Status);
                         break;
                 }
+            
+                
                 foreach (var item in list)
                 {
                     listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,item.DisplayName,item.SDT));
                 }
-                return View(listorder);
+                //paging 
+                PagedList<OrderInfo> order = new PagedList<OrderInfo>(listorder,page,pageSize);
+                return View(order);
             }
                 //ngược lại thì show cái nào có status trùng id
             else
@@ -114,10 +119,10 @@ namespace LastTest.Controllers
                     listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,
                         item.DisplayName, item.SDT));
                 }
+                PagedList<OrderInfo> order = new PagedList<OrderInfo>(listorder, page, pageSize);
+               
 
-                
-
-                return View(listorder);
+                return View(order);
             }
 
             

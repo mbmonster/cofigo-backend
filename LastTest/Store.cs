@@ -32,8 +32,7 @@ namespace LastTest
         public string Avatar { get; set; }
         [Required(ErrorMessage = "Bạn cần phải nhập link file ảnh")]
         public string Cover { get; set; }
-        [Required(ErrorMessage = "Bạn cần phải nhập Rep")]
-        [Range(1,10,ErrorMessage = "Khoảng từ 1 đến 10")]
+        
         public Nullable<int> Rep { get; set; }
          [Required(ErrorMessage = "Bạn cần phải nhập Latitude")]
         public Nullable<double> Latitude { get; set; }
