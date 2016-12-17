@@ -111,8 +111,11 @@
                     }
 
                 </table>
-                @Html.PagedListPager(Model,page=>Url.Action("StoreDetails",new {page,pageSize= Model.PageSize}))
-                Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount
+                <div class="text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("StoreDetails", new { page, pageSize = Model.PageSize }))
+                    Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount
+                </div>
+                
                 
             </div>
         </div>
