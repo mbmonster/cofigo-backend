@@ -48,6 +48,14 @@
       <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -215,6 +223,7 @@
     <Compile Include="Controllers\LoginWithFaceBookController.cs" />
     <Compile Include="Controllers\MenuActionController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\StoreMenuActionController.cs" />
     <Compile Include="Controllers\StoreMenuController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -278,6 +287,7 @@
     <Content Include="channel.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -356,6 +366,11 @@
     <Content Include="Views\MenuAction\EditMenu.cshtml" />
     <Content Include="Views\MenuAction\DeleteMenu.cshtml" />
     <Content Include="Views\MenuAction\AddMenu.cshtml" />
+    <Content Include="Views\StoreMenuAction\GetListStore.cshtml" />
+    <Content Include="Views\StoreMenuAction\DetailMenu.cshtml" />
+    <Content Include="Views\StoreMenuAction\EditMenu.cshtml" />
+    <Content Include="Views\StoreMenuAction\DeleteMenu.cshtml" />
+    <Content Include="Views\StoreMenuAction\AddMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

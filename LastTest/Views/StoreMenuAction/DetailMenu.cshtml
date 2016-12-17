@@ -1,0 +1,87 @@
+﻿@*@using Microsoft.Owin.Security.DataHandler.Encoder*@
+@*@model IEnumerable<LastTest.Menu>*@
+@model PagedList.IPagedList<LastTest.Menu>
+@using PagedList.Mvc;
+       <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "DetailMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detail Menu</h2>
+<hr/>
+<div style="font-size: 18px">
+    @Html.ActionLink("Add Menu", "AddMenu", new {idStore = @ViewBag.IdStore})
+</div>
+    <hr/>
+   
+        @using (Html.BeginForm(new { idStore = @ViewBag.IdStore}))
+        {
+            <p style="font-size: 17px">
+                Find by Name: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+                <input type="submit" value="Search" />
+            </p>
+        }
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Name", "DetailMenu", new { idStore = @ViewBag.IdStore, sortString = ViewBag.NameSort, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            Name Store
+        </th>
+        <th>
+            @Html.ActionLink("Price", "DetailMenu", new { idStore = @ViewBag.IdStore, sortString = ViewBag.PriceSort, currentFilter = ViewBag.CurrentFilter, type = ViewBag.Type })
+        </th>
+        <th>
+            OfferPercent
+        </th>
+        <th>
+            @Html.ActionLink("Selled", "DetailMenu", new { idStore = @ViewBag.IdStore, sortString = ViewBag.SelledSort, currentFilter = ViewBag.CurrentFilter, type = ViewBag.Type })
+        </th>
+        <th>
+            Image
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.NameStore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OfferPercent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Selled)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Image)" style="width: 75px; height: 75px;"/>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditMenu", new {id = item.ID}) |
+                @Html.ActionLink("Delete", "DeleteMenu", new {id = item.ID})
+            </td>
+
+        </tr>
+    }
+</table>
+<hr/>
+    <div>
+        @Html.ActionLink("Back to List Store", "GetListStore")
+    </div>
+<hr/>
+<br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("DetailMenu",
+            new { idStore = @ViewBag.IdStore, page, sortString = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

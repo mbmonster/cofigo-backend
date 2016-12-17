@@ -196,3 +196,7 @@ E:\Aptech\ProjectSem3\cofigo-backend\LastTest\bin\System.Web.Http.Owin.xml
 E:\Aptech\ProjectSem3\cofigo-backend\LastTest\obj\Debug\LastTest.csprojResolveAssemblyReference.cache
 E:\Aptech\ProjectSem3\cofigo-backend\LastTest\obj\Debug\LastTest.dll
 E:\Aptech\ProjectSem3\cofigo-backend\LastTest\obj\Debug\LastTest.pdb
+E:\Aptech\ProjectSem3\cofigo-backend\LastTest\bin\PagedList.dll
+E:\Aptech\ProjectSem3\cofigo-backend\LastTest\bin\PagedList.Mvc.dll
+E:\Aptech\ProjectSem3\cofigo-backend\LastTest\bin\PagedList.xml
+E:\Aptech\ProjectSem3\cofigo-backend\LastTest\bin\PagedList.Mvc.xml

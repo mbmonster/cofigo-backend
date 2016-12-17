@@ -1,0 +1,69 @@
+﻿@model LastTest.Menu
+
+@{
+    ViewBag.Title = "DeleteMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeleteMenu</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Menu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Store.NameStore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Store.NameStore)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfferPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfferPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Selled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Selled)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List Store", "GetListStore")
+        </div>
+    }
+</div>
