@@ -75,7 +75,7 @@ namespace LastTest.Controllers
             var store = db.Stores.First(m => m.ID == id);
             db.Stores.Remove(store);
             db.SaveChanges();
-            return RedirectToAction("ViewStore");
+            return RedirectToAction("StoreDetails");
         }
 
         public ActionResult EditStore(int id)

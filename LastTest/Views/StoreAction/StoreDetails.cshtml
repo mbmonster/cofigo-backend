@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LastTest.Store>
 
     @{
-        Layout = null;
+        Layout = "~/Views/Shared/_Layout.cshtml";
     }
 
     <!DOCTYPE HTML>
@@ -21,8 +21,6 @@
         
     </head>
     <body>
-        <div class="col-md-4" style="padding-top: 5px;">@Html.Partial("NavPill")</div>
-    <div class="col-md-8">
         <div class="card">
 
             <div class="card-header" data-background-color="purple">
@@ -47,16 +45,14 @@
                         @Html.DisplayNameFor(model => model.Avatar)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Cover)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Rep)
                     </th>
-                    <th>
-                        @Html.DisplayName("Địa Chỉ Quán")
-                    </th>
+
                     <th>
                         @Html.DisplayNameFor(model => model.Mobile)
+                    </th>
+                    <th>
+                        @Html.DisplayName("Vị trí")
                     </th>
                     <th></th>
                     </thead>
@@ -76,26 +72,27 @@
                             <td>
                                 <img src="@item.Avatar" style="width: 50px; height: 50px"/>
                             </td>
-                            <td>
-                                <img src="@item.Cover" style="width: 50px; height: 50px"/>
-                            </td>
+                          
                             <td>
                                 @Html.DisplayFor(modelItem => item.Rep)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.Mobile)
+                            </td>
+                            <td>
                                 @*@Html.DisplayFor(modelItem => item.Latitude)*@
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick=" initMap(@item.Latitude, @item.Longtitude) ">
-                                    Launch Map
+                                <button class="btn btn-primary btn-round btn-fab btn-fab-mini" data-toggle="modal" data-target="#myModal" onclick="initmap(@item.Latitude, @item.Longtitude )">
+                                    <i class=" material-icons">
+                                    visibility</i>
                                 </button>
+                           
 
                             </td>
                             @*<td>
                                 @Html.DisplayFor(modelItem => item.Longtitude)
                             </td>*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Mobile)
-                            </td>
-                            <td>
+                           
+                            <td style="width: 100px">
                                 <a href="@Url.Action("EditStore", "StoreAction", new {id = item.ID})">
                                     <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
                                         <i class="material-icons">mode_edit</i>
@@ -118,7 +115,6 @@
                 </table>
             </div>
         </div>
-    </div>
         
         <!-- Sart Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

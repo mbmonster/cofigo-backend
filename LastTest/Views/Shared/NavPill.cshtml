@@ -1,8 +1,8 @@
 ﻿
-<ul class="nav nav-pills nav-pills-info nav-stacked" style="background-color:#fedfc5; border-radius: 20px;">
-    <li class="@(ViewBag.Current == "ViewStore" ? "active" : "")"><a href="@Url.Action("ViewStore", "StoreAction")" data-toggle="tab">Danh sách cửa hàng</a></li>
-    <li class="@(ViewBag.Current == "StoreDetails" ? "active" : "")"><a href="@Url.Action("StoreDetails", "StoreAction")" data-toggle="tab">Danh sách chi tiết các cửa hàng</a></li>
-    <li class="@(ViewBag.Current == "AddStore" ? "active" : "")"><a href="@Url.Action("AddStore", "StoreAction")" data-toggle="tab">Thêm mới cửa hàng</a></li>
-    <li class="@(ViewBag.Current == "ListOrder" ? "active" : "")"><a href="@Url.Action("ListOrder", "OrderControl")" data-toggle="tab">Danh sách các đơn đặt hàng</a></li>
+<ul class="nav nav-pills nav-pills-info nav-stacked" style="background-color:#8e24aa; border-radius: 6px; padding: 10px;">
+    @*<li class="@(ViewBag.Current == "ViewStore" ? "active" : "")"><a href="@Url.Action("ViewStore", "StoreAction")">Danh sách cửa hàng</a></li>*@
+    <li class="@(ViewBag.Current == "StoreDetails" ? "active" : "")"><a href="@Url.Action("StoreDetails", "StoreAction")">Danh sách chi tiết các cửa hàng</a></li>
+    <li class="@(ViewBag.Current == "AddStore" ? "active" : "")"><a href="@Url.Action("AddStore", "StoreAction")">Thêm mới cửa hàng</a></li>
+    <li class="@(ViewBag.Current == "ListOrder" ? "active" : "")"><a href="@Url.Action("ListOrder", "OrderControl")">Danh sách các đơn đặt hàng</a></li>
     
 </ul>

@@ -7,7 +7,8 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/material")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/material")
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     
 </head>
 <body>
@@ -29,15 +30,22 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+<div class="container body-content" style="padding-top: 30px">
+    <div class="col-md-4" style="padding-top: 5px;">
+        @Html.Partial("NavPill")
     </div>
-
+    <div class="col-md-8">
+        @RenderBody()
+        </div>
+        <hr />
+        
+    </div>
+    <footer class="container">
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/material")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

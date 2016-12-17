@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace LastTest
 {
@@ -24,15 +24,23 @@ namespace LastTest
         }
     
         public int ID { get; set; }
-        [DisplayName("Tên Cửa hàng")]
+        [Required(ErrorMessage = "Bạn cần phải nhập Tên")]
         public string NameStore { get; set; }
-        [DisplayName("Địa Chỉ")]
+        [Required(ErrorMessage = "Bạn cần phải nhập Địa Chỉ")]
         public string Address { get; set; }
+        [Required(ErrorMessage = "Bạn cần phải nhập link file ảnh")]
         public string Avatar { get; set; }
+        [Required(ErrorMessage = "Bạn cần phải nhập link file ảnh")]
         public string Cover { get; set; }
+        [Required(ErrorMessage = "Bạn cần phải nhập Rep")]
+        [Range(1,10,ErrorMessage = "Khoảng từ 1 đến 10")]
         public Nullable<int> Rep { get; set; }
+         [Required(ErrorMessage = "Bạn cần phải nhập Latitude")]
         public Nullable<double> Latitude { get; set; }
+         [Required(ErrorMessage = "Bạn cần phải nhập Longtitude")]
         public Nullable<double> Longtitude { get; set; }
+        [StringLength(11,MinimumLength = 10,ErrorMessage = "10 hoặc 11 số")]
+        [Required(ErrorMessage = "Bạn cần phải nhập số điện thoại")]
         public string Mobile { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
