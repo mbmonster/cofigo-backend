@@ -43,7 +43,9 @@ namespace LastTest.Models
         public List<Store> GetStores(int index)
         {
 
-            return stores.Skip(index).Take(2).ToList();
+
+            return stores.Skip(index).Take(6).ToList();
+
         }
 
         public Store GetStore(int id)
@@ -81,10 +83,10 @@ namespace LastTest.Models
         //    db.SaveChanges();
         //    return true;
         //}
-        public void Delete(int id)
-        {
-            stores.RemoveAll(p => p.ID == id);
-        }
+        //public void Delete(int id)
+        //{
+        //    stores.RemoveAll(p => p.ID == id);
+        //}
         public string SearchList(string id)
         {
             var store= db.Stores.Where(a => a.NameStore.Contains(id)).Select(a => new{a.ID, a.NameStore, a.Address, a.Avatar, a.Cover, a.Rep, a.Latitude, a.Longtitude}).ToList();
@@ -95,7 +97,7 @@ namespace LastTest.Models
 
         public List<Store> GetTopStore()
         {
-            var top = stores.OrderByDescending(p => p.Rep).Take(5);
+            var top = stores.OrderByDescending(p => p.Rep).Take(6);
             return top.ToList();
         }
     }

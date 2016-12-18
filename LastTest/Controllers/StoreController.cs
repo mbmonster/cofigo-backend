@@ -8,11 +8,11 @@ using System.Web.Http;
 using LastTest.Models;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-
+using LastTest.COR;
 
 namespace LastTest.Controllers
 {
-
+    [AllowCrossSiteJson]
     public class StoreController : ApiController
     {
       
@@ -21,7 +21,7 @@ namespace LastTest.Controllers
         [HttpGet]
         public IEnumerable<Store> Get([FromUri] string page)
         {
-            int index = (Convert.ToInt32(page)-1)*2;
+            int index = (Convert.ToInt32(page)-1)*6;
             return storeManager.GetStores(index);
         }
         [HttpGet]
@@ -39,15 +39,15 @@ namespace LastTest.Controllers
         //{
         //    storeManager.UpdateStore(store);
         //}
-        public void Delete(int id)
-        {
-            Store store = storeManager.GetStore(id);
-            if (store == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            storeManager.Delete(id);
-        }
+        //public void Delete(int id)
+        //{
+        //    Store store = storeManager.GetStore(id);
+        //    if (store == null)
+        //    {
+        //        throw new HttpResponseException(HttpStatusCode.NotFound);
+        //    }
+        //    storeManager.Delete(id);
+        //}
 
         [HttpGet]
         

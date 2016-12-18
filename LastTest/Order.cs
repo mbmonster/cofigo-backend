@@ -20,11 +20,14 @@ namespace LastTest
             this.OrderDetails = new HashSet<OrderDetail>();
         }
     
-        public int ID { get; set; }
+        public string ID { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> IDShip { get; set; }
         public string IDCustomer { get; set; }
         public string Status { get; set; }
+        public string SDT { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longtitude { get; set; }
     
         public virtual Ship Ship { get; set; }
         public virtual User User { get; set; }

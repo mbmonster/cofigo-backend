@@ -16,11 +16,17 @@ using Microsoft.Owin.Security.OAuth;
 using LastTest.Models;
 using LastTest.Providers;
 using LastTest.Results;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+using System.Web.Http.Cors;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace LastTest.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -52,18 +58,26 @@ namespace LastTest.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
+      
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
+        public HttpResponseMessage GetUserInfo()
         {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            CoffeeServicesEntities db = new CoffeeServicesEntities();
+            string id = User.Identity.GetUserName();
+            var hrm = new HttpResponseMessage();
+            var userDB = db.Users.FirstOrDefault(x => x.ID == id);
+            Dictionary<string, object> user = new Dictionary<string, object>();
+            user.Add("ID", userDB.ID);
+            user.Add("Account", userDB.Account);
+            user.Add("DisplayName", userDB.DisplayName);
+            user.Add("Rep", userDB.Rep);
+            user.Add("Coin", userDB.Coin);
+            user.Add("Avatar", userDB.Avatar);
+            hrm.Content = new StringContent(JsonConvert.SerializeObject(user));
+            hrm.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return new UserInfoViewModel
-            {
-                Email = User.Identity.GetUserName(),
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
+            return hrm;
         }
 
         // POST api/Account/Logout
@@ -219,7 +233,7 @@ namespace LastTest.Controllers
 
             return Ok();
         }
-
+        
         // GET api/Account/ExternalLogin
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
@@ -227,6 +241,7 @@ namespace LastTest.Controllers
         [Route("ExternalLogin", Name = "ExternalLogin")]
         public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
+
             if (error != null)
             {
                 return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
@@ -238,7 +253,7 @@ namespace LastTest.Controllers
             }
 
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
+           
             if (externalLogin == null)
             {
                 return InternalServerError();
@@ -252,15 +267,15 @@ namespace LastTest.Controllers
 
             ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
-
+            
             bool hasRegistered = user != null;
 
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -271,10 +286,46 @@ namespace LastTest.Controllers
             {
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
                 ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+                //var claimsforUser = await UserManager.GetClaimsAsync(identity.GetUserId());
+                CoffeeServicesEntities db = new CoffeeServicesEntities();
+                string userID = identity.GetUserId();
+                var userDB = db.Users.FirstOrDefault(x => x.ID == userID);
+                if (userID == null)
+                {
+                    string email = identity.FindFirstValue(ClaimTypes.Email);
+                    string avatar = "http://graph.facebook.com/" + identity.GetUserId() + "/picture";
+                    db.Users.Add(new User { ID = identity.GetUserId(), Account = email, Avatar = avatar, DisplayName = identity.GetUserName(), Coin = 5000, Rep = 0, Role = "USER" });
+                    db.SaveChanges();
+                }
+               
                 Authentication.SignIn(identity);
+                
             }
+            ClaimsIdentity oAuthIdentity2 = new ClaimsIdentity(Startup.OAuthOptions.AuthenticationType);
 
-            return Ok();
+            oAuthIdentity2.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+            oAuthIdentity2.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+
+            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity2, new AuthenticationProperties());
+
+            DateTime currentUtc = DateTime.UtcNow;
+            ticket.Properties.IssuedUtc = currentUtc;
+            ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(365));
+
+            string accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+            Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            // Create the response building a JSON object that mimics exactly the one issued by the default /Token endpoint
+            //JObject token = new JObject(
+            //    new JProperty("userName", user.UserName),
+            //    new JProperty("userId", user.Id),
+            //    new JProperty("access_token", accessToken),
+            //    new JProperty("token_type", "bearer"),
+            //    new JProperty("expires_in", TimeSpan.FromDays(365).TotalSeconds.ToString()),
+            //    new JProperty("issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
+            //    new JProperty("expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))
+            //);
+            return Redirect(new Uri("http://localhost:4200/signin?access_token=" + accessToken + "&expires=" + currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'")));
+
         }
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
@@ -425,17 +476,21 @@ namespace LastTest.Controllers
             public string LoginProvider { get; set; }
             public string ProviderKey { get; set; }
             public string UserName { get; set; }
-
+            public string Email { get; set; }
+            public string AccessToken { get; set; }
             public IList<Claim> GetClaims()
             {
                 IList<Claim> claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider));
-
+              
                 if (UserName != null)
                 {
                     claims.Add(new Claim(ClaimTypes.Name, UserName, null, LoginProvider));
                 }
-
+                if (Email != null)
+                {
+                    claims.Add(new Claim(ClaimTypes.Email, Email, null, LoginProvider));
+                }
                 return claims;
             }
 
@@ -463,7 +518,8 @@ namespace LastTest.Controllers
                 {
                     LoginProvider = providerKeyClaim.Issuer,
                     ProviderKey = providerKeyClaim.Value,
-                    UserName = identity.FindFirstValue(ClaimTypes.Name)
+                    UserName = identity.FindFirstValue(ClaimTypes.Name),
+                    Email = identity.FindFirstValue(ClaimTypes.Email)
                 };
             }
         }

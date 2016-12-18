@@ -34,6 +34,7 @@ namespace LastTest.Models
                                  Price = item.Price,
                                  Selled = item.Selled,
                                  OfferPercent = item.OfferPercent,
+                                 Image = item.Image,
                                  IDStore = item.IDStore
                              });
             }
@@ -57,10 +58,13 @@ namespace LastTest.Models
                                 a.Selled,
                                 a.OfferPercent,
                                 a.IDStore,
+                                a.Image,
                                 a.Store.NameStore,
-                                a.Store.Address
-                            }).OrderBy(s=>s.OfferPercent)
-                    .Skip(index).Take(10)
+                                a.Store.Address,
+                                a.Store.Latitude,
+                                a.Store.Longtitude
+                            }).OrderByDescending(s=>s.OfferPercent)
+                    .Skip(index).Take(12)
                     .ToList();
             //var dsa = (from mn in db.Menus
             // join st in db.Stores on mn.IDStore equals st.ID

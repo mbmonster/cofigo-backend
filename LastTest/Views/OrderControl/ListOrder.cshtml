@@ -1,0 +1,103 @@
+﻿@using System.Data.SqlClient
+@*@model IEnumerable<LastTest.Models.OrderInfo>*@
+@model PagedList.IPagedList<LastTest.Models.OrderInfo>
+    @using PagedList.Mvc;
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <!DOCTYPE HTML>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ListOrder</title>
+        @*@Html.Partial("Script")*@
+
+    </head>
+    <body>
+
+                <div class="card">
+                    <div class="card-header" data-background-color="purple">
+                        <h4 class="category">Danh Sách Các Order</h4>
+                        @using (Html.BeginForm("Reload", "OrderControl", FormMethod.Post))
+                        {
+                                @Html.DropDownList("Status", null, "Chọn kiểu Order", new { @class = "btn dropdown-toggle", @style = "background-color: #00bcd4" })
+                                <input type="submit" value="Chọn" class="btn btn-info"/>
+                        }
+                        
+                    </div>
+                    <div class="card-content table-responsive table-full-width">
+                        <table class="table">
+                            <thead class="text-primary">
+                            <tr>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.ID)*@ID
+                                </th>
+                                <th class="sorting">
+                                    @*@Html.DisplayNameFor(model => model.Date)*@
+                                    @Html.ActionLink("Ngày Gởi", "ListOrder", new {sortOrder = ViewBag.DateSort})
+                                </th>
+                                <th>
+                                    Tổng tiền
+                                </th>
+
+                                <th class="sorting">
+                                    @*@Html.DisplayNameFor(model => model.Status)*@
+                                    @Html.ActionLink("Tình trạng", "ListOrder", new {sortOrder = ViewBag.StatusSort})
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.DisplayName)*@DisplayName
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.SDT)*@SDT
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DisplayName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SDT)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("UpdateOrder", "OrderControl", new {id = item.ID})">
+                                            <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                                <i class="material-icons">mode_edit</i>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                        <div class="text-center">
+                            @Html.PagedListPager(Model, page => Url.Action("ListOrder", new { page, pageSize = Model.PageSize }))
+                            Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount
+                        </div>
+                        
+                    </div>
+                    </div>
+
+    </body>
+</html>

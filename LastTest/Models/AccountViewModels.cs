@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LastTest.Models
 {
     // Models returned by AccountController actions.
-
+   
     public class ExternalLoginViewModel
     {
         public string Name { get; set; }
@@ -32,6 +33,7 @@ namespace LastTest.Models
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+        public string Name { get; set; }
     }
 
     public class UserLoginInfoViewModel

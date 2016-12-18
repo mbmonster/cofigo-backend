@@ -1,0 +1,64 @@
+﻿@model IEnumerable<LastTest.Store>
+
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <!DOCTYPE HTML>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ViewStore</title>
+       @Html.Partial("Script")
+    </head>
+    <body>
+    <div>
+
+            <div class="card">
+                <div class="card-header" data-background-color="purple">
+                    <h4 class="category">Danh Sách Các Quán Cafe</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-primary">
+                        <th>
+                            @Html.DisplayNameFor(model => model.ID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NameStore)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Avatar)
+                        </th>
+
+                        <th></th>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NameStore)
+                                </td>
+
+                                <td>
+                                    <img src="@item.Avatar" style="width: 100px; height: 100px" />
+                                </td>
+
+                                <td>
+                                    <a href="@Url.Action("StoreDetails", "StoreAction")"><button class="btn btn-primary btn-round"><i class="material-icons">visibility</i> Details<div class="ripple-container"></div></button></a>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

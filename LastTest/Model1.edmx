@@ -5,6 +5,12 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CoffeeServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Menu">
           <Key>
             <PropertyRef Name="ID" />
@@ -16,28 +22,35 @@
           <Property Name="Selled" Type="int" />
           <Property Name="IDStore" Type="int" />
 <<<<<<< HEAD
+<<<<<<< HEAD
           <Property Name="Image" Type="nvarchar" MaxLength="50" />
 =======
           <Property Name="Image" Type="nvarchar" MaxLength="100" />
 >>>>>>> origin/hoang
+=======
+          <Property Name="Image" Type="nvarchar" MaxLength="100" />
+>>>>>>> 35467b2a34e3cb794bd47f25aa24e73ab4ca6e47
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Date" Type="date" />
+          <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
           <Property Name="IDShip" Type="int" />
           <Property Name="IDCustomer" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longtitude" Type="float" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Quantity" Type="int" />
-          <Property Name="IDOrder" Type="int" />
+          <Property Name="IDOrder" Type="nvarchar" MaxLength="50" />
           <Property Name="IDMenu" Type="int" />
         </EntityType>
         <EntityType Name="Promotion">
@@ -183,6 +196,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CoffeeServicesModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
@@ -238,23 +252,30 @@
           <NavigationProperty Name="OrderDetails1" Relationship="CoffeeServicesModel.FK_OrderDetails_Drink1" FromRole="Menu" ToRole="OrderDetail" />
           <NavigationProperty Name="Promotions1" Relationship="CoffeeServicesModel.FK_Promotion_Drink1" FromRole="Menu" ToRole="Promotion" />
 <<<<<<< HEAD
+<<<<<<< HEAD
           <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
 =======
           <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
 >>>>>>> origin/hoang
+=======
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+>>>>>>> 35467b2a34e3cb794bd47f25aa24e73ab4ca6e47
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="IDShip" Type="Int32" />
           <Property Name="IDCustomer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ship" Relationship="Self.FK_Order_Ship" FromRole="Order" ToRole="Ship" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetails" />
+          <Property Name="SDT" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longtitude" Type="Double" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -262,7 +283,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
-          <Property Name="IDOrder" Type="Int32" />
+          <Property Name="IDOrder" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_Order" FromRole="OrderDetails" ToRole="Order" />
           <Property Name="IDMenu" Type="Int32" />
           <NavigationProperty Name="Menu1" Relationship="CoffeeServicesModel.FK_OrderDetails_Drink1" FromRole="OrderDetail" ToRole="Menu" />
@@ -428,6 +449,7 @@
             <End EntitySet="Menus" Role="Menu" />
             <End EntitySet="Promotions" Role="Promotion" />
           </AssociationSet>
+          <EntitySet Name="Admins" EntityType="CoffeeServicesModel.Admin" />
         </EntityContainer>
         <Association Name="FK_OrderDetails_Drink1">
           <End Type="CoffeeServicesModel.Menu" Role="Menu" Multiplicity="0..1" />
@@ -453,6 +475,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -475,6 +503,9 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="CoffeeServicesModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="IDShip" ColumnName="IDShip" />
@@ -553,6 +584,13 @@
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Rep" ColumnName="Rep" />
                 <ScalarProperty Name="Coin" ColumnName="Coin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="CoffeeServicesModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

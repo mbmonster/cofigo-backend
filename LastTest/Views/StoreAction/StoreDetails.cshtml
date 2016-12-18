@@ -1,0 +1,167 @@
+﻿@*@model IEnumerable<LastTest.Store>*@
+@model PagedList.IPagedList<LastTest.Store>
+    @using PagedList.Mvc;
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <!DOCTYPE HTML>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>ViewStore</title>
+        @*@Html.Partial("Script")*@
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style>
+        
+        
+    </head>
+    <body>
+        <div class="card">
+
+            <div class="card-header" data-background-color="purple">
+
+                <h4 class="category">Danh Sách Chi Tiết</h4>
+                
+                
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-primary">
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.ID)*@ID
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.NameStore)*@NameStore
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Address)*@Address
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Avatar)*@Avatar
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Rep)*@Rep
+                    </th>
+
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Mobile)*@Mobile
+                    </th>
+                    <th>
+                        @Html.DisplayName("Vị trí")
+                    </th>
+                    <th></th>
+
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NameStore)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                <img src="@item.Avatar" style="width: 50px; height: 50px"/>
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rep)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mobile)
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => item.Latitude)*@
+                                <button class="btn btn-primary btn-round btn-fab btn-fab-mini" data-toggle="modal" data-target="#myModal" onclick=" initMap(@item.Latitude, @item.Longtitude) "><i class=" material-icons">visibility</i>
+                                </button>
+                            </td>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.Longtitude)
+                            </td>*@
+
+                            <td style="width: 100px">
+                                <a href="@Url.Action("EditStore", "StoreAction", new {id = item.ID})">
+                                    <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                        <i class="material-icons">mode_edit</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </a>
+
+
+                                <a href="@Url.Action("DeleteStore", "StoreAction", new {id = item.ID})">
+                                    <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                        <i class="material-icons">delete_forever</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <div class="text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("StoreDetails", new { page, pageSize = Model.PageSize }))
+                    Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        <!-- Sart Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="material-icons">clear</i>
+                        </button>
+                        <h4 class="modal-title">BAN DO</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="map" style="margin-top: 0"></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <!--  End Modal -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvYH83b5lSxsMNGWFT2DJQyNH90cFbFV8"
+            async defer>
+        
+    </script>
+        <script>
+    function initMap(lat, lng) {
+        if (lat && lng) {
+            setTimeout(function () {
+                console.log(lat, lng);
+                var uluru = { lat: lat, lng: lng };
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 18,
+                    center: uluru
+                });
+                var marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map
+                });
+            }, 500);
+            
+        } 
+
+    }
+        </script>
+
+    </body>
+</html>
