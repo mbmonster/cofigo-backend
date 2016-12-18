@@ -24,7 +24,7 @@ namespace LastTest.Controllers
         public HttpResponseMessage AddOrder([FromBody] Dictionary<string,string> value)
         {
             List<OrderDetail> res = (List<OrderDetail>)JsonConvert.DeserializeObject(value["arrayMenu"], typeof(List<OrderDetail>));
-            return orderManager.AddOrder(res, value["ID"], Convert.ToInt32(value["IDShip"]), "1112036082153170");
+            return orderManager.AddOrder(res, value["ID"], Convert.ToInt32(value["IDShip"]), "1",value["SDT"],Convert.ToDouble(value["Latitude"]),Convert.ToDouble(value["Longtitude"]));
              
         }
     }

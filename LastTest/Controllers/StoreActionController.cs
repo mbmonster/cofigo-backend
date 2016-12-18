@@ -62,7 +62,6 @@ namespace LastTest.Controllers
             return View();
         }
         [System.Web.Mvc.HttpPost]
-        
         public ActionResult AddStore(Store form)
         {
             try

@@ -26,6 +26,8 @@ namespace LastTest
         public string IDCustomer { get; set; }
         public string Status { get; set; }
         public string SDT { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longtitude { get; set; }
     
         public virtual Ship Ship { get; set; }
         public virtual User User { get; set; }

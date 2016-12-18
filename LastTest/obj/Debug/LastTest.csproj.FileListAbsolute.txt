@@ -60,7 +60,6 @@ E:\ProjectSem3\LastTest\LastTest\bin\Microsoft.Owin.Security.MicrosoftAccount.xm
 E:\ProjectSem3\LastTest\LastTest\bin\System.Web.Http.Owin.xml
 E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.dll
 E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.pdb
-E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.csprojResolveAssemblyReference.cache
 C:\SEM3\DOAN\NEW\cofigo-backend\LastTest\bin\LastTest.dll.config
 C:\SEM3\DOAN\NEW\cofigo-backend\LastTest\bin\LastTest.dll
 C:\SEM3\DOAN\NEW\cofigo-backend\LastTest\bin\LastTest.pdb
@@ -128,3 +127,4 @@ E:\ProjectSem3\LastTest\LastTest\bin\PagedList.dll
 E:\ProjectSem3\LastTest\LastTest\bin\PagedList.xml
 E:\ProjectSem3\LastTest\LastTest\bin\PagedList.Mvc.dll
 E:\ProjectSem3\LastTest\LastTest\bin\PagedList.Mvc.xml
+E:\ProjectSem3\LastTest\LastTest\obj\Debug\LastTest.csprojResolveAssemblyReference.cache
