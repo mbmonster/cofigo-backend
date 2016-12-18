@@ -1,0 +1,62 @@
+﻿@model IEnumerable<LastTest.Store>
+
+@{
+    ViewBag.Title = "GetListStore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List Store</h2>
+        <hr/>
+        @using (Html.BeginForm("GetListStore","StoreMenuAction",FormMethod.Get))
+        {
+            <p style="font-size: 17px">
+                Search Store: @Html.TextBox("searchString")
+                <input type="submit" value="Search"/>
+            </p>
+    
+        }
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Avatar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NameStore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Avatar)" style="width: 75px; height: 75px;"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameStore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            <td>
+                @Html.ActionLink("Menu", "DetailMenu", new {idStore = item.ID})
+            </td>
+        </tr>
+    }
+</table>
+<hr/>
+                      <div>
+                          @Html.ActionLink("Back to List Store", "GetListStore")
+                      </div>
+        
