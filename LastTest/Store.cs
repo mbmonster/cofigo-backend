@@ -22,7 +22,7 @@ namespace LastTest
             this.Menus = new HashSet<Menu>();
             this.Promotions = new HashSet<Promotion>();
         }
-    
+
         public int ID { get; set; }
         [Required(ErrorMessage = "Bạn cần phải nhập Tên")]
         public string NameStore { get; set; }

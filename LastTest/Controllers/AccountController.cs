@@ -17,10 +17,16 @@ using LastTest.Models;
 using LastTest.Providers;
 using LastTest.Results;
 using System.Linq;
+using Newtonsoft.Json.Linq;
+using System.Web.Http.Cors;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+
 namespace LastTest.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -52,19 +58,26 @@ namespace LastTest.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
+      
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
+        public HttpResponseMessage GetUserInfo()
         {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            CoffeeServicesEntities db = new CoffeeServicesEntities();
+            string id = User.Identity.GetUserName();
+            var hrm = new HttpResponseMessage();
+            var userDB = db.Users.FirstOrDefault(x => x.ID == id);
+            Dictionary<string, object> user = new Dictionary<string, object>();
+            user.Add("ID", userDB.ID);
+            user.Add("Account", userDB.Account);
+            user.Add("DisplayName", userDB.DisplayName);
+            user.Add("Rep", userDB.Rep);
+            user.Add("Coin", userDB.Coin);
+            user.Add("Avatar", userDB.Avatar);
+            hrm.Content = new StringContent(JsonConvert.SerializeObject(user));
+            hrm.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            return new UserInfoViewModel
-            {
-                Name = User.Identity.GetUserName(),
-                Email = externalLogin.Email,
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
+            return hrm;
         }
 
         // POST api/Account/Logout
@@ -286,9 +299,32 @@ namespace LastTest.Controllers
                 }
                
                 Authentication.SignIn(identity);
+                
             }
+            ClaimsIdentity oAuthIdentity2 = new ClaimsIdentity(Startup.OAuthOptions.AuthenticationType);
 
-            return Ok();
+            oAuthIdentity2.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+            oAuthIdentity2.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+
+            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity2, new AuthenticationProperties());
+
+            DateTime currentUtc = DateTime.UtcNow;
+            ticket.Properties.IssuedUtc = currentUtc;
+            ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(365));
+
+            string accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+            Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            // Create the response building a JSON object that mimics exactly the one issued by the default /Token endpoint
+            //JObject token = new JObject(
+            //    new JProperty("userName", user.UserName),
+            //    new JProperty("userId", user.Id),
+            //    new JProperty("access_token", accessToken),
+            //    new JProperty("token_type", "bearer"),
+            //    new JProperty("expires_in", TimeSpan.FromDays(365).TotalSeconds.ToString()),
+            //    new JProperty("issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
+            //    new JProperty("expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))
+            //);
+            return Redirect(new Uri("http://localhost:4200/signin?access_token=" + accessToken + "&expires=" + currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'")));
 
         }
 

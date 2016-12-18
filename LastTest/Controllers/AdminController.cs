@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,10 +18,82 @@ namespace TodoMVC.Controllers
     [Authorize]
     public class AdminController : Controller
     {
+
         public AdminController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
         }
+
+        //hoang
+        private CoffeeServicesEntities db = new CoffeeServicesEntities();
+        // GET: Admin
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult ListUser()
+        {
+            var listUser = db.Users.ToList();
+            return View(listUser);
+        }
+
+        public ActionResult EditUser(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.SingleOrDefault(s => s.ID == id);
+            return View(user);
+        }
+
+        [HttpPost, ActionName("EditUser")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUserPost(string id)
+        {
+            var userUpdate = db.Users.Find(id);
+            if (TryUpdateModel(userUpdate, "", new string[] {"ID", "Account", "Role", "DisplayName"}))
+            {
+                try
+                {
+                    db.Entry(userUpdate).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("", "Error Save Data");
+                }
+            }
+            return RedirectToAction("ListUser");
+        }
+
+        public ActionResult DeleteUser(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost, ActionName("DeleteUser")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteUserPost(string id)
+        {
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("ListUser");
+        }
+
+        //HOANG
+
 
         public AdminController(UserManager<ApplicationUser> userManager)
         {
@@ -34,7 +108,7 @@ namespace TodoMVC.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-      
+
 
         //
         // POST: /Account/ExternalLogin
@@ -44,7 +118,8 @@ namespace TodoMVC.Controllers
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Admin", new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(provider,
+                Url.Action("ExternalLoginCallback", "Admin", new {ReturnUrl = returnUrl}));
         }
 
         //
@@ -52,7 +127,7 @@ namespace TodoMVC.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            
+
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
@@ -67,7 +142,7 @@ namespace TodoMVC.Controllers
                 if (exist != null)
                 {
                     var currentUser = UserManager.FindByName(user.UserName);
-                    var roleresult = UserManager.AddToRole(currentUser.Id,"Admin");
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
                 }
                 await SignInAsync(user, isPersistent: false);
                 return RedirectToLocal(returnUrl);
@@ -88,7 +163,7 @@ namespace TodoMVC.Controllers
 
                     string id = info.ExternalIdentity.GetUserId();
 
-                    var userz = new ApplicationUser() { UserName = info.ExternalIdentity.GetUserId(), Email = info.Email };
+                    var userz = new ApplicationUser() {UserName = info.ExternalIdentity.GetUserId(), Email = info.Email};
                     //var exist = db.Admins.FirstOrDefault(m => m.Name == id);
                     //if (exist != null)
                     //{
@@ -113,7 +188,7 @@ namespace TodoMVC.Controllers
             }
         }
 
-    
+
 
         //
         // POST: /Account/LogOff
@@ -133,7 +208,7 @@ namespace TodoMVC.Controllers
             return View();
         }
 
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && UserManager != null)
@@ -145,22 +220,20 @@ namespace TodoMVC.Controllers
         }
 
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager
         {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            get { return HttpContext.GetOwinContext().Authentication; }
         }
 
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+            AuthenticationManager.SignIn(new AuthenticationProperties() {IsPersistent = isPersistent}, identity);
         }
 
         private void AddErrors(IdentityResult result)
@@ -212,7 +285,7 @@ namespace TodoMVC.Controllers
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties() { RedirectUri = RedirectUri };
+                var properties = new AuthenticationProperties() {RedirectUri = RedirectUri};
                 if (UserId != null)
                 {
                     properties.Dictionary[XsrfKey] = UserId;
@@ -220,6 +293,7 @@ namespace TodoMVC.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+
         #endregion
     }
 }

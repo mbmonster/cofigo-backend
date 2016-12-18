@@ -60,7 +60,9 @@ namespace LastTest.Models
                                 a.IDStore,
                                 a.Image,
                                 a.Store.NameStore,
-                                a.Store.Address
+                                a.Store.Address,
+                                a.Store.Latitude,
+                                a.Store.Longtitude
                             }).OrderByDescending(s=>s.OfferPercent)
                     .Skip(index).Take(12)
                     .ToList();

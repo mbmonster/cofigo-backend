@@ -116,7 +116,6 @@ namespace LastTest.Controllers
             store.Latitude = lat;
             store.Longtitude = longt;
             store.Mobile = moblie;
-           
             db.SaveChanges();
             return RedirectToAction("StoreDetails");
             //var stores = db.Stores.First(m => m.ID == id);

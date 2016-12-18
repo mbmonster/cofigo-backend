@@ -30,7 +30,7 @@ namespace LastTest.Models
             
         }
 
-        public HttpResponseMessage AddOrder(List<OrderDetail> list, string ID, int? IDShip, string IDCustomer, string SDT, double Latitude, double Longtitude)
+        public HttpResponseMessage AddOrder(List<OrderDetail> list, string ID, int? IDShip, string IDCustomer, string SDT, double? Latitude, double? Longtitude)
         {
             if (IDShip == null || IDCustomer == null || list == null || ID == null || SDT==null || Latitude == null || Longtitude ==null)
             {
