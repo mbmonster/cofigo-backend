@@ -19,7 +19,7 @@ namespace LastTest.Controllers
                 select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                store = store.Where(s => s.NameStore.Contains(searchString));
+                store = store.Where(s => s.NameStore.Contains(searchString) || s.Address.Contains(searchString));
             }
             return View(store);
         }
