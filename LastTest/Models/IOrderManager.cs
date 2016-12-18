@@ -10,6 +10,6 @@ namespace LastTest.Models
     interface IOrderManager
     {
        
-        HttpResponseMessage AddOrder(List<OrderDetail> list, string ID, int IDShip,string IDCustomer);
+        HttpResponseMessage AddOrder(List<OrderDetail> list, string ID, int? IDShip,string IDCustomer, string SDT, double? Latitude, double? Longtitude);
     }
 }

@@ -30,15 +30,15 @@ namespace LastTest.Models
             
         }
 
-        public HttpResponseMessage AddOrder(List<OrderDetail> list, string ID, int IDShip, string IDCustomer)
+        public HttpResponseMessage AddOrder(List<OrderDetail> list, string ID, int? IDShip, string IDCustomer, string SDT, double? Latitude, double? Longtitude)
         {
-            if (IDShip == null || IDCustomer == null || list == null || ID == null )
+            if (IDShip == null || IDCustomer == null || list == null || ID == null || SDT==null || Latitude == null || Longtitude ==null)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             
             }
             DateTime localDate = DateTime.Now;
-            db.Orders.Add(new Order {ID = ID, IDShip = IDShip, IDCustomer = IDCustomer, Date = localDate, Status = "REQUEST" });
+            db.Orders.Add(new Order {ID = ID, IDShip = IDShip, IDCustomer = IDCustomer, Date = localDate,SDT = SDT,Latitude = Latitude,Longtitude = Longtitude, Status = "REQUEST" });
             foreach (var item in list)
             {
                 item.IDOrder = ID;
@@ -51,6 +51,7 @@ namespace LastTest.Models
             }
             catch (Exception ex)
             {
+                var exMes = ex;
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
  

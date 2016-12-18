@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="CoffeeServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="CoffeeServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Admin">
     <Key>
       <PropertyRef Name="Name" />
@@ -23,11 +23,13 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Date" Type="date" />
+    <Property Name="Date" Type="datetime" />
     <Property Name="IDShip" Type="int" />
     <Property Name="IDCustomer" Type="nvarchar" MaxLength="50" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" />
     <Property Name="SDT" Type="nvarchar" MaxLength="50" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longtitude" Type="float" />
   </EntityType>
   <EntityType Name="OrderDetails">
     <Key>

@@ -1,5 +1,6 @@
-﻿@model IEnumerable<LastTest.Store>
-
+﻿@*@model IEnumerable<LastTest.Store>*@
+@model PagedList.IPagedList<LastTest.Store>
+    @using PagedList.Mvc;
     @{
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
@@ -10,7 +11,7 @@
     <head>
         <meta name="viewport" content="width=device-width" />
         <title>ViewStore</title>
-        @Html.Partial("Script")
+        @*@Html.Partial("Script")*@
         <style>
             #map {
                 height: 400px;
@@ -33,28 +34,29 @@
                 <table class="table">
                     <thead class="text-primary">
                     <th>
-                        @Html.DisplayNameFor(model => model.ID)
+                        @*@Html.DisplayNameFor(model => model.ID)*@ID
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.NameStore)
+                        @*@Html.DisplayNameFor(model => model.NameStore)*@NameStore
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Address)
+                        @*@Html.DisplayNameFor(model => model.Address)*@Address
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Avatar)
+                        @*@Html.DisplayNameFor(model => model.Avatar)*@Avatar
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Rep)
+                        @*@Html.DisplayNameFor(model => model.Rep)*@Rep
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Mobile)
+                        @*@Html.DisplayNameFor(model => model.Mobile)*@Mobile
                     </th>
                     <th>
                         @Html.DisplayName("Vị trí")
                     </th>
                     <th></th>
+
                     </thead>
 
                     @foreach (var item in Model)
@@ -72,7 +74,7 @@
                             <td>
                                 <img src="@item.Avatar" style="width: 50px; height: 50px"/>
                             </td>
-                          
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.Rep)
                             </td>
@@ -81,17 +83,13 @@
                             </td>
                             <td>
                                 @*@Html.DisplayFor(modelItem => item.Latitude)*@
-                                <button class="btn btn-primary btn-round btn-fab btn-fab-mini" data-toggle="modal" data-target="#myModal" onclick="initmap(@item.Latitude, @item.Longtitude )">
-                                    <i class=" material-icons">
-                                    visibility</i>
+                                <button class="btn btn-primary btn-round btn-fab btn-fab-mini" data-toggle="modal" data-target="#myModal" onclick=" initMap(@item.Latitude, @item.Longtitude) "><i class=" material-icons">visibility</i>
                                 </button>
-                           
-
                             </td>
                             @*<td>
                                 @Html.DisplayFor(modelItem => item.Longtitude)
                             </td>*@
-                           
+
                             <td style="width: 100px">
                                 <a href="@Url.Action("EditStore", "StoreAction", new {id = item.ID})">
                                     <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
@@ -113,6 +111,12 @@
                     }
 
                 </table>
+                <div class="text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("StoreDetails", new { page, pageSize = Model.PageSize }))
+                    Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount
+                </div>
+                
+                
             </div>
         </div>
         

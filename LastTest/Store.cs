@@ -22,7 +22,7 @@ namespace LastTest
             this.Menus = new HashSet<Menu>();
             this.Promotions = new HashSet<Promotion>();
         }
-    
+
         public int ID { get; set; }
         [Required(ErrorMessage = "Bạn cần phải nhập Tên")]
         public string NameStore { get; set; }
@@ -32,14 +32,12 @@ namespace LastTest
         public string Avatar { get; set; }
         [Required(ErrorMessage = "Bạn cần phải nhập link file ảnh")]
         public string Cover { get; set; }
-        [Required(ErrorMessage = "Bạn cần phải nhập Rep")]
-        [Range(1,10,ErrorMessage = "Khoảng từ 1 đến 10")]
         public Nullable<int> Rep { get; set; }
-         [Required(ErrorMessage = "Bạn cần phải nhập Latitude")]
+        [Required(ErrorMessage = "Bạn cần phải nhập Latitude")]
         public Nullable<double> Latitude { get; set; }
-         [Required(ErrorMessage = "Bạn cần phải nhập Longtitude")]
+        [Required(ErrorMessage = "Bạn cần phải nhập Longtitude")]
         public Nullable<double> Longtitude { get; set; }
-        [StringLength(11,MinimumLength = 10,ErrorMessage = "10 hoặc 11 số")]
+        [StringLength(11, MinimumLength = 10, ErrorMessage = "10 hoặc 11 số")]
         [Required(ErrorMessage = "Bạn cần phải nhập số điện thoại")]
         public string Mobile { get; set; }
     
