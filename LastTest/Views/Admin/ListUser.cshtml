@@ -1,0 +1,68 @@
+﻿@model IEnumerable<LastTest.User>
+
+@{
+    ViewBag.Title = "ListUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListUser</title>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rep)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayName)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Avatar)" style="width: 75px; height: 75px"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Coin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditUser", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "DeleteUser", new { id = item.ID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

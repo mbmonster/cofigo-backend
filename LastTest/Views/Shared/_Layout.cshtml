@@ -12,7 +12,7 @@
     
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -29,18 +29,19 @@
                 </ul>
             </div>
         </div>
+<<<<<<< HEAD
     </div>
 <div class="container body-content" style="padding-top: 30px">
     <div class="col-md-4" style="padding-top: 5px;">
         @Html.Partial("NavPill")
     </div>
     <div class="col-md-8">
+=======
+    </div>*@
+    <div class="container body-content">
         @RenderBody()
-        </div>
-        <hr />
-        
     </div>
-    <footer class="container">
+    <footer class="container"<p>&copy; @DateTime.Now.Year - Cofigo Team</p>>
         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
     </footer>
     @Scripts.Render("~/bundles/jquery")

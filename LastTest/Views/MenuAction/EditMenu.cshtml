@@ -1,0 +1,76 @@
+﻿@using System.Web.UI.WebControls
+@model LastTest.Models.Listmenu
+
+    @{
+        ViewBag.Title = "EditMenu";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h2>Edit Menu</h2>
+    @using (Html.BeginForm())
+{
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+        <hr/>
+    <table>
+        <tr>
+            <td>
+                Store Name:
+            </td>
+            <td style="width: 34px">
+                @Html.TextBoxFor(model => model.NameStore, string.IsNullOrEmpty(Model.NameStore) ? new { @class = "required Vin" } : (object)new { disabled = "disabled" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.Name, new {@class = "form-control", PlaceHolder = "Name"})
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Price:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.Price, new {@class = "form-control", PlaceHolder = "Price"})
+            </td>
+        </tr>
+        <tr>
+            <td>
+                OfferPercent:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.OfferPercent, new {@class = "form-control", PlaceHolder = "OfferPercent"})
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Selled:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.Selled, new {@class = "form-control", PlaceHolder = "Selled"})
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Image:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.Image, new { @class = "form-control", PlaceHolder = "Image" })
+            </td>
+        </tr>
+    </table>
+    <div class="form-actions no-color">
+        <input type="submit" value="Save Menu" class="btn btn-danger" /> |
+        @Html.ActionLink("Back to List", "ListMenu")
+    </div>
+}
+<p></p>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
