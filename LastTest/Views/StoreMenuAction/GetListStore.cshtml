@@ -4,59 +4,66 @@
     ViewBag.Title = "GetListStore";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>List Store</h2>
-        <hr/>
         @using (Html.BeginForm("GetListStore","StoreMenuAction",FormMethod.Get))
         {
-            <p style="font-size: 17px">
-                Search Store: @Html.TextBox("searchString")
-                <input type="submit" value="Search"/>
-            </p>
-    
+            <div class="clear-fix">
+                <div class="col-md-8">
+                    <div class="form-group label-floating pull-left" style="width: 250px">
+                        <label style="font-size: 20px" class="control-label">Tìm kiếm Store</label>
+                        @Html.TextBox("searchString", null, new { @class = "form-control" })
+                    </div>
+                    <input type="submit" value="Search" class="btn btn-primary" style="position: absolute; top: 20px; left: 280px" />
+                </div>
+            </div>
         }
-<table class="table">
-    <tr>
+<div class="card">
+    <div class="card-header" data-background-color="purple">
 
-        <th>
-            @Html.DisplayNameFor(model => model.Avatar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NameStore)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mobile)
-        </th>
-        <th></th>
-    </tr>
+        <h4 class="category">Danh Sách Store</h4>
+    </div>
+    <div class="card-content table-responsive table-full-width">
+        <table class="table">
+            <thead>
 
-    @foreach (var item in Model)
-    {
-        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NameStore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mobile)
+            </th>
+            </thead>
 
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.Avatar)" style="width: 75px; height: 75px;"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NameStore)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mobile)
-            </td>
-            <td>
-                @Html.ActionLink("Menu", "DetailMenu", new {idStore = item.ID})
-            </td>
-        </tr>
-    }
-</table>
-<hr/>
-                      <div>
-                          @Html.ActionLink("Back to List Store", "GetListStore")
-                      </div>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.Avatar)" style="width: 75px; height: 75px;"/>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameStore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mobile)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Menu", "DetailMenu", new {idStore = item.ID})
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+    <div>
+        @Html.ActionLink("Back to List Store", "GetListStore")
+    </div>
         
