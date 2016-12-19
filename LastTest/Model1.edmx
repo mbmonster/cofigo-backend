@@ -21,15 +21,8 @@
           <Property Name="OfferPercent" Type="int" />
           <Property Name="Selled" Type="int" />
           <Property Name="IDStore" Type="int" />
-<<<<<<< HEAD
-<<<<<<< HEAD
           <Property Name="Image" Type="nvarchar" MaxLength="50" />
-=======
-          <Property Name="Image" Type="nvarchar" MaxLength="100" />
->>>>>>> origin/hoang
-=======
-          <Property Name="Image" Type="nvarchar" MaxLength="100" />
->>>>>>> 35467b2a34e3cb794bd47f25aa24e73ab4ca6e47
+
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -254,15 +247,7 @@
           <NavigationProperty Name="Store" Relationship="Self.FK_Drink_Store" FromRole="Menu" ToRole="Store" />
           <NavigationProperty Name="OrderDetails1" Relationship="CoffeeServicesModel.FK_OrderDetails_Drink1" FromRole="Menu" ToRole="OrderDetail" />
           <NavigationProperty Name="Promotions1" Relationship="CoffeeServicesModel.FK_Promotion_Drink1" FromRole="Menu" ToRole="Promotion" />
-<<<<<<< HEAD
-<<<<<<< HEAD
           <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-=======
-          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
->>>>>>> origin/hoang
-=======
-          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
->>>>>>> 35467b2a34e3cb794bd47f25aa24e73ab4ca6e47
         </EntityType>
         <EntityType Name="Order">
           <Key>
