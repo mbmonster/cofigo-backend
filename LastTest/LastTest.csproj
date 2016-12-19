@@ -238,11 +238,13 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Authorize.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
 
     <Compile Include="Controllers\OrderControlController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ShipController.cs" />
     <Compile Include="Controllers\StoreActionController.cs" />
     <Compile Include="Controllers\MenuActionController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
@@ -276,12 +278,15 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IMenuManager.cs" />
     <Compile Include="Models\IOrderManager.cs" />
+    <Compile Include="Models\IShipManager.cs" />
     <Compile Include="Models\IStoreManager.cs" />
     <Compile Include="Models\IStoreMenuManager.cs" />
     <Compile Include="Models\MenuManager.cs" />
     <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\OrderManager.cs" />
     <Compile Include="Models\Listmenu.cs" />
+    <Compile Include="Models\OrderReceivedModel.cs" />
+    <Compile Include="Models\ShipManager.cs" />
     <Compile Include="Models\StoreManager.cs" />
     <Compile Include="Models\StoreMenuManager.cs" />
     <Compile Include="Order.cs">

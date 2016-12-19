@@ -37,8 +37,33 @@ namespace LastTest.Models
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             
             }
+            double? total = 0;
+            foreach (var item in list)
+            {
+               var menu = db.Menus.FirstOrDefault(m => m.ID == item.IDMenu);
+               if (menu.OfferPercent != null)
+               {
+                   total = total + menu.Price * item.Quantity * (100 - menu.OfferPercent)*100;
+               }
+               else
+               {
+                   total = total + menu.Price * item.Quantity;
+               }
+               
+            }
+            
+            var shipPrice = db.Ships.FirstOrDefault(m => m.ID == IDShip);
+            if (shipPrice.OfferPercent != null)
+            {
+                total = total + shipPrice.Price * (100 - shipPrice.OfferPercent)/100;
+            }
+            else
+            {
+                total = total + shipPrice.Price;
+            }
+            
             DateTime localDate = DateTime.Now;
-            db.Orders.Add(new Order {ID = ID, IDShip = IDShip, IDCustomer = IDCustomer, Date = localDate,SDT = SDT,Latitude = Latitude,Longtitude = Longtitude, Status = "REQUEST" });
+            db.Orders.Add(new Order {ID = ID, IDShip = IDShip, IDCustomer = IDCustomer, Date = localDate,SDT = SDT,Latitude = Latitude,Longtitude = Longtitude, Status = "REQUEST",Total = total });
             foreach (var item in list)
             {
                 item.IDOrder = ID;

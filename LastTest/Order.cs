@@ -28,6 +28,7 @@ namespace LastTest
         public string SDT { get; set; }
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> Longtitude { get; set; }
+        public Nullable<double> Total { get; set; }
     
         public virtual Ship Ship { get; set; }
         public virtual User User { get; set; }
