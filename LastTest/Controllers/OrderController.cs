@@ -8,24 +8,25 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using LastTest.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNet.Identity;
+using System.Web.Http.Cors;
 
 namespace LastTest.Controllers
 {
+    [System.Web.Http.Authorize]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class OrderController : ApiController
     {
         IOrderManager orderManager = new OrderManager();
 
-        
-
-        
-
-       
-   
-        public HttpResponseMessage AddOrder([FromBody] Dictionary<string,string> value)
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        public HttpResponseMessage AddOrder([FromBody] OrderReceivedModel data)
         {
-            List<OrderDetail> res = (List<OrderDetail>)JsonConvert.DeserializeObject(value["arrayMenu"], typeof(List<OrderDetail>));
-            return orderManager.AddOrder(res, value["ID"], Convert.ToInt32(value["IDShip"]), "1",value["SDT"],Convert.ToDouble(value["Latitude"]),Convert.ToDouble(value["Longtitude"]));
-             
+           
+            string user = User.Identity.GetUserName();
+            List<OrderDetail> res = (List<OrderDetail>)JsonConvert.DeserializeObject(data.arrayMenu, typeof(List<OrderDetail>));
+            return orderManager.AddOrder(res, data.ID, data.IDShip, user, data.SDT, data.Latitude, data.Longtitude);
+           
         }
     }
 }

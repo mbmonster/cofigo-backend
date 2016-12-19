@@ -20,7 +20,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
     <Property Name="IDShip" Type="Int32" />
     <Property Name="IDCustomer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
     <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -30,6 +30,7 @@
     <Property Name="SDT" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
     <Property Name="Latitude" Type="Double" />
     <Property Name="Longtitude" Type="Double" />
+    <Property Name="Total" Type="Double" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -66,6 +67,8 @@
     <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="OfferPercent" Type="Int32" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Ship" FromRole="Ship" ToRole="Order" />
+    <Property Name="Min" Type="Int32" />
+    <Property Name="Max" Type="Int32" />
   </EntityType>
   <EntityType Name="Store">
     <Key>

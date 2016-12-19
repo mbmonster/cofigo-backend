@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CoffeeServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CoffeeServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Name" />
@@ -28,13 +28,14 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Date" Type="datetime" />
+          <Property Name="Date" Type="date" />
           <Property Name="IDShip" Type="int" />
           <Property Name="IDCustomer" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="SDT" Type="nvarchar" MaxLength="50" />
           <Property Name="Latitude" Type="float" />
           <Property Name="Longtitude" Type="float" />
+          <Property Name="Total" Type="float" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -66,6 +67,8 @@
           <Property Name="Price" Type="float" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="OfferPercent" Type="int" />
+          <Property Name="Min" Type="int" />
+          <Property Name="Max" Type="int" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -250,7 +253,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="IDShip" Type="Int32" />
           <Property Name="IDCustomer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -260,7 +263,8 @@
           <Property Name="SDT" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Latitude" Type="Double" />
           <Property Name="Longtitude" Type="Double" />
-        </EntityType>
+          <Property Name="Total" Type="Double" />
+          </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
             <PropertyRef Name="ID" />
@@ -296,6 +300,8 @@
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OfferPercent" Type="Int32" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Ship" FromRole="Ship" ToRole="Order" />
+          <Property Name="Min" Type="Int32" />
+          <Property Name="Max" Type="Int32" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -487,6 +493,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="CoffeeServicesModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
@@ -525,6 +532,8 @@
           <EntitySetMapping Name="Ships">
             <EntityTypeMapping TypeName="CoffeeServicesModel.Ship">
               <MappingFragment StoreEntitySet="Ship">
+                <ScalarProperty Name="Max" ColumnName="Max" />
+                <ScalarProperty Name="Min" ColumnName="Min" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
