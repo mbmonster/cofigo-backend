@@ -323,6 +323,7 @@
     <Content Include="Content\demo.css" />
     <Content Include="Content\material-dashboard.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\sweetalert2.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -380,6 +381,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sweetalert2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

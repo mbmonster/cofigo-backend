@@ -13,56 +13,76 @@
     <title>ListUser</title>
 </head>
 <body>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Avatar)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Role)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Coin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DisplayName)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.Avatar)" style="width: 75px; height: 75px"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Account)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Coin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DisplayName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditUser", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "DeleteUser", new { id = item.ID })
-            </td>
-        </tr>
-    }
-    
-    </table>
+<div class="card">
+    <div class="card-header" data-background-color="purple">
+
+        <h4 class="category">Danh sách khách hàng</h4>
+    </div>
+    <div class="card-content table-responsive table-full-width">
+        <table class="table">
+            <thead class="text-primary">
+                <th>
+                    @Html.DisplayNameFor(model => model.Avatar)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Account)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Role)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rep)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Coin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DisplayName)
+                </th>
+                <th></th>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.Avatar)" style="width: 75px; height: 75px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rep)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Coin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DisplayName)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("EditUser", "Admin", new {id = item.ID})">
+                            <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                <i class="material-icons">mode_edit</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </a>
+                        <a href="@Url.Action("DeleteUser", "Admin", new {id = item.ID})">
+                            <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                <i class="material-icons">delete_forever</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
 </body>
 </html>
