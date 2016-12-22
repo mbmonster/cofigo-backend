@@ -54,7 +54,9 @@ namespace LastTest.Controllers
                                od.Date,
                                od.Status,
                                us.DisplayName,
-                               od.SDT
+                               od.SDT,
+                               od.Latitude,
+                               od.Longtitude
                            };
                 //xắp xếp
                 switch (sortOrder)
@@ -73,7 +75,7 @@ namespace LastTest.Controllers
                 
                 foreach (var item in list)
                 {
-                    listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,item.DisplayName,item.SDT));
+                    listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,item.DisplayName,item.SDT,item.Latitude,item.Longtitude));
                 }
                 //paging 
                 PagedList<OrderInfo> order = new PagedList<OrderInfo>(listorder,page,pageSize);
@@ -111,13 +113,15 @@ namespace LastTest.Controllers
                                od.Date,
                                od.Status,
                                us.DisplayName,
-                               od.SDT
+                               od.SDT,
+                               od.Latitude,
+                               od.Longtitude
                            };
                 
                 foreach (var item in list)
                 {
                     listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,
-                        item.DisplayName, item.SDT));
+                        item.DisplayName, item.SDT, item.Latitude, item.Longtitude));
                 }
                 PagedList<OrderInfo> order = new PagedList<OrderInfo>(listorder, page, pageSize);
                

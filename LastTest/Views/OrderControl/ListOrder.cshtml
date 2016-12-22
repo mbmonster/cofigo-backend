@@ -13,91 +13,139 @@
         <meta name="viewport" content="width=device-width" />
         <title>ListOrder</title>
         @*@Html.Partial("Script")*@
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style>
 
     </head>
     <body>
 
-                <div class="card">
-                    <div class="card-header" data-background-color="purple">
-                        <h4 class="category">Danh Sách Các Order</h4>
-                        @using (Html.BeginForm("Reload", "OrderControl", FormMethod.Post))
-                        {
-                                @Html.DropDownList("Status", null, "Chọn kiểu Order", new { @class = "btn dropdown-toggle", @style = "background-color: #00bcd4" })
-                                <input type="submit" value="Chọn" class="btn btn-info"/>
-                        }
-                        
+    <div class="card">
+        <div class="card-header" data-background-color="purple">
+            <h4 class="category">Danh Sách Các Order</h4>
+            @using (Html.BeginForm("Reload", "OrderControl", FormMethod.Post))
+            {
+                @Html.DropDownList("Status", null, "Chọn kiểu Order", new {@class = "btn dropdown-toggle", @style = "background-color: #00bcd4"})
+                <input type="submit" value="Chọn" class="btn btn-info"/>
+            }
+
+        </div>
+        <div class="card-content table-responsive table-full-width">
+            <table class="table">
+                <thead class="text-primary">
+                <tr>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.ID)*@ID
+                    </th>
+                    <th class="sorting">
+                        @*@Html.DisplayNameFor(model => model.Date)*@
+                        @Html.ActionLink("Ngày Gởi", "ListOrder", new {sortOrder = ViewBag.DateSort})
+                    </th>
+                    <th>
+                        Tổng tiền
+                    </th>
+
+                    <th class="sorting">
+                        @*@Html.DisplayNameFor(model => model.Status)*@
+                        @Html.ActionLink("Tình trạng", "ListOrder", new {sortOrder = ViewBag.StatusSort})
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.DisplayName)*@DisplayName
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.SDT)*@SDT
+                    </th>
+                    <th></th>
+                </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SDT)
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-round btn-fab btn-fab-mini" data-toggle="modal" data-target="#myModal" onclick="initMap(@item.Latitude, @item.Longtitude) ">
+                                <i class=" material-icons">visibility</i>
+                            </button>
+                            <a href="@Url.Action("UpdateOrder", "OrderControl", new {id = item.ID})">
+                                <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                    <i class="material-icons">mode_edit</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <div class="text-center">
+                @Html.PagedListPager(Model, page => Url.Action("ListOrder", new {page, pageSize = Model.PageSize}))
+                Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount
+            </div>
+
+        </div>
+    </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="material-icons">clear</i>
+                        </button>
+                        <h4 class="modal-title">BAN DO</h4>
                     </div>
-                    <div class="card-content table-responsive table-full-width">
-                        <table class="table">
-                            <thead class="text-primary">
-                            <tr>
-                                <th>
-                                    @*@Html.DisplayNameFor(model => model.ID)*@ID
-                                </th>
-                                <th class="sorting">
-                                    @*@Html.DisplayNameFor(model => model.Date)*@
-                                    @Html.ActionLink("Ngày Gởi", "ListOrder", new {sortOrder = ViewBag.DateSort})
-                                </th>
-                                <th>
-                                    Tổng tiền
-                                </th>
-
-                                <th class="sorting">
-                                    @*@Html.DisplayNameFor(model => model.Status)*@
-                                    @Html.ActionLink("Tình trạng", "ListOrder", new {sortOrder = ViewBag.StatusSort})
-                                </th>
-                                <th>
-                                    @*@Html.DisplayNameFor(model => model.DisplayName)*@DisplayName
-                                </th>
-                                <th>
-                                    @*@Html.DisplayNameFor(model => model.SDT)*@SDT
-                                </th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Date)
-                                    </td>
-                                    <td>
-
-                                    </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Status)
-
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DisplayName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.SDT)
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("UpdateOrder", "OrderControl", new {id = item.ID})">
-                                            <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
-                                                <i class="material-icons">mode_edit</i>
-                                                <div class="ripple-container"></div>
-                                            </button>
-                                        </a>
-
-                                    </td>
-                                </tr>
-                            }
-
-                        </table>
-                        <div class="text-center">
-                            @Html.PagedListPager(Model, page => Url.Action("ListOrder", new { page, pageSize = Model.PageSize }))
-                            Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount
-                        </div>
-                        
-                    </div>
+                    <div class="modal-body">
+                        <div id="map" style="margin-top: 0"></div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvYH83b5lSxsMNGWFT2DJQyNH90cFbFV8"
+                async defer>
+
+        </script>
+        <script>
+    function initMap(lat, lng) {
+        if (lat && lng) {
+            setTimeout(function () {
+                console.log(lat, lng);
+                var uluru = { lat: lat, lng: lng };
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 18,
+                    center: uluru
+                });
+                var marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map
+                });
+            }, 500);
+
+        }
+
+    }
+        </script>
     </body>
 </html>
