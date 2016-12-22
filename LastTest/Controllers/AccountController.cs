@@ -64,7 +64,7 @@ namespace LastTest.Controllers
         public HttpResponseMessage GetUserInfo()
         {
             CoffeeServicesEntities db = new CoffeeServicesEntities();
-            string id = User.Identity.GetUserName();
+            string id = User.Identity.GetUserId();
             var hrm = new HttpResponseMessage();
             var userDB = db.Users.FirstOrDefault(x => x.ID == id);
             Dictionary<string, object> user = new Dictionary<string, object>();
@@ -273,14 +273,24 @@ namespace LastTest.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-
                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
                    OAuthDefaults.AuthenticationType);
+
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
                 AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
+                AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties());
+
+                DateTime currentUtc = DateTime.UtcNow;
+                ticket.Properties.IssuedUtc = currentUtc;
+                ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(365));
+
+                string accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+                Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                return Redirect(new Uri("http://localhost:4200/signin?access_token=" + accessToken + "&expires=" + currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'")));
+
             }
             else
             {
@@ -290,30 +300,27 @@ namespace LastTest.Controllers
                 CoffeeServicesEntities db = new CoffeeServicesEntities();
                 string userID = identity.GetUserId();
                 var userDB = db.Users.FirstOrDefault(x => x.ID == userID);
-                if (userID == null)
+                if (userDB == null)
                 {
                     string email = identity.FindFirstValue(ClaimTypes.Email);
                     string avatar = "http://graph.facebook.com/" + identity.GetUserId() + "/picture";
                     db.Users.Add(new User { ID = identity.GetUserId(), Account = email, Avatar = avatar, DisplayName = identity.GetUserName(), Coin = 5000, Rep = 0, Role = "USER" });
                     db.SaveChanges();
                 }
-               
-                Authentication.SignIn(identity);
                 
+                Authentication.SignIn(identity);
+                AuthenticationTicket ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
+
+                DateTime currentUtc = DateTime.UtcNow;
+                ticket.Properties.IssuedUtc = currentUtc;
+                ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(365));
+
+                string accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+                Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                return Redirect(new Uri("http://localhost:4200/signin?access_token=" + accessToken + "&expires=" + currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'")));
             }
-            ClaimsIdentity oAuthIdentity2 = new ClaimsIdentity(Startup.OAuthOptions.AuthenticationType);
-
-            oAuthIdentity2.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-            oAuthIdentity2.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-
-            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity2, new AuthenticationProperties());
-
-            DateTime currentUtc = DateTime.UtcNow;
-            ticket.Properties.IssuedUtc = currentUtc;
-            ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(365));
-
-            string accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
-            Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            return null;
+            
             // Create the response building a JSON object that mimics exactly the one issued by the default /Token endpoint
             //JObject token = new JObject(
             //    new JProperty("userName", user.UserName),
@@ -324,7 +331,7 @@ namespace LastTest.Controllers
             //    new JProperty("issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
             //    new JProperty("expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))
             //);
-            return Redirect(new Uri("http://localhost:4200/signin?access_token=" + accessToken + "&expires=" + currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'")));
+            
 
         }
 

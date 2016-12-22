@@ -23,7 +23,7 @@ namespace LastTest.Controllers
         public HttpResponseMessage AddOrder([FromBody] OrderReceivedModel data)
         {
            
-            string user = User.Identity.GetUserName();
+            string user = User.Identity.GetUserId();
             List<OrderDetail> res = (List<OrderDetail>)JsonConvert.DeserializeObject(data.arrayMenu, typeof(List<OrderDetail>));
             return orderManager.AddOrder(res, data.ID, data.IDShip, user, data.SDT, data.Latitude, data.Longtitude);
            

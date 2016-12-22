@@ -43,7 +43,7 @@ namespace LastTest.Models
                var menu = db.Menus.FirstOrDefault(m => m.ID == item.IDMenu);
                if (menu.OfferPercent != null)
                {
-                   total = total + menu.Price * item.Quantity * (100 - menu.OfferPercent)*100;
+                   total = total + menu.Price * item.Quantity * (100 - menu.OfferPercent)/100;
                }
                else
                {
@@ -61,9 +61,19 @@ namespace LastTest.Models
             {
                 total = total + shipPrice.Price;
             }
-            
+            var total1 = total;
             DateTime localDate = DateTime.Now;
-            db.Orders.Add(new Order {ID = ID, IDShip = IDShip, IDCustomer = IDCustomer, Date = localDate,SDT = SDT,Latitude = Latitude,Longtitude = Longtitude, Status = "REQUEST",Total = total });
+            var newOrder = new Order { ID = ID, IDShip = IDShip, IDCustomer = IDCustomer, Date = localDate, SDT = SDT, Latitude = Latitude, Longtitude = Longtitude, Status = "REQUEST", Total = total };
+            db.Orders.Add(newOrder);
+            try
+            {
+                 db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                var exMes = ex;
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
             foreach (var item in list)
             {
                 item.IDOrder = ID;
