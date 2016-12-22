@@ -46,7 +46,7 @@ namespace LastTest.Controllers
             {
                 var list = from od in db.Orders
                     join us in db.Users on od.IDCustomer equals us.ID
-                    select new
+                select new
                            {
                                od.ID,
                                od.IDCustomer,
@@ -57,6 +57,7 @@ namespace LastTest.Controllers
                                od.SDT,
                                od.Latitude,
                                od.Longtitude
+                               
                            };
                 //xắp xếp
                 switch (sortOrder)
@@ -179,7 +180,12 @@ namespace LastTest.Controllers
             }
             return RedirectToAction("ListOrder");
         }
+        [HttpGet]
+        public ActionResult MenuOrder(string id)
+        {
+            var list = db.OrderDetails.Where(m => m.IDOrder == id).ToList();
 
-       
+            return View(list);
+        }
     }
 }

@@ -241,7 +241,6 @@
     <Compile Include="Controllers\Authorize.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
-
     <Compile Include="Controllers\OrderControlController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ShipController.cs" />
@@ -424,6 +423,7 @@
     <Content Include="Views\StoreMenuAction\EditMenu.cshtml" />
     <Content Include="Views\StoreMenuAction\DeleteMenu.cshtml" />
     <Content Include="Views\StoreMenuAction\AddMenu.cshtml" />
+    <Content Include="Views\OrderControl\MenuOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
