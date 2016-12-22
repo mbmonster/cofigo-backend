@@ -73,11 +73,20 @@
                     <td>
                         <img src="@Html.DisplayFor(modelItem => item.Image)" style="width: 75px; height: 75px;" />
                     </td>
-                    <td>
-                        @Html.ActionLink("Edit", "EditMenu", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "DeleteMenu", new { id = item.ID })
+                    <td style="width: 100px">
+                        <a href="@Url.Action("EditMenu", "StoreMenuAction", new {id = item.ID})">
+                            <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                <i class="material-icons">mode_edit</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </a>
+                        <a href="@Url.Action("DeleteMenu", "StoreMenuAction", new {id = item.ID})">
+                            <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
+                                <i class="material-icons">delete_forever</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </a>
                     </td>
-
                 </tr>
             }
         </table>
@@ -88,3 +97,6 @@
 
         @Html.PagedListPager(Model, page => Url.Action("DetailMenu",
             new { idStore = @ViewBag.IdStore, page, sortString = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        <div>
+            <a class="pull-left btn btn-primary" href="@Url.Action("GetListStore", "StoreMenuAction")">Quay lại</a>
+        </div>
