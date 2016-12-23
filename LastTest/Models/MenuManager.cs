@@ -15,26 +15,30 @@ namespace LastTest.Models
             
                         select new
                                {
+                                   mn.ID,
                                    mn.Name,
                                    mn.Price,
                                    mn.OfferPercent,
                                    mn.Selled,
                                    mn.Image,
+                                   mn.IDStore,
                                    st.NameStore,
                                    st.Address,
                                    st.Latitude,
                                    st.Longtitude
+                                  
                                }).ToList();
             foreach (var item in menu)
             {
                 menus.Add(new MenuStoreInfo
                           {
-                              
+                              ID = item.ID,
                               Name = item.Name,
                               Price = Convert.ToDouble(item.Price),
                               OfferPercent = Convert.ToInt32(item.OfferPercent),
                               Selled = Convert.ToInt32(item.Selled),
                               Image = item.Image,
+                              IDStore = Convert.ToInt32(item.IDStore),
                               NameStore = item.NameStore,
                               Address = item.Address,
                               Latitude = Convert.ToDouble(item.Latitude),
@@ -44,7 +48,7 @@ namespace LastTest.Models
         }
         public List<MenuStoreInfo> GetTopOfferMenu(int index)
         {
-            var offermenu = menus.OrderByDescending(p => p.OfferPercent).Skip(index).Take(6).ToList();
+            var offermenu = menus.OrderByDescending(p => p.OfferPercent).Skip(index).Take(12).ToList();
             return offermenu;
         }
 
@@ -52,7 +56,7 @@ namespace LastTest.Models
 
         public List<MenuStoreInfo> GetTopSellMenu(int index)
         {
-            var sellmenu = menus.OrderByDescending(p => p.Selled).Skip(index).Take(6).ToList();
+            var sellmenu = menus.OrderByDescending(p => p.Selled).Skip(index).Take(12).ToList();
             return sellmenu;
         }
     }

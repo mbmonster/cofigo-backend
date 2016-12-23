@@ -7,10 +7,12 @@ namespace LastTest.Models
 {
     public class MenuStoreInfo
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public int OfferPercent { get; set; }
         public int Selled { get; set; }
+        public int IDStore { get; set; }
         public string Image { get; set; }
         public string NameStore { get; set; }
         public string Address { get; set; }

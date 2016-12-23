@@ -15,14 +15,14 @@ namespace LastTest.Controllers
         [HttpGet]
         public List<MenuStoreInfo> GetTopOffer([FromUri] string page)
         {
-            var index = (Convert.ToInt32(page) - 1)*6;
+            var index = (Convert.ToInt32(page) - 1)*12;
             return menuManager.GetTopOfferMenu(index);
         }
 
         [HttpGet]
         public List<MenuStoreInfo> GetTopSelled([FromUri] string page)
         {
-            var index = (Convert.ToInt32(page) - 1)*6;
+            var index = (Convert.ToInt32(page) - 1)*12;
             return menuManager.GetTopSellMenu(index);
         } 
     }
