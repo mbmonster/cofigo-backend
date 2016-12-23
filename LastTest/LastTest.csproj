@@ -241,7 +241,6 @@
     <Compile Include="Controllers\Authorize.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
-
     <Compile Include="Controllers\OrderControlController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ShipController.cs" />
@@ -282,6 +281,7 @@
     <Compile Include="Models\IStoreManager.cs" />
     <Compile Include="Models\IStoreMenuManager.cs" />
     <Compile Include="Models\MenuManager.cs" />
+    <Compile Include="Models\MenuStoreInfo.cs" />
     <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\OrderManager.cs" />
     <Compile Include="Models\Listmenu.cs" />
@@ -424,6 +424,7 @@
     <Content Include="Views\StoreMenuAction\EditMenu.cshtml" />
     <Content Include="Views\StoreMenuAction\DeleteMenu.cshtml" />
     <Content Include="Views\StoreMenuAction\AddMenu.cshtml" />
+    <Content Include="Views\OrderControl\MenuOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

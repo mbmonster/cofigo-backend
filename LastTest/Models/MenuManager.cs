@@ -8,25 +8,41 @@ namespace LastTest.Models
     public class MenuManager : IMenuManager
     {
         CoffeeServicesEntities db = new CoffeeServicesEntities();
-        List<Menu> menus = new List<Menu>();
+        List<MenuStoreInfo> menus = new List<MenuStoreInfo>();
         public MenuManager()
         {
-            var menu = (from s in db.Menus select s).ToList();
+            var menu = (from st in db.Stores join mn in db.Menus on st.ID equals mn.IDStore 
+            
+                        select new
+                               {
+                                   mn.Name,
+                                   mn.Price,
+                                   mn.OfferPercent,
+                                   mn.Selled,
+                                   mn.Image,
+                                   st.NameStore,
+                                   st.Address,
+                                   st.Latitude,
+                                   st.Longtitude
+                               }).ToList();
             foreach (var item in menu)
             {
-                menus.Add(new Menu
+                menus.Add(new MenuStoreInfo
                           {
-                              ID = item.ID,
+                              
                               Name = item.Name,
-                              Price = item.Price,
-                              OfferPercent = item.OfferPercent,
-                              Selled = item.Selled,
-                              IDStore = item.IDStore,
-                              Image = item.Image
+                              Price = Convert.ToDouble(item.Price),
+                              OfferPercent = Convert.ToInt32(item.OfferPercent),
+                              Selled = Convert.ToInt32(item.Selled),
+                              Image = item.Image,
+                              NameStore = item.NameStore,
+                              Address = item.Address,
+                              Latitude = Convert.ToDouble(item.Latitude),
+                              Longtitude = Convert.ToDouble(item.Longtitude)
                           });
             }
         }
-        public List<Menu> GetTopOfferMenu(int index)
+        public List<MenuStoreInfo> GetTopOfferMenu(int index)
         {
             var offermenu = menus.OrderByDescending(p => p.OfferPercent).Skip(index).Take(6).ToList();
             return offermenu;
@@ -34,7 +50,7 @@ namespace LastTest.Models
 
 
 
-        public List<Menu> GetTopSellMenu(int index)
+        public List<MenuStoreInfo> GetTopSellMenu(int index)
         {
             var sellmenu = menus.OrderByDescending(p => p.Selled).Skip(index).Take(6).ToList();
             return sellmenu;

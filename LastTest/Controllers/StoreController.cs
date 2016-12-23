@@ -57,9 +57,10 @@ namespace LastTest.Controllers
         }
 
         [HttpGet]
-        public List<Store> GetTopStore()
+        public List<Store> GetTopStore([FromUri] string page)
         {
-            return storeManager.GetTopStore();
+            var index = (Convert.ToInt32(page) - 1)*5;
+            return storeManager.GetTopStore(index);
         }
         
     }

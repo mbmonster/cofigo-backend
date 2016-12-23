@@ -8,7 +8,7 @@ namespace LastTest.Models
 {
     interface IMenuManager
     {
-        List<Menu> GetTopOfferMenu(int index);
-        List<Menu> GetTopSellMenu(int index);
+        List<MenuStoreInfo> GetTopOfferMenu(int index);
+        List<MenuStoreInfo> GetTopSellMenu(int index);
     }
 }

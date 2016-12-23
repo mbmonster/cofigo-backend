@@ -1,0 +1,53 @@
+﻿@model IEnumerable<LastTest.OrderDetail>
+
+@{
+    ViewBag.Title = "MenuOrder";
+}
+
+
+                      <div class="card">
+                          <div class="card-header" data-background-color="purple">
+                              <h4 class="category">Chi Tiết Các Order</h4>
+                          </div>
+
+                          <div class="card-content table-responsive table-full-width">
+                              <table class="table">
+                                  <thead class="text-primary">
+                                      <th>
+                                          @Html.DisplayNameFor(model => model.Quantity)
+                                      </th>
+                                      <th>
+                                          @Html.DisplayNameFor(model => model.Menu1.Price)
+                                      </th>
+                                      <th>
+                                          @Html.DisplayNameFor(model => model.Menu1.Name)
+                                      </th>
+                                      <th></th>
+                                  </thead>
+
+                                  @foreach (var item in Model)
+                                  {
+                                      <tr>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.Quantity)
+                                          </td>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.Menu1.Price)
+                                          </td>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.Menu1.Name)
+                                          </td>
+                                          <td>
+                                              @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                              @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                              @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                          </td>
+                                      </tr>
+                                  }
+
+                              </table>
+                              <div class="col-md-6">
+                                  <a class="pull-left btn btn-info" href="@Url.Action("ListOrder", "OrderControl")">Back</a>
+                              </div>
+                          </div>
+                      </div>                   
