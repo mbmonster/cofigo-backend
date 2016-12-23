@@ -281,6 +281,7 @@
     <Compile Include="Models\IStoreManager.cs" />
     <Compile Include="Models\IStoreMenuManager.cs" />
     <Compile Include="Models\MenuManager.cs" />
+    <Compile Include="Models\MenuStoreInfo.cs" />
     <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\OrderManager.cs" />
     <Compile Include="Models\Listmenu.cs" />

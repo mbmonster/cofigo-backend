@@ -16,6 +16,6 @@ namespace LastTest.Models
        // bool UpdateStore( Store store);
    
       string SearchList(string id);
-        List<Store> GetTopStore();
+        List<Store> GetTopStore(int index);
     }
 }

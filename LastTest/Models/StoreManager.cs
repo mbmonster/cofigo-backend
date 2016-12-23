@@ -95,9 +95,9 @@ namespace LastTest.Models
 
 
 
-        public List<Store> GetTopStore()
+        public List<Store> GetTopStore(int index)
         {
-            var top = stores.OrderByDescending(p => p.Rep).Take(6);
+            var top = stores.OrderByDescending(p => p.Rep).Skip(index).Take(5);
             return top.ToList();
         }
     }

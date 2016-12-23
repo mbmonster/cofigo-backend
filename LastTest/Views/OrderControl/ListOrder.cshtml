@@ -86,7 +86,7 @@
                         </td>
                         <td>
                             <button class="btn btn-primary btn-round btn-fab btn-fab-mini" data-toggle="modal" data-target="#myModal" onclick="initMap(@item.Latitude, @item.Longtitude) ">
-                                <i class=" material-icons">visibility</i>
+                                <i class=" material-icons">location_on</i>
                             </button>
                             <a href="@Url.Action("UpdateOrder", "OrderControl", new {id = item.ID})">
                                 <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
@@ -96,7 +96,7 @@
                             </a>
                             <a href="@Url.Action("MenuOrder", "OrderControl",new {item.ID})">
                                 <button class="btn btn-primary btn-round btn-fab btn-fab-mini">
-                                    <i class="material-icons">visibility</i> Details
+                                    <i class="material-icons">visibility</i>
                                     <div class="ripple-container"></div>
                                 </button>
                             </a>
