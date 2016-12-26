@@ -37,9 +37,6 @@
             <table class="table">
                 <thead class="text-primary">
                 <tr>
-                    <th>
-                        @*@Html.DisplayNameFor(model => model.ID)*@ID
-                    </th>
                     <th class="sorting">
                         @*@Html.DisplayNameFor(model => model.Date)*@
                         @Html.ActionLink("Ngày Gởi", "ListOrder", new {sortOrder = ViewBag.DateSort})
@@ -64,14 +61,12 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
+                   
                         <td>
                             @Html.DisplayFor(modelItem => item.Date)
                         </td>
                         <td>
-
+                            @Html.DisplayFor(modelItem => item.Total)
                         </td>
 
                         <td>

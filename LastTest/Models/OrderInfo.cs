@@ -10,7 +10,7 @@ namespace LastTest.Models
 {
     public class OrderInfo
     {
-        public OrderInfo(string id, string idCustomer, int? idShip, DateTime? date, string status, string displayName, string SDT, double? Latitude, double? Longtitude)
+        public OrderInfo(string id, string idCustomer, int? idShip, DateTime? date, string status, string displayName, string SDT, double? Latitude, double? Longtitude,double? Total)
         {
             this.ID = id;
             this.IDCustomer = idCustomer;
@@ -19,8 +19,10 @@ namespace LastTest.Models
             this.Status = status;
             this.DisplayName = displayName;
             this.SDT = SDT;
+           
             this.Latitude = Convert.ToDouble(Latitude);
             this.Longtitude = Convert.ToDouble(Longtitude);
+            this.Total = Total;
         }
 
         public OrderInfo()
@@ -35,6 +37,7 @@ namespace LastTest.Models
         public DateTime Date { get; set; }
 
         public string SDT { get; set; }
+        
         public int IDShip { get; set; }
         [DisplayName("ID Khách Hàng")]
         public string IDCustomer { get; set; }
@@ -46,5 +49,6 @@ namespace LastTest.Models
         public string CurrentItem { get; set; }
         public double Latitude { get; set; }
         public double Longtitude { get; set; }
+        public double? Total { get; set; }
     }
 }

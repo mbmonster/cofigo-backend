@@ -56,7 +56,8 @@ namespace LastTest.Controllers
                                us.DisplayName,
                                od.SDT,
                                od.Latitude,
-                               od.Longtitude
+                               od.Longtitude,
+                               od.Total
                                
                            };
                 //xắp xếp
@@ -76,7 +77,7 @@ namespace LastTest.Controllers
                 
                 foreach (var item in list)
                 {
-                    listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,item.DisplayName,item.SDT,item.Latitude,item.Longtitude));
+                    listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,item.DisplayName,item.SDT,item.Latitude,item.Longtitude,item.Total));
                 }
                 //paging 
                 PagedList<OrderInfo> order = new PagedList<OrderInfo>(listorder,page,pageSize);
@@ -116,13 +117,14 @@ namespace LastTest.Controllers
                                us.DisplayName,
                                od.SDT,
                                od.Latitude,
-                               od.Longtitude
+                               od.Longtitude,
+                               od.Total
                            };
                 
                 foreach (var item in list)
                 {
                     listorder.Add(new OrderInfo(item.ID, item.IDCustomer, item.IDShip, item.Date, item.Status,
-                        item.DisplayName, item.SDT, item.Latitude, item.Longtitude));
+                        item.DisplayName, item.SDT, item.Latitude, item.Longtitude,item.Total));
                 }
                 PagedList<OrderInfo> order = new PagedList<OrderInfo>(listorder, page, pageSize);
                

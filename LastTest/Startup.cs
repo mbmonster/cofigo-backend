@@ -48,6 +48,7 @@ namespace LastTest
             };
 
             fileServerOptions.StaticFileOptions.ServeUnknownFileTypes = true;
+            
             app.UseFileServer(fileServerOptions);
             app.UseFileServer(fileServerOptions2);
         }
