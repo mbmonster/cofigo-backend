@@ -12,41 +12,51 @@
     
 </head>
 <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                            <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                        </ul>
-                    </div>
-                </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Application name", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home", new {area = ""}, null)</li>
+                <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
+            </ul>
+        </div>
+    </div>
 
-            </div>
-        <div class="container body-content" style="padding-top: 30px">
-            <div class="col-md-4" style="padding-top: 5px;">
-                @Html.Partial("NavPill")
-            </div>
-            <div class="col-md-8">
-            <div class="container body-content" style="padding-top: 0px">
-                @RenderBody()
-            </div>
-            </div>
-            </div>
-        <footer class="container"><p>&copy; @DateTime.Now.Year - Cofigo Team</p>
+</div>
+<div class="container body-content" style="padding-top: 30px">
+    <div class="col-md-4" style="padding-top: 5px;">
+        @Html.Partial("NavPill")
+    </div>
+    <div class="col-md-8">
+        <div class="container body-content" style="padding-top: 0px">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+<footer class="container">
+    <p>&copy; @DateTime.Now.Year - Cofigo Team</p>
 
-            </footer>
-            @Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/bootstrap")
-            @Scripts.Render("~/bundles/material")
-            @RenderSection("scripts", required: false)
-        </body>
+</footer>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/material")
+@RenderSection("scripts", required: false)
+    <script>
+    $("document").ready(function () {
+
+        $("#file").change(function () {
+            $("#text-file").html("Đã chọn");
+        });
+    });
+    </script>
+</body>
+
         </html>

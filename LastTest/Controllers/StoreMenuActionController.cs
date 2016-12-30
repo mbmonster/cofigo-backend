@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -106,13 +107,17 @@ namespace LastTest.Controllers
 
         [HttpPost, ActionName("AddMenu")]
         [ValidateAntiForgeryToken]
-        public ActionResult AddMenu(Menu menu)
+        public ActionResult AddMenu(Menu menu, HttpPostedFileBase image)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-
+                    var filename = image.FileName;
+                    string filePathOriginal = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Uploads/Menus");
+                    string savedFileName = Path.Combine(filePathOriginal, filename);
+                    image.SaveAs(savedFileName);
+                    menu.Image = "http://localhost:18179/Content/Uploads/Menus/" + filename;
                     db.Menus.Add(menu);
                     db.SaveChanges();
                     return RedirectToAction("DetailMenu", new {idStore = menu.IDStore,sortString = "id"});

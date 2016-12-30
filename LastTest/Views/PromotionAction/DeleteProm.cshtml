@@ -1,28 +1,28 @@
-﻿@model LastTest.Menu
+﻿    @model LastTest.Promotion
 
 @{
-    ViewBag.Title = "DeleteMenu";
+    ViewBag.Title = "DeleteProm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="card">
     <div class="card-header" data-background-color="purple">
-        <h4 class="category" style="text-align: center">Bạn thực sự muốn xóa thông tin thức uống này?</h4>
+        <h4 class="category" style="text-align: center">Bạn thực sự muốn xóa thông tin khuyến mãi này?</h4>
     </div>
     <div class="row" style="padding-left: 30px; padding-top: 16px">
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Title)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Name)
+                @Html.DisplayFor(model => model.Title)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Store.NameStore)
+                @Html.DisplayNameFor(model => model.Description)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Store.NameStore)
+                @Html.DisplayFor(model => model.Description)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Image)
@@ -32,27 +32,19 @@
                 @Html.DisplayFor(model => model.Image)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Created)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Price)
+                @Html.DisplayFor(model => model.Created)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.OfferPercent)
+                @Html.DisplayNameFor(model => model.Last)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.OfferPercent)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Selled)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Selled)
+                @Html.DisplayFor(model => model.Last)
             </dd>
         </dl>
     </div>
@@ -64,7 +56,7 @@
                 <input class="btn btn-primary pull-right" type="submit" value="Xóa" />
             </div>
             <div class="col-md-6">
-                <a class="pull-left btn btn-info" href="@Url.Action("GetListStore", "StoreMenuAction")">Quay lại</a>
+                <a class="pull-left btn btn-info" href="@Url.Action("GetListProm", "PromotionAction")">Quay lại</a>
             </div>
         </div>
     }
