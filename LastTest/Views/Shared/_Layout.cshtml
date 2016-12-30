@@ -48,5 +48,19 @@
             @Scripts.Render("~/bundles/bootstrap")
             @Scripts.Render("~/bundles/material")
             @RenderSection("scripts", required: false)
+<script>
+    $("document").ready(function () {
+
+        $("#file").change(function () {
+            $("#text-file").html("Đã chọn");
+        });
+    });
+    $("document").ready(function () {
+
+        $("#cover").change(function () {
+            $("#text-cover").html("Đã chọn");
+        });
+    });
+</script>
         </body>
         </html>

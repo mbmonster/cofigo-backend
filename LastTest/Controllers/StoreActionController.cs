@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
@@ -37,7 +38,7 @@ namespace LastTest.Controllers
             
         }
 
-        public ActionResult StoreDetails(int page =1 , int pageSize=5)
+        public ActionResult StoreDetails(int page =1 , int pageSize=12)
         {
             ViewBag.Current = "StoreDetails";
             var storedetails = (from s in db.Stores select s).ToList();
@@ -62,14 +63,35 @@ namespace LastTest.Controllers
             return View();
         }
         [System.Web.Mvc.HttpPost]
-        public ActionResult AddStore(Store form)
+        public ActionResult AddStore(Store form, HttpPostedFileBase file, HttpPostedFileBase cover)
         {
+
+            
             try
             {
+                string pathAvatar = "";
+                string extension = "";
+                string pathCover = "";
+                string extensionCover = "";
+                if (file != null || cover!=null)
+                {
+
+                     extension = Path.GetFileName(file.FileName);
+                     pathAvatar = Path.Combine(Server.MapPath("~/Content/Images"), extension);
+                     file.SaveAs(pathAvatar);
+
+                     extensionCover = Path.GetFileName(cover.FileName);
+                     pathCover = Path.Combine(Server.MapPath("~/Content/Cover"), extensionCover);
+                     cover.SaveAs(pathCover);
+
+                }
                 if (ModelState.IsValid)
                 {
                     form.Rep = 0;
+                    form.Avatar = ("http://localhost:18179/Content/Images/" + extension);
+                    form.Cover = ("http://localhost:18179/Content/Cover/" + extensionCover);
                     db.Stores.Add(form);
+                     
                     db.SaveChanges();
                     return RedirectToAction("StoreDetails");
                 }
@@ -98,13 +120,29 @@ namespace LastTest.Controllers
             return View(store);
         }
         [System.Web.Mvc.HttpPost]
-        public ActionResult EditStore(Store form, int id)
+        public ActionResult EditStore(Store form, int id, HttpPostedFileBase file, HttpPostedFileBase cover)
         {
+            string pathAvatar = "";
+            string extension = "";
+            string pathCover = "";
+            string extensionCover = "";
+            if (file != null && cover != null)
+            {
+
+                extension = Path.GetFileName(file.FileName);
+                pathAvatar = Path.Combine(Server.MapPath("~/Content/Images"), extension);
+                file.SaveAs(pathAvatar);
+
+                extensionCover = Path.GetFileName(cover.FileName);
+                pathCover = Path.Combine(Server.MapPath("~/Content/Cover"), extensionCover);
+                cover.SaveAs(pathCover);
+
+            }
             var store = db.Stores.First(m => m.ID == id);
             string namestore = form.NameStore;
             string address = form.Address;
-            string avatar = form.Avatar;
-            string cover = form.Cover;
+            string avatar = ("/Content/Images/" + extension);
+            string cover1 = ("/Content/Cover/" + extensionCover);
             //int rep = Convert.ToInt32(form.Rep);
             double lat = Convert.ToDouble(form.Latitude);
             double longt = Convert.ToDouble(form.Longtitude);
@@ -112,7 +150,7 @@ namespace LastTest.Controllers
             store.NameStore = namestore;
             store.Address = address;
             store.Avatar = avatar;
-            store.Cover = cover;
+            store.Cover = cover1;
             store.Latitude = lat;
             store.Longtitude = longt;
             store.Mobile = moblie;
@@ -133,5 +171,7 @@ namespace LastTest.Controllers
             //}
             //return RedirectToAction("StoreDetails");
         }
+
+       
     }
 }
