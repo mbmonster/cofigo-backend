@@ -51,6 +51,7 @@ namespace LastTest
             
             app.UseFileServer(fileServerOptions);
             app.UseFileServer(fileServerOptions2);
+           
         }
     }
 }

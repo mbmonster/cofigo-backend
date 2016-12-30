@@ -21,10 +21,9 @@ namespace LastTest.Models
                     Title = item.Title,
                     Description = item.Description,
                     Image = item.Image,
-                    IDStore = item.IDStore,
                     Created = item.Created,
                     Last = item.Last,
-                    IDMenu = item.IDMenu
+                    Link = item.Link
                 });
             }
         }

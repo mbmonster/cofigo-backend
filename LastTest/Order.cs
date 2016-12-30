@@ -32,7 +32,6 @@ namespace LastTest
     
         public virtual Ship Ship { get; set; }
         public virtual User User { get; set; }
-        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

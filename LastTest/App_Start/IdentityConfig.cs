@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using LastTest.Models;
+using System;
 
 namespace LastTest
 {
@@ -20,13 +21,20 @@ namespace LastTest
         {
             var roleManager = new RoleManager<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
 
-
-            if (!roleManager.RoleExists("Admin"))
+            try
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Admin";
-                roleManager.Create(role);
+                if (!roleManager.RoleExists("Admin"))
+                {
+                    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                    role.Name = "Admin";
+                    roleManager.Create(role);
+                }
             }
+            catch (Exception ex)
+            {
+
+            }
+            
 
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames

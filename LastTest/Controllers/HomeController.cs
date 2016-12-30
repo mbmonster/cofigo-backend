@@ -10,9 +10,31 @@ namespace LastTest.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
-            return View();
+            return View("Index");
+        }
+        public ActionResult Signin()
+        {
+            return View("Index");
+        }
+        public ActionResult Menu()
+        {
+            return View("Index");
+        }
+        public ActionResult Stores()
+        {
+            return View("Index");
+        }
+        public ActionResult Store(int id)
+        {
+            return View("Index");
+        }
+        public ActionResult Order(int id)
+        {
+            return View("Index");
+        }
+        public ActionResult Search()
+        {
+            return View("Index");
         }
     }
 }

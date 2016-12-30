@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CoffeeServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CoffeeServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Name" />
@@ -28,7 +28,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Date" Type="datetime" />
+          <Property Name="Date" Type="date" />
           <Property Name="IDShip" Type="int" />
           <Property Name="IDCustomer" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
@@ -53,11 +53,10 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Image" Type="nvarchar" MaxLength="100" />
-          <Property Name="IDStore" Type="int" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
           <Property Name="Created" Type="date" />
           <Property Name="Last" Type="date" />
-          <Property Name="IDMenu" Type="int" />
+          <Property Name="Link" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Ship">
           <Key>
@@ -67,8 +66,8 @@
           <Property Name="Price" Type="float" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="OfferPercent" Type="int" />
-          <Property Name="Max" Type="int" />
           <Property Name="Min" Type="int" />
+          <Property Name="Max" Type="int" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -166,30 +165,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Promotion_Drink">
-          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
-          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Menu">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Promotion">
-              <PropertyRef Name="IDMenu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Promotion_Store">
-          <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
-          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Promotion">
-              <PropertyRef Name="IDStore" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CoffeeServicesModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
@@ -220,14 +195,6 @@
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_Promotion_Drink" Association="Self.FK_Promotion_Drink">
-            <End Role="Menu" EntitySet="Menu" />
-            <End Role="Promotion" EntitySet="Promotion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Promotion_Store" Association="Self.FK_Promotion_Store">
-            <End Role="Store" EntitySet="Store" />
-            <End Role="Promotion" EntitySet="Promotion" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -245,7 +212,6 @@
           <Property Name="IDStore" Type="Int32" />
           <NavigationProperty Name="Store" Relationship="Self.FK_Drink_Store" FromRole="Menu" ToRole="Store" />
           <NavigationProperty Name="OrderDetails1" Relationship="CoffeeServicesModel.FK_OrderDetails_Drink1" FromRole="Menu" ToRole="OrderDetail" />
-          <NavigationProperty Name="Promotions1" Relationship="CoffeeServicesModel.FK_Promotion_Drink1" FromRole="Menu" ToRole="Promotion" />
           <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
@@ -253,7 +219,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="IDShip" Type="Int32" />
           <Property Name="IDCustomer" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -283,13 +249,10 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IDStore" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Created" Type="DateTime" Precision="0" />
           <Property Name="Last" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Store" Relationship="Self.FK_Promotion_Store" FromRole="Promotion" ToRole="Store" />
-          <Property Name="IDMenu" Type="Int32" />
-          <NavigationProperty Name="Menu1" Relationship="CoffeeServicesModel.FK_Promotion_Drink1" FromRole="Promotion" ToRole="Menu" />
+          <Property Name="Link" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Ship">
           <Key>
@@ -316,7 +279,6 @@
           <Property Name="Latitude" Type="Double" />
           <Property Name="Longtitude" Type="Double" />
           <NavigationProperty Name="Menus" Relationship="Self.FK_Drink_Store" FromRole="Store" ToRole="Menu" />
-          <NavigationProperty Name="Promotions" Relationship="Self.FK_Promotion_Store" FromRole="Store" ToRole="Promotion" />
           <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -390,18 +352,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Promotion_Store">
-          <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
-          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Promotion">
-              <PropertyRef Name="IDStore" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CoffeeServicesEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Menus" EntityType="Self.Menu" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -427,17 +377,9 @@
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_Promotion_Store" Association="Self.FK_Promotion_Store">
-            <End Role="Store" EntitySet="Stores" />
-            <End Role="Promotion" EntitySet="Promotions" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Drink1" Association="CoffeeServicesModel.FK_OrderDetails_Drink1">
             <End Role="Menu" EntitySet="Menus" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Promotion_Drink1" Association="CoffeeServicesModel.FK_Promotion_Drink1">
-            <End EntitySet="Menus" Role="Menu" />
-            <End EntitySet="Promotions" Role="Promotion" />
           </AssociationSet>
           <EntitySet Name="Admins" EntityType="CoffeeServicesModel.Admin" />
         </EntityContainer>
@@ -449,18 +391,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="OrderDetail">
-              <PropertyRef Name="IDMenu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Promotion_Drink1">
-          <End Type="CoffeeServicesModel.Menu" Multiplicity="0..1" Role="Menu" />
-          <End Type="CoffeeServicesModel.Promotion" Multiplicity="*" Role="Promotion" />
-          <ReferentialConstraint>
-            <Principal Role="Menu">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Promotion">
               <PropertyRef Name="IDMenu" />
             </Dependent>
           </ReferentialConstraint>
@@ -518,12 +448,11 @@
           <EntitySetMapping Name="Promotions">
             <EntityTypeMapping TypeName="CoffeeServicesModel.Promotion">
               <MappingFragment StoreEntitySet="Promotion">
-                <ScalarProperty Name="IDMenu" ColumnName="IDMenu" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="IDStore" ColumnName="IDStore" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Last" ColumnName="Last" />
               </MappingFragment>

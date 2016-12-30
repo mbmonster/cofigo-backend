@@ -272,13 +272,14 @@ namespace LastTest.Controllers
 
             if (hasRegistered)
             {
+              
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
                    OAuthDefaults.AuthenticationType);
 
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
-
+                UserManager.Delete(user);
                 AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
                 AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, new AuthenticationProperties());
@@ -289,7 +290,7 @@ namespace LastTest.Controllers
 
                 string accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
                 Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-                return Redirect(new Uri("http://localhost:4200/signin?access_token=" + accessToken + "&expires=" + currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'")));
+                return Redirect(new Uri("http://localhost:18179/Home/Signin?access_token=" + accessToken + "&expires=" + currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'")));
 
             }
             else
@@ -317,7 +318,7 @@ namespace LastTest.Controllers
 
                 string accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
                 Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-                return Redirect(new Uri("http://localhost:4200/signin?access_token=" + accessToken + "&expires=" + currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'")));
+                return Redirect(new Uri("http://localhost:18179/Home/Signin?access_token=" + accessToken + "&expires=" + currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'")));
             }
             return null;
             
