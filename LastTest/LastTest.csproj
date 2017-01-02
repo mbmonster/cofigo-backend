@@ -327,6 +327,7 @@
     <Content Include="Content\demo.css" />
     <Content Include="Content\material-dashboard.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\placeholder.jpg" />
     <Content Include="Content\sweetalert2.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

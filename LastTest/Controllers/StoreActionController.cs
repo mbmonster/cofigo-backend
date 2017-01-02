@@ -122,35 +122,39 @@ namespace LastTest.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult EditStore(Store form, int id, HttpPostedFileBase file, HttpPostedFileBase cover)
         {
+            var store = db.Stores.First(m => m.ID == id);
             string pathAvatar = "";
             string extension = "";
             string pathCover = "";
             string extensionCover = "";
-            if (file != null && cover != null)
+            //string avatar = "";
+            //string cover1 = "";
+            if (file != null)
             {
 
                 extension = Path.GetFileName(file.FileName);
                 pathAvatar = Path.Combine(Server.MapPath("~/Content/Images"), extension);
                 file.SaveAs(pathAvatar);
-
+                string avatar = ("http://localhost:18179/Content/Images/" + extension);
+                 store.Avatar = avatar;
+            }
+            if (cover != null)
+            {
                 extensionCover = Path.GetFileName(cover.FileName);
                 pathCover = Path.Combine(Server.MapPath("~/Content/Cover"), extensionCover);
                 cover.SaveAs(pathCover);
-
+                string cover1 = ("http://localhost:18179/Content/Cover/" + extensionCover);
+                store.Cover = cover1;
             }
-            var store = db.Stores.First(m => m.ID == id);
+            
             string namestore = form.NameStore;
             string address = form.Address;
-            string avatar = ("/Content/Images/" + extension);
-            string cover1 = ("/Content/Cover/" + extensionCover);
             //int rep = Convert.ToInt32(form.Rep);
             double lat = Convert.ToDouble(form.Latitude);
             double longt = Convert.ToDouble(form.Longtitude);
             string moblie = form.Mobile;
             store.NameStore = namestore;
             store.Address = address;
-            store.Avatar = avatar;
-            store.Cover = cover1;
             store.Latitude = lat;
             store.Longtitude = longt;
             store.Mobile = moblie;
