@@ -19,7 +19,6 @@ namespace LastTest.Controllers
                         select s;
             return View(prom);
         }
-
         public ActionResult AddProm()
         {
             return View();
@@ -69,7 +68,7 @@ namespace LastTest.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPromPost(int? id, HttpPostedFileBase file, Promotion promotion)
         {
-            var prom = db.Promotions.First(m => m.ID == id);
+            var prom1 = db.Promotions.First(m => m.ID == id);
             string pathImage = "";
             string extension = "";
             if (file != null)
@@ -78,18 +77,19 @@ namespace LastTest.Controllers
                 pathImage = Path.Combine(Server.MapPath("~/Content/Uploads/Promotions"), extension);
                 file.SaveAs(pathImage);
                 string image = ("http://localhost:18179/Content/Uploads/Promotions/" + extension);
-                prom.Image = image;
+                prom1.Image = image;
             }
-            
+
             string title = promotion.Title;
             string dess = promotion.Description;
-            DateTime last = (DateTime)promotion.Last;
-            prom.Title = title;
-            prom.Description = dess;
-            prom.Last = last;
+            DateTime last = (DateTime) promotion.Last;
+            prom1.Title = title;
+            prom1.Description = dess;
+            prom1.Last = last;
             db.SaveChanges();
             return RedirectToAction("GetListProm");
         }
+
         public ActionResult DeleteProm(int? id)
         {
             if (id == null)
