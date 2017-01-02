@@ -67,26 +67,27 @@ namespace LastTest.Controllers
 
         [HttpPost, ActionName("EditProm")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPromPost(int? id, HttpPostedFileBase image)
+        public ActionResult EditPromPost(int? id, HttpPostedFileBase file, Promotion promotion)
         {
-            var promUpdate = db.Promotions.Find(id);
-            if (TryUpdateModel(promUpdate, "", new string[] { "Title", "Description", "Image", "Created", "Last" }))
+            var prom = db.Promotions.First(m => m.ID == id);
+            string pathImage = "";
+            string extension = "";
+            if (file != null)
             {
-                try
-                {
-                    var filename = image.FileName;
-                    string filePathOriginal = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Uploads/Promotions");
-                    string savedFileName = Path.Combine(filePathOriginal, filename);
-                    image.SaveAs(savedFileName);
-                    promUpdate.Image = "http://localhost:18179/Content/Uploads/Promotions/" + filename;
-                    db.Entry(promUpdate).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    ModelState.AddModelError("", "Error Save Data");
-                }
+                extension = Path.GetFileName(file.FileName);
+                pathImage = Path.Combine(Server.MapPath("~/Content/Uploads/Promotions"), extension);
+                file.SaveAs(pathImage);
+                string image = ("http://localhost:18179/Content/Uploads/Promotions/" + extension);
+                prom.Image = image;
             }
+            
+            string title = promotion.Title;
+            string dess = promotion.Description;
+            DateTime last = (DateTime)promotion.Last;
+            prom.Title = title;
+            prom.Description = dess;
+            prom.Last = last;
+            db.SaveChanges();
             return RedirectToAction("GetListProm");
         }
         public ActionResult DeleteProm(int? id)

@@ -4,7 +4,7 @@
     ViewBag.Title = "EditMenu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditMenu", "StoreMenuAction", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -53,11 +53,18 @@
                     <div class="col-md-10">
                         <span class="btn btn-rose btn-round btn-primary">
                             <span id="text-file">Chọn ảnh</span>
-                            <input class="btn btn-primary" type="file" name="image" id="file" />
+                            <input class="btn btn-primary" type="file" name="file" id="file" onchange="loadFile(event)" />
                             @Html.HiddenFor(model => model.Image)
-                            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Image, "", new {@class = "text-danger"})
                             <div class="ripple-container"></div>
                         </span>
+                        <img id="output" style="width: 100px; height: 100px; border-radius: 5px" src="~/Content/placeholder.jpg" />
+                        <script>
+                            var loadFile = function (event) {
+                                var output = document.getElementById('output');
+                                output.src = URL.createObjectURL(event.target.files[0]);
+                            };
+                        </script>
                     </div>
                 </div>
             </div>
