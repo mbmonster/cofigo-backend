@@ -100,5 +100,5 @@
         @Html.PagedListPager(Model, page => Url.Action("DetailMenu",
             new { idStore = @ViewBag.IdStore, page, sortString = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
         <div>
-            <a class="pull-left btn btn-primary" href="@Url.Action("GetListStore", "StoreMenuAction")">Quay lại</a>
+            <a class="pull-left btn btn-info" href="@Url.Action("GetListStore", "StoreMenuAction")">Quay lại</a>
         </div>

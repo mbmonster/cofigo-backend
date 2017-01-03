@@ -106,9 +106,16 @@ namespace LastTest.Controllers
             
         }
         
+        public ActionResult ViewDeleteStore(int id)
+        {
+            Store store = (from s in db.Stores where s.ID == id select s).First();
+                                                    
+            return View(store);
+        }
+        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("ViewDeleteStore")]
         public ActionResult DeleteStore(int id)
         {
-            var store = db.Stores.First(m => m.ID == id);
+            Store store = db.Stores.Find(id);
             db.Stores.Remove(store);
             db.SaveChanges();
             return RedirectToAction("StoreDetails");

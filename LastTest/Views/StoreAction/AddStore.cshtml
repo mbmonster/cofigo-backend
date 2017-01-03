@@ -38,7 +38,7 @@
                 <h4 class="title" style="text-align: center">Thêm mới Store</h4>
 
             </div>
-            <div class="clearfix">
+            <div class="row clearfix" style="margin: 0; padding: 20px">
                 <div class="col-md-6">
                     <div class="form-group label-floating">
                         <label class="control-label">Tên quán</label>
@@ -54,7 +54,7 @@
                         @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                
+
                 @*<div class="col-md-6">
                 <div class="form-group label-floating">
                     <label class="control-label">Rep</label>
@@ -63,56 +63,79 @@
 
                 </div>
             </div>*@
-                <div class="col-md-6">
-                    <div class="form-group label-floating">
-                        <label class="control-label">Latitude</label>
-                        @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
-                    </div>
+
+                <input type="hidden" name="Latitude" id="latTxt" />
+                @Html.HiddenFor(model => model.Latitude)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <input type="hidden" name="Longtitude" id="longTxt" />
+                @Html.HiddenFor(model => model.Longtitude)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @*<div class="col-md-6">
+                <div class="form-group label-floating">
+                    <label class="control-label">Latitude</label>
+                    @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group label-floating">
-                        <label class="control-label">Longtitude</label>
-                        @Html.EditorFor(model => model.Longtitude, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Longtitude, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group label-floating">
+                    <label class="control-label">Longtitude</label>
+                    @Html.EditorFor(model => model.Longtitude, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Longtitude, "", new { @class = "text-danger" })
                 </div>
+            </div>*@
                 <div class="col-md-6">
                     <div class="form-group label-floating">
                         <label class="control-label">Mobile</label>
-                        @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
-                        @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "text-danger"})
+                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group label-floating">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row col-md-12" style="margin: 0; padding: 20px">
+
                 <div class="col-md-6">
                     <div class="form-group label-floating">
                         @*<label class="control-label">Avatar</label>*@
                         <span class="btn btn-rose btn-round btn-primary">
                             <span id="text-file">Chọn Avatar</span>
                             <input class="btn btn-primary" type="file" name="file" id="file" onchange=" loadFile(event) " />
-                            
+
                             @Html.HiddenFor(model => model.Avatar)
                             @*@Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class="btn btn-danger",@type="file",@name="file" } })*@
-                            @Html.ValidationMessageFor(model => model.Avatar, "", new {@class = "text-danger"})
+                            @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
                             <div class="ripple-container"></div>
                         </span>
-                        <img id="output" style="width: 100px; height: 100px; border-radius: 5px" src="~/Content/placeholder.jpg"/>
+                        <img id="output" style="width: 100px; height: 100px; border-radius: 5px" src="~/Content/placeholder.jpg" />
                         <script>
                             var loadFile = function (event) {
                                 var output = document.getElementById('output');
                                 output.src = URL.createObjectURL(event.target.files[0]);
                             };
                         </script>
-                        
+
+                    </div>
+                    @*<input type="file" name="file" value="Browse" />*@
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group label-floating">
+
                         <span class="btn btn-rose btn-round btn-primary">
                             <span id="text-cover">Chọn Cover</span>
-                            <input class="btn btn-primary" type="file" name="cover" id="cover" onchange="loadCover(event)" />
+                            <input class="btn btn-primary" type="file" name="cover" id="cover" onchange=" loadCover(event) " />
                             @Html.HiddenFor(model => model.Cover)
                             @*@Html.EditorFor(model => model.Cover, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.ValidationMessageFor(model => model.Cover, "", new {@class = "text-danger"})
+                            @Html.ValidationMessageFor(model => model.Cover, "", new { @class = "text-danger" })
                             <div class="ripple-container"></div>
                         </span>
-                        <img id="output1" style="width: 100px;height: 100px; border-radius: 5px" src="~/Content/placeholder.jpg" />
+                        <img id="output1" style="width: 100px; height: 100px; border-radius: 5px" src="~/Content/placeholder.jpg" />
                         <script>
                             var loadCover = function (event) {
                                 var output = document.getElementById('output1');
@@ -120,9 +143,19 @@
                             };
                         </script>
                     </div>
-                    @*<input type="file" name="file" value="Browse" />*@
                 </div>
-               
+
+
+
+            </div>
+            <div class="row clearfix" style="margin: 0; padding: 20px">
+                <div id="dvMap" class="col-md-12" style="width: 100%;height: 400px">
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvYH83b5lSxsMNGWFT2DJQyNH90cFbFV8"
+                            async defer>
+
+
+                    </script>
+                </div>
             </div>
             <div class="form-group clearfix">
                 <div class="col-md-6 ">
@@ -134,13 +167,36 @@
                 </div>
             </div>
         </div>
-        
-
-        
-
     </div>
-
-
+    
+    
+    <script type="text/javascript">
+        
+        window.onload = function () {
+            var mapOptions = {
+                center: new google.maps.LatLng(16.077135355627615, 108.22256326675415),
+                zoom: 16,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var infoWindow = new google.maps.InfoWindow();
+            var latlngbounds = new google.maps.LatLngBounds();
+            var marker;
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+            google.maps.event.addListener(map, 'click', function (e) {
+                //alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+                $("#latTxt").val(e.latLng.lat());
+                $("#longTxt").val(e.latLng.lng());
+                if(marker) marker.setMap(null);
+                marker = new google.maps.Marker({
+                    position: { lat: e.latLng.lat(), lng: e.latLng.lng() },
+                    map: map
+                });
+                console.log(e.latLng.lat());
+                console.log(e.latLng.lng());
+            });
+        }
+    </script>
+    
 }
 
 
