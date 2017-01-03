@@ -14,7 +14,7 @@
     
 </head>
 <body>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("EditStore", "StoreAction", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -36,23 +36,8 @@
                     @Html.EditorFor(model => model.Address, new {htmlAttributes = new {@class = "form-control"}})
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group label-floating">
-                    <label class="control-label">Avatar</label>
-                    @Html.EditorFor(model => model.Avatar, new {htmlAttributes = new {@class = "form-control"}})
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group label-floating">
-                    <label class="control-label">Cover</label>
-                    @Html.EditorFor(model => model.Cover, new {htmlAttributes = new {@class = "form-control"}})
-                </div>
-                @*<div class="form-group label-floating">
-                <label class="control-label">Rep</label>
-                @Html.EditorFor(model => model.Rep, new { htmlAttributes = new { @class = "form-control" } })
-
-            </div>*@
-            </div>
+            
+            
             <div class="col-md-6">
                 <div class="form-group label-floating">
                     <label class="control-label">Latitude</label>
@@ -71,7 +56,44 @@
                     @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group label-floating">
+                    @*<label class="control-label">Cover</label>
+                @Html.EditorFor(model => model.Cover, new {htmlAttributes = new {@class = "form-control"}})*@
+                    <span class="btn btn-rose btn-round btn-primary">
+                        <span id="text-file">Chọn Avatar</span>
+                        <input class="btn btn-primary" type="file" name="file" id="file" onchange="loadFile(event)" />
+                        @Html.HiddenFor(model => model.Avatar)
+                        @*@Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class="btn btn-danger",@type="file",@name="file" } })*@
+                        @Html.ValidationMessageFor(model => model.Avatar, "", new {@class = "text-danger"})
+                        <div class="ripple-container"></div>
+                    </span>
+                    <img id="output" style="width: 100px; height: 100px; border-radius: 5px" src="~/Content/placeholder.jpg" />
+                    <script>
+                            var loadFile = function (event) {
+                                var output = document.getElementById('output');
+                                output.src = URL.createObjectURL(event.target.files[0]);
+                            };
+                    </script>
+                    <span class="btn btn-rose btn-round btn-primary">
+                        <span id="text-cover">Chọn Cover</span>
+                        <input class="btn btn-primary" type="file" name="cover" id="cover" onchange="loadCover(event)" />
+                        @Html.HiddenFor(model => model.Cover)
+                        @*@Html.EditorFor(model => model.Cover, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @Html.ValidationMessageFor(model => model.Cover, "", new {@class = "text-danger"})
+                        <div class="ripple-container"></div>
+                    </span>
+                    <img id="output1" style="width: 100px;height: 100px; border-radius: 5px" src="~/Content/placeholder.jpg" />
+                    <script>
+                        var loadCover = function (event) {
+                            var output = document.getElementById('output1');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                    </script>
 
+                </div>
+
+            </div>
 
         </div>
         <div class="form-group clearfix">

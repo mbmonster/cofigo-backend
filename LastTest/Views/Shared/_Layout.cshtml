@@ -48,5 +48,20 @@
             @Scripts.Render("~/bundles/bootstrap")
             @Scripts.Render("~/bundles/material")
             @RenderSection("scripts", required: false)
+<script>
+    $("document").ready(function () {
+
+        $("#file").change(function () {
+            $("#text-file").html("Thay đổi");
+        });
+    });
+    $("document").ready(function () {
+
+        $("#cover").change(function () {
+            $("#text-cover").html("Thay đổi");
+        });
+    });
+    
+</script>
         </body>
         </html>
