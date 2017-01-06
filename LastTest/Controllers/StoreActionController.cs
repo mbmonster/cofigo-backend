@@ -134,8 +134,7 @@ namespace LastTest.Controllers
             string extension = "";
             string pathCover = "";
             string extensionCover = "";
-            //string avatar = "";
-            //string cover1 = "";
+            
             if (file != null)
             {
 
@@ -153,17 +152,22 @@ namespace LastTest.Controllers
                 string cover1 = ("http://localhost:18179/Content/Cover/" + extensionCover);
                 store.Cover = cover1;
             }
-            
+            //double lat = Convert.ToDouble();
+            //double longt = Convert.ToDouble(form.Longtitude);
+            if (form.Latitude != null)
+            {
+                store.Latitude = form.Latitude;
+            }
+            if (form.Longtitude != null)
+            {
+                store.Longtitude = form.Longtitude;
+            }
+           
             string namestore = form.NameStore;
             string address = form.Address;
-            //int rep = Convert.ToInt32(form.Rep);
-            double lat = Convert.ToDouble(form.Latitude);
-            double longt = Convert.ToDouble(form.Longtitude);
             string moblie = form.Mobile;
             store.NameStore = namestore;
             store.Address = address;
-            store.Latitude = lat;
-            store.Longtitude = longt;
             store.Mobile = moblie;
             db.SaveChanges();
             return RedirectToAction("StoreDetails");

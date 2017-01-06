@@ -11,7 +11,10 @@
         }
     </style>
     <p style="font-size: 18px; padding-bottom: 15px; padding-left: 20px">
-        @Html.ActionLink("Tạo mới khuyến mãi", "AddProm")
+        @*@Html.ActionLink("Tạo mới khuyến mãi", "AddProm")*@
+        <a href="@Url.Action("AddProm", "PromotionAction")">
+            <input class="btn btn-primary pull-left" value="Thêm mới khuyến mãi" style="margin-top: 3px" />
+        </a>
     </p>
 <div class="card">
     <div class="card-header" data-background-color="purple">

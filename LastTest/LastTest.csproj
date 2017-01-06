@@ -443,6 +443,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Cover\" />
     <Folder Include="Content\Images\" />
+    <Folder Include="Content\Promotions\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>

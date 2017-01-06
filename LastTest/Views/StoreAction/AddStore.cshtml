@@ -71,7 +71,7 @@
                 @Html.HiddenFor(model => model.Longtitude)
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                @*<div class="col-md-6">
+            @*<div class="col-md-6">
                 <div class="form-group label-floating">
                     <label class="control-label">Latitude</label>
                     @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
@@ -149,11 +149,11 @@
 
             </div>
             <div class="row clearfix" style="margin: 0; padding: 20px">
-                <div id="dvMap" class="col-md-12" style="width: 100%;height: 400px">
+                <h5 class="text-center">Vui lòng chọn địa điểm của quán</h5>
+                <div id="dvMap" class="col-md-12" style="width: 100%; height: 400px">
                     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvYH83b5lSxsMNGWFT2DJQyNH90cFbFV8"
                             async defer>
-
-
+                    
                     </script>
                 </div>
             </div>
