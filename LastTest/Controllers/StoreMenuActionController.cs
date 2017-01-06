@@ -120,6 +120,7 @@ namespace LastTest.Controllers
                     string savedFileName = Path.Combine(filePathOriginal, filename);
                     image.SaveAs(savedFileName);
                     menu.Image = "http://localhost:18179/Content/Uploads/Menus/" + filename;
+                    menu.Selled = 0;
                     db.Menus.Add(menu);
                     db.SaveChanges();
                     return RedirectToAction("DetailMenu", new { idStore = menu.IDStore, sortString = "id" });

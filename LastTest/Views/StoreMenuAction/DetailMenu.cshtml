@@ -13,47 +13,58 @@
 </div>
         @using (Html.BeginForm(new { idStore = @ViewBag.IdStore }))
         {
-            <div class="clear-fix">
-                <div class="col-md-8" >
-                    <div class="form-group label-floating pull-left" style="width: 250px">
-                        <label style="font-size: 20px" class="control-label">Tìm kiếm thức uống</label>
-                        @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            <div class="row col-md-12">
+                
+                    <div class="col-md-6">
+                        <div class="form-group label-floating " style="width: 250px">
+                            <label style="font-size: 20px" class="control-label">Tìm kiếm thức uống</label>
+                            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+                        </div>
+                        <input type="submit" value="Tìm kiếm" class="btn btn-primary" style="position: absolute; top: 20px; left: 280px" />
                     </div>
-                    <input type="submit" value="Tìm kiếm" class="btn btn-primary" style="position: absolute; top: 20px; left: 280px"/>
+                <div class="col-md-6">
+                    <div class="form-group label-floating ">
+                        <a href="@Url.Action("AddMenu", "StoreMenuAction", new {idStore = @ViewBag.IdStore})">
+                            <input class="btn btn-primary pull-right" value="Thêm mới menu" style="margin-top: 3px"/>
+                        </a>
+                    </div>
+                    
                 </div>
+                    @*@Html.ActionLink("Thêm mới menu cho store", "AddMenu", new { idStore = @ViewBag.IdStore, @class="btn" })*@
+                
             </div>
         }
 <div class="card">
     
-        <div class="form-group card-header col-md-6 clear-fix" data-background-color="purple">
-            <h4 class="category pull-left">Chi tiết Menu</h4>
-            @Html.ActionLink("Thêm vào thực đơn", "AddMenu", new { idStore = @ViewBag.IdStore, @class = "pull-right col-md-6" })
+        <div class="card-header" data-background-color="purple">
+            <h4 class="category">Chi tiết Menu</h4>
         </div>
     
     <div class="card-content table-responsive table-full-width">
         <table class="table">
-            <tr>
-                <th style="width: 150px">
-                    @Html.ActionLink("Tên thức uống", "DetailMenu", new {idStore = @ViewBag.IdStore, sortString = ViewBag.NameSort, currentFilter = ViewBag.CurrentFilter})
-                </th>
-                <th style="width: 150px">
-                    Tên cửa hàng
-                </th>
-                <th>
-                    @Html.ActionLink("Giá", "DetailMenu", new {idStore = @ViewBag.IdStore, sortString = ViewBag.PriceSort, currentFilter = ViewBag.CurrentFilter, type = ViewBag.Type})
-                </th>
-                <th>
-                    Khuyến mãi
-                </th>
-                <th>
-                    @Html.ActionLink("Đã bán", "DetailMenu", new {idStore = @ViewBag.IdStore, sortString = ViewBag.SelledSort, currentFilter = ViewBag.CurrentFilter, type = ViewBag.Type})
-                </th>
-                <th>
+            <thead class="text-primary">
+                <tr>
+                    <th style="width: 150px" class="sorting">
+                        @Html.ActionLink("Tên thức uống", "DetailMenu", new { idStore = @ViewBag.IdStore, sortString = ViewBag.NameSort, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th style="width: 150px">
+                        Tên cửa hàng
+                    </th>
+                    <th class="sorting">
+                        @Html.ActionLink("Giá", "DetailMenu", new { idStore = @ViewBag.IdStore, sortString = ViewBag.PriceSort, currentFilter = ViewBag.CurrentFilter, type = ViewBag.Type })
+                    </th>
+                    <th>
+                        Khuyến mãi
+                    </th>
+                    <th class="sorting" style="width: 90px">
+                        @Html.ActionLink("Đã bán", "DetailMenu", new { idStore = @ViewBag.IdStore, sortString = ViewBag.SelledSort, currentFilter = ViewBag.CurrentFilter, type = ViewBag.Type })
+                    </th>
+                    <th>
 
-                </th>
-                <th></th>
-            </tr>
-
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
             @foreach (var item in Model)
             {
                 <tr>
@@ -94,11 +105,12 @@
         </table>
     </div>
 </div>
-<br />
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<br/>
+<div class="text-center">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("DetailMenu",
+    @Html.PagedListPager(Model, page => Url.Action("DetailMenu",
             new { idStore = @ViewBag.IdStore, page, sortString = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-        <div>
-            <a class="pull-left btn btn-info" href="@Url.Action("GetListStore", "StoreMenuAction")">Quay lại</a>
-        </div>
+</div>
+        
+        

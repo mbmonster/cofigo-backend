@@ -33,10 +33,10 @@ namespace LastTest.Controllers
                 if (ModelState.IsValid)
                 {
                     var filename = image.FileName;
-                    string  filePathOriginal= System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Uploads/Promotions");
+                    string  filePathOriginal= System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Promotions");
                     string savedFileName = Path.Combine(filePathOriginal, filename);
                     image.SaveAs(savedFileName);
-                    prom.Image = "http://localhost:18179/Content/Uploads/Promotions/" + filename;
+                    prom.Image = "http://localhost:18179/Content/Promotions/" + filename;
                     prom.Created = DateTime.Now;
                     db.Promotions.Add(prom);
                     db.SaveChanges();

@@ -25,7 +25,7 @@ namespace LastTest.Controllers
         }
         
         [HttpGet]
-        public ActionResult ListOrder(int? id,string sortOrder, int page =1 , int pageSize=2)
+        public ActionResult ListOrder(int? id,string sortOrder, int page =1 , int pageSize=10)
         {
             //ViewBag.IdStatus = new SelectList(new[] { "REQUEST", "CONFIRM", "SHIPPING", "DELIVERED" }); // search bằng dropdown list
             ViewBag.Current = "ListOrder"; // để follow theo navpill
