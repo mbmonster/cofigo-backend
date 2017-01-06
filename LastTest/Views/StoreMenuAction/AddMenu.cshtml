@@ -4,11 +4,13 @@
     ViewBag.Title = "AddMenu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AddMenu", "StoreMenuAction", FormMethod.Post, new {enctype = "multipart/form-data"})) 
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        <hr />
+        <hr/>
+        <input type="hidden" name="StoreId" value="@ViewBag.idS" />
+        @Html.HiddenFor(model => model.IDStore)
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="card">
             <div class="card-header" data-background-color="purple">
@@ -48,10 +50,22 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Image, htmlAttributes: new {@class = "control-label col-md-2", style = "padding-top:12px; font-size:14px"})
+                    @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2", style = "padding-top:25px; font-size:14px" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Image, new {htmlAttributes = new {@class = "form-control"}})
-                        @Html.ValidationMessageFor(model => model.Image, "", new {@class = "text-danger"})
+                        <span class="btn btn-rose btn-round btn-primary">
+                            <span id="text-file">Chọn ảnh</span>
+                            <input class="btn btn-primary" type="file" name="image" id="file" onchange="loadFile(event)"/>
+                            @Html.HiddenFor(model => model.Image)
+                            @Html.ValidationMessageFor(model => model.Image, "", new {@class = "text-danger"})
+                            <div class="ripple-container"></div>
+                        </span>
+                        <img id="output" style="width: 100px; height: 100px; border-radius: 5px" src="~/Content/placeholder.jpg" />
+                        <script>
+                            var loadFile = function (event) {
+                                var output = document.getElementById('output');
+                                output.src = URL.createObjectURL(event.target.files[0]);
+                            };
+                        </script>
                     </div>
                 </div>
             </div>
@@ -60,7 +74,7 @@
                     <input class="btn btn-primary pull-right" type="submit" value="Lưu" />
                 </div>
                 <div class="col-md-6">
-                    <a class="pull-left btn btn-primary" href="@Url.Action("GetListStore", "StoreMenuAction")">Quay lại</a>
+                    <a class="pull-left btn btn-info" href="@Url.Action("GetListStore", "StoreMenuAction")">Quay lại</a>
                 </div>
             </div>
         </div>

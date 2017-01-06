@@ -1,0 +1,95 @@
+﻿@model LastTest.Store
+
+@{
+    ViewBag.Title = "ViewDeleteStore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="card">
+    <div class="card-header" data-background-color="purple">
+        <h4 class="title" style="text-align: center">Bạn chắc chắn muốn xóa cửa hàng này?</h4>
+
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NameStore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameStore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Avatar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Avatar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cover)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cover)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Longtitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Longtitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-group clearfix">
+        <div class="col-md-6 ">
+            <input class="btn btn-primary pull-right" type="submit" value="Delete" />
+
+        </div>
+        <div class="col-md-6">
+            <a class="pull-left btn btn-info" href="@Url.Action("StoreDetails", "StoreAction")">Back</a>
+        </div>
+    </div>
+    }
+</div>

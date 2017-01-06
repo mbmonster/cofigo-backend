@@ -44,7 +44,7 @@ namespace LastTest.Controllers
             //nếu không có id thì show bình thường
             if (id == null)
             {
-                var list = from od in db.Orders
+                var list = (from od in db.Orders
                     join us in db.Users on od.IDCustomer equals us.ID
                 select new
                            {
@@ -59,7 +59,7 @@ namespace LastTest.Controllers
                                od.Longtitude,
                                od.Total
                                
-                           };
+                           });
                 //xắp xếp
                 switch (sortOrder)
                 {

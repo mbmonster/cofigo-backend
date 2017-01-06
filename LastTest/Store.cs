@@ -18,6 +18,7 @@ namespace LastTest
         public Store()
         {
             this.Menus = new HashSet<Menu>();
+            this.Promotions = new HashSet<Promotion>();
         }
     
         public int ID { get; set; }
@@ -32,5 +33,7 @@ namespace LastTest
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Menu> Menus { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Promotion> Promotions { get; set; }
     }
 }

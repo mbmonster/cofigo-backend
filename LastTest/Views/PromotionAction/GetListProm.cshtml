@@ -45,29 +45,12 @@
                         @Html.DisplayFor(modelItem => item.Last)
                     </td>
                     <td>
-                        <button class="btn btn-primary btn-round btn-fab btn-fab-mini" data-toggle="modal" data-target="#myModal">
-                            <i class=" material-icons">
-                                visibility
-                            </i>
-                        </button>
-                        <!-- Sart Modal -->
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                            <i class="material-icons">clear</i>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">    
-                                        <div id="img" style="margin-top: 0">
-                                            <img src="@item.Image"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--  End Modal -->
+                        <button class="btn btn-primary btn-round btn-fab btn-fab-mini" data-toggle="modal" data-target="#myModal" onclick="showModal('@item.Image')">
+    <i class=" material-icons">
+        visibility
+    </i>
+                    </button>
+
                     </td>
                     <td style="width: 100px">
                         <a href="@Url.Action("EditProm", "PromotionAction", new {id = item.ID})">
@@ -84,14 +67,37 @@
                         </a>
                     </td>
                 </tr>
+                <!-- Sart Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="material-icons">clear</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="img" style="margin-top: 0">
+                        <img id="imageURL" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                      <!--  End Modal -->
             }
         </table>
     </div>
 </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvYH83b5lSxsMNGWFT2DJQyNH90cFbFV8"
             async defer>
-
+    
     </script>
+                      <script>
+    function showModal(imgSrc) {
+        $("#imageURL").attr("src", imgSrc);
+    }
+                      </script>
 
 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -25,13 +26,18 @@ namespace LastTest.Controllers
 
         [HttpPost, ActionName("AddProm")]
         [ValidateAntiForgeryToken]
-        public ActionResult AddProm(Promotion prom)
+        public ActionResult AddProm(Promotion prom, HttpPostedFileBase image)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-
+                    var filename = image.FileName;
+                    string  filePathOriginal= System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Uploads/Promotions");
+                    string savedFileName = Path.Combine(filePathOriginal, filename);
+                    image.SaveAs(savedFileName);
+                    prom.Image = "http://localhost:18179/Content/Uploads/Promotions/" + filename;
+                    prom.Created = DateTime.Now;
                     db.Promotions.Add(prom);
                     db.SaveChanges();
                 }
@@ -60,23 +66,30 @@ namespace LastTest.Controllers
 
         [HttpPost, ActionName("EditProm")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPromPost(int? id)
+        public ActionResult EditPromPost(int? id, HttpPostedFileBase file, Promotion promotion)
         {
-            var promUpdate = db.Promotions.Find(id);
-            if (TryUpdateModel(promUpdate, "", new string[] { "Title", "Description", "Image", "Created", "Last" }))
+            var prom1 = db.Promotions.First(m => m.ID == id);
+            string pathImage = "";
+            string extension = "";
+            if (file != null)
             {
-                try
-                {
-                    db.Entry(promUpdate).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    ModelState.AddModelError("", "Error Save Data");
-                }
+                extension = Path.GetFileName(file.FileName);
+                pathImage = Path.Combine(Server.MapPath("~/Content/Uploads/Promotions"), extension);
+                file.SaveAs(pathImage);
+                string image = ("http://localhost:18179/Content/Uploads/Promotions/" + extension);
+                prom1.Image = image;
             }
+
+            string title = promotion.Title;
+            string dess = promotion.Description;
+            DateTime last = (DateTime) promotion.Last;
+            prom1.Title = title;
+            prom1.Description = dess;
+            prom1.Last = last;
+            db.SaveChanges();
             return RedirectToAction("GetListProm");
         }
+
         public ActionResult DeleteProm(int? id)
         {
             if (id == null)
