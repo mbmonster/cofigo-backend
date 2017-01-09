@@ -20,11 +20,6 @@ namespace LastTest
         public string Image { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
         public Nullable<System.DateTime> Last { get; set; }
-        public Nullable<int> IDStore { get; set; }
-        public Nullable<int> IDMenu { get; set; }
         public string Link { get; set; }
-    
-        public virtual Menu Menu { get; set; }
-        public virtual Store Store { get; set; }
     }
 }

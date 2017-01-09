@@ -15,6 +15,7 @@ namespace LastTest.Controllers
         CoffeeServicesEntities db = new CoffeeServicesEntities();
         public ActionResult GetListProm()
         {
+            ViewBag.Current = "GetListProm";
             var prom = from s in db.Promotions
                         select s;
             return View(prom);
@@ -24,31 +25,39 @@ namespace LastTest.Controllers
             return View();
         }
 
-        [HttpPost, ActionName("AddProm")]
         [ValidateAntiForgeryToken]
+        [System.Web.Mvc.HttpPost]
         public ActionResult AddProm(Promotion prom, HttpPostedFileBase image)
         {
+            //
+            
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && image !=null)
                 {
-                    var filename = image.FileName;
-                    string  filePathOriginal= System.Web.Hosting.HostingEnvironment.MapPath("~/Content/Promotions");
-                    string savedFileName = Path.Combine(filePathOriginal, filename);
-                    image.SaveAs(savedFileName);
-                    prom.Image = "http://localhost:18179/Content/Promotions/" + filename;
+                    string extension = "";
+                    string pathImage = "";
+                    extension = Path.GetFileName(image.FileName);
+                    pathImage = Path.Combine(Server.MapPath("~/Content/Promotions"), extension);
+                    image.SaveAs(pathImage);
+                    prom.Image = ("http://localhost:18179/Content/Promotions/" + extension);
                     prom.Created = DateTime.Now;
                     db.Promotions.Add(prom);
                     db.SaveChanges();
+                    return RedirectToAction("GetListProm");
                 }
+                else
+                {
+                    return View();
+                }
+                
             }
-            catch (RetryLimitExceededException)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("","Error save data");
+                var ex1 = ex;
+                return View();
             }
-            var listProm = from s in db.Promotions
-                       select s;
-            return View("GetListProm", listProm);
+          
         }
         public ActionResult EditProm(int? id)
         {

@@ -34,6 +34,7 @@ namespace TodoMVC.Controllers
 
         public ActionResult ListUser()
         {
+            ViewBag.Current = "ListUser";
             var listUser = db.Users.ToList();
             return View(listUser);
         }

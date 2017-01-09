@@ -5,4 +5,5 @@
     <li class="@(ViewBag.Current == "AddStore" ? "active" : "")"><a href="@Url.Action("AddStore", "StoreAction")">Thêm mới cửa hàng</a></li>
     <li class="@(ViewBag.Current == "ListOrder" ? "active" : "")"><a href="@Url.Action("ListOrder", "OrderControl")">Danh sách các đơn đặt hàng</a></li>
     <li class="@(ViewBag.Current == "ListUser" ? "active" : "")"><a href="@Url.Action("ListUser", "Admin")">Danh sách khách hàng</a></li>
+    <li class="@(ViewBag.Current == "GetListProm" ? "active" : "")"><a href="@Url.Action("GetListProm", "PromotionAction")">Danh sách khuyến mãi</a></li>
 </ul>

@@ -19,7 +19,7 @@ namespace LastTest
         public string IDOrder { get; set; }
         public Nullable<int> IDMenu { get; set; }
     
+        public virtual Menu Menu { get; set; }
         public virtual Order Order { get; set; }
-        public virtual Menu Menu1 { get; set; }
     }
 }

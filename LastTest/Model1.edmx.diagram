@@ -4,23 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0fb6719c5615485ba75981ca063d3aa4" Name="Diagram1">
-        <EntityTypeShape EntityType="CoffeeServicesModel.Menu" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+      <Diagram DiagramId="47e6ad15a2a54431a38549b468c79d2e" Name="Diagram1">
+        <EntityTypeShape EntityType="CoffeeServicesModel.Admin" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.Menu" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CoffeeServicesModel.Order" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeServicesModel.OrderDetail" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeServicesModel.Promotion" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeServicesModel.Ship" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeServicesModel.Store" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeServicesModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeServicesModel.User" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.OrderDetail" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.Promotion" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.Ship" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.Store" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeServicesModel.User" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="CoffeeServicesModel.FK_Drink_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeServicesModel.FK_OrderDetails_Drink" ManuallyRouted="false" />
         <AssociationConnector Association="CoffeeServicesModel.FK_Order_Ship" ManuallyRouted="false" />
         <AssociationConnector Association="CoffeeServicesModel.FK_Order_User" ManuallyRouted="false" />
         <AssociationConnector Association="CoffeeServicesModel.FK_OrderDetails_Order" ManuallyRouted="false" />
-        <AssociationConnector Association="CoffeeServicesModel.FK_OrderDetails_Drink1" />
-        <EntityTypeShape EntityType="CoffeeServicesModel.Admin" Width="1.5" PointX="5.375" PointY="4.75" />
-        <AssociationConnector Association="CoffeeServicesModel.FK_Promotion_Drink" />
-        <AssociationConnector Association="CoffeeServicesModel.FK_Promotion_Store" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

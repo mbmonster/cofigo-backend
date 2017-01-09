@@ -28,7 +28,7 @@ namespace LastTest.Controllers
         {
             return View("Index");
         }
-        public ActionResult Order(int id)
+        public ActionResult Order(string id)
         {
             return View("Index");
         }

@@ -62,6 +62,7 @@ namespace LastTest.Controllers
             ViewBag.Current = "AddStore";
             return View();
         }
+        [ValidateAntiForgeryToken]
         [System.Web.Mvc.HttpPost]
         public ActionResult AddStore(Store form, HttpPostedFileBase file, HttpPostedFileBase cover)
         {
